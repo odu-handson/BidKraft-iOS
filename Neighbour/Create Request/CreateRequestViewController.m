@@ -11,7 +11,7 @@
 #import "HomeViewController.h"
 #import "ServiceManager.h"
 #import "ServiceURLProvider.h"
-
+#import "User.h"
 
 @interface CreateRequestViewController ()<UIAlertViewDelegate,AMTagListDelegate,ServiceProtocol,UITextViewDelegate>
 
@@ -21,13 +21,29 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *currentNavigationItem;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddTag;
 @property (weak, nonatomic) IBOutlet UITextView *txtDescription;
+@property (weak, nonatomic) IBOutlet IQDropDownTextField *txtRequestEndTime;
+@property (weak, nonatomic) IBOutlet UITextField *txtJobTitle;
 
 @property (nonatomic,strong) ServiceManager *manager;
 @property (nonatomic, strong) AMTagView *selection;
+@property (nonatomic,strong) User *userData;
+@property (nonatomic,strong) NSDictionary *responsedata;
+
+
 
 @end
 
 @implementation CreateRequestViewController
+
+
+- (User *)userData
+{
+    if(!_userData)
+        _userData = [User sharedData];
+    
+    return _userData;
+}
+
 
 - (void)viewDidLoad
 {
@@ -115,6 +131,10 @@
     [self.btnRequestedDate setBorderStyle:UITextBorderStyleNone];
     [self.btnRequestedDate setDatePickerMode:UIDatePickerModeDateAndTime];
     [self.btnBiddingEnds setDatePickerMode:UIDatePickerModeDateAndTime];
+    
+    self.txtRequestEndTime.dropDownMode = IQDropDownModeDatePicker;
+    [self.txtRequestEndTime setDatePickerMode:UIDatePickerModeDateAndTime];
+    
 }
 
 -(void) submitTapped
@@ -130,17 +150,49 @@
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters setObject:@"" forKey:@"categoryId"];
-     //[parameters setObject: forKey:@"requesterUserId"];
-     [parameters setObject:@"" forKey:@"categoryId"];
-     [parameters setObject:@"" forKey:@"description"];
-    [parameters setObject:@"" forKey:@"requestStartDate"];
-    [parameters setObject:@"" forKey:@"requestStartDate"];
-    [parameters setObject:@"" forKey:@"requestStartDate"];
-    [parameters setObject:@"" forKey:@"requestStartDate"];
+    [parameters setObject:self.categoryId forKey:@"categoryId"];
+    [parameters setObject:self.userData.userId forKey:@"requesterUserId"];
+    [parameters setObject:self.txtDescription.text forKey:@"description"];
+    [parameters setObject:[self makeRequiredDateFormat:self.btnRequestedDate.text] forKey:@"requestStartDate"];
+    [parameters setObject:[self makeRequiredDateFormat:self.txtRequestEndTime.text] forKey:@"requestEndDate"];
+    [parameters setObject:[self makeRequiredDateFormat:self.btnBiddingEnds.text] forKey:@"bidEndDateTime"];
+    [parameters setObject:self.txtJobTitle.text forKey:@"jobTitle"];
     
+    NSMutableArray *tagList = [self.tagListView tags];
+    NSMutableArray *tagslist = [[NSMutableArray alloc] init];
+    
+    for(int i=0;i<tagList.count;i++)
+    {
+        [tagslist addObject:[(AMTagView *)tagList[i] tagText]];
+    }
+    [parameters setObject:tagslist forKey:@"tags"];
+    //[self.tagListView tags]
     return parameters;
+}
 
+-(NSString *) makeRequiredDateFormat:(NSString *)oldDateFormat
+{
+    
+    
+    
+    NSDateFormatter *datesFormatter = [[NSDateFormatter alloc] init];
+    
+    //[datesFormatter setDateFormat:@"MMM dd, yyyy, HH:mm:ss z"];
+    [datesFormatter setDateStyle:NSDateFormatterMediumStyle];
+    [datesFormatter setTimeStyle:NSDateFormatterLongStyle];
+    [datesFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"EDT"]];
+    
+    NSDate *formattedDateString = [datesFormatter dateFromString:oldDateFormat];
+    NSLog(@"formattedDateString: %@", formattedDateString);
+//    NSString *stringAfterTrimmed = oldDateFormat;
+//    NSDate *newDate = [[NSDate alloc] init];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"MM/dd/yyy"];
+   // newDate = [dateFormatter dateFromString:stringAfterTrimmed];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"E, dd MMM yyyy HH:m:ss z"];
+    NSString  *requiredDateString = [df stringFromDate:formattedDateString];
+    return requiredDateString;
 }
 
 
@@ -176,6 +228,13 @@
     {
         [self.tagListView removeTag:self.selection];
     }
+    else if(alertView.tag == 3)
+    {
+        NSMutableDictionary *userData = [self.responsedata valueForKey:@"data"];
+        NSMutableArray *requestsArray = [userData valueForKey:@"requests"];
+        [self.userData saveUserOpenRequestsData:requestsArray];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 
@@ -185,6 +244,35 @@
 {
     // Don't add a 'bad' tag
     return ![text isEqualToString:@"bad"];
+}
+
+#pragma mark - ServiceProtocol Methods
+
+
+- (void)serviceCallCompletedWithResponseObject:(id)response
+{
+    self.responsedata = (NSDictionary *)response;
+    NSString *status = [response valueForKey:@"status"];
+    
+    if( [status isEqualToString:@"success"])
+    {
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirmation!"
+                                                            message:@"Request Posted"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil, nil];
+        alertView.tag =3;
+        [alertView setDelegate:self];
+        [alertView show];
+        
+    }
+    
+}
+
+- (void)serviceCallCompletedWithError:(NSError *)error
+{
+    NSLog(@"%@",error.description);
 }
 
 

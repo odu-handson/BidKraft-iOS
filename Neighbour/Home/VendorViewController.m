@@ -103,7 +103,7 @@
     
     self.navigationItem.hidesBackButton = YES;
     [self createNavigationItems];
-    self.navigationItem.title = @"Vendor View";
+    self.navigationItem.title = @"Vendor Jobs";
     [self prepareSearchBarAndSetDelegate];
 }
 

@@ -30,7 +30,7 @@
 
 - (NSInteger)numberOfItemsPerRow
 {
-    return 3;
+    return 2;
 }
 
 - (id)init
@@ -95,7 +95,7 @@
 
 - (NSInteger)numberOfRowsAllowedPerScreenOnCollectionView
 {
-    return 2;
+    return 1;
 }
 
 @end

@@ -12,22 +12,34 @@
 	<dict>
 		<key>65A3ACCCFBCF2266011E382D5A1C4A218EA9221D</key>
 		<string>https://github.com/odu-handson/Neighbor-iOS.git</string>
+		<key>6D64854AFA912BDEEA659E0861C1330189A55B9F</key>
+		<string>https://github.com/odu-handson/BidKraft-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Neighbour.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>65A3ACCCFBCF2266011E382D5A1C4A218EA9221D</key>
+		<string>../../Neighbor-iOS</string>
+		<key>6D64854AFA912BDEEA659E0861C1330189A55B9F</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/odu-handson/Neighbor-iOS.git</string>
+	<string>https://github.com/odu-handson/BidKraft-iOS.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>65A3ACCCFBCF2266011E382D5A1C4A218EA9221D</string>
+	<string>6D64854AFA912BDEEA659E0861C1330189A55B9F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6D64854AFA912BDEEA659E0861C1330189A55B9F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BidKraft-iOS</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

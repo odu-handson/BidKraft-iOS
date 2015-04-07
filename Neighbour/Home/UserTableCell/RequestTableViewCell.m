@@ -116,19 +116,15 @@
     NSInteger lowestBid = (NSInteger)usrRequest.lowestBid;
     
         cell.lblLeastBidValue.text = [[@(lowestBid) stringValue] stringByAppendingString:@"$/hr"];
-        NSInteger totalBids = (NSInteger)usrRequest.totalBids;
-        NSString *totalBidsText = @"Total : ";
+        //NSInteger totalBids = (NSInteger)usrRequest.totalBids;
+        //NSString *totalBidsText = @"Total : ";
         //cell.lblTotalBids.text=[totalBidsText stringByAppendingString:[@(totalBids) stringValue]];
         //cell.lblBidDate.text = [self getDateStringFromNSDate:(NSDate *)usrRequest.requestStartDate];
         cell.requestId = [[usrRequest valueForKey:@"requestId"] integerValue];
         cell.lblDescription.text = [usrRequest valueForKey:@"requestDescription"];
         //cell.timeSlotBtn1.text = usrRequest.requestStartFromTime;
-    
-        if(self.userData.userRequestMode == ActiveMode || self.userData.userRequestMode == CompletedMode)
-        {
-            [self getBidAmount:usrRequest];
-            cell.lblLeastBidValue.text = [self.acceptBidAmount stringByAppendingString:@"$/hr"];
-        }
+        //[self getBidAmount:usrRequest];
+        //cell.lblLeastBidValue.text = [self.acceptBidAmount stringByAppendingString:@"$/hr"];
     
 }
 

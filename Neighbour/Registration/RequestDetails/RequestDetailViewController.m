@@ -17,6 +17,7 @@
 #import "RequestPaymentViewController.h"
 #import "VendorData.h"
 #import "ProfileViewController.h"
+#import "PayListViewController.h"
 
 @interface RequestDetailViewController ()<ServiceProtocol,UIAlertViewDelegate>
 
@@ -152,13 +153,15 @@
     {
          self.txtRequestDescriptioin.text = self.usrRequest.requestDescription;
          self.lblRequestStartDate.text =[self getDateStringFromNSDate:(NSDate *)self.usrRequest.requestCreatedDate];
-         self.lblLowestBid.text = [@(self.usrRequest.lowestBid) stringValue];
+        self.lblJobTitle.text = self.usrRequest.jobTitle;
+         self.lblLowestBid.text = [[@(self.usrRequest.lowestBid) stringValue] stringByAppendingString:@"$/hr"];
     }
     else
     {
          self.txtRequestDescriptioin.text = self.vendorRequest.requestDescription;
+         self.lblJobTitle.text = self.vendorRequest.jobTitle;
          self.lblRequestStartDate.text =[self getDateStringFromNSDate:(NSDate *)self.vendorRequest.requestStartDate];
-         self.lblLowestBid.text = [@(self.vendorRequest.leastBidAmount) stringValue];
+         self.lblLowestBid.text = [[@(self.vendorRequest.leastBidAmount) stringValue] stringByAppendingString:@"$/hr"];
     }
         
     //self.lblTimeLeft.text = self.usrRequest.
@@ -327,7 +330,21 @@
     self.profileViewController = (ProfileViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
     self.profileViewController.isProfileShownModally =@"YES";
     
-    [self  presentViewController:self.profileViewController animated:YES completion:nil];
+    UINavigationController *navcontroller = [[UINavigationController alloc] initWithRootViewController:self.profileViewController];
+    
+    [self  presentViewController:navcontroller animated:YES completion:nil];
+}
+
+#pragma mark - Paymentprotocol method
+- (void)getPaymentDetails:(NSMutableDictionary *)paymentDetails
+{
+    NSLog(@"%@",paymentDetails);
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    PayListViewController *payListViewController = [storyBoard instantiateViewControllerWithIdentifier:@"PayListViewController"];
+    payListViewController.bidAmount = [paymentDetails objectForKey:@"bidAmountPay"];
+    payListViewController.bidId = [paymentDetails objectForKey:@"bidId"];
+    payListViewController.requestId = [@(self.requestId) stringValue];
+    [self.navigationController pushViewController:payListViewController animated:YES];
 }
 
 //#pragma ServiceProtocol methods

@@ -15,6 +15,12 @@
 
 @end
 
+@protocol PaymentProtocol <NSObject>
+
+- (void)getPaymentDetails:(NSMutableDictionary *)paymentDetails;
+
+@end
+
 @interface OffersTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAccept;
@@ -22,6 +28,7 @@
 @property (nonatomic,assign) NSString *bidAmount;
 @property (nonatomic,assign) NSString *bidOffererId;
 @property (nonatomic,strong) id<UserProfileProtocol> userProfileViewDelegate;
+@property (nonatomic,strong) id<PaymentProtocol> paymentDetailsDelegate;
 
 
 - (void)prepareCellForVendorTabelView:(UITableView *)tableView atIndex:(NSIndexPath *)indexPath withBids:(NSMutableArray *)listOfBids;

@@ -26,4 +26,9 @@
 @property (nonatomic,strong) NSMutableArray *bidsArray;
 @property (nonatomic,strong) NSString *categoryName;
 
+@property (nonatomic,strong) NSString *jobTitle;
+@property (nonatomic,strong) NSMutableArray *tags;
+@property (nonatomic,strong) NSDate *bidEndDateTime;
+
+
 @end

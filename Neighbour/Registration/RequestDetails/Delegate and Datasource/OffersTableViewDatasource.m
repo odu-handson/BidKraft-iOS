@@ -121,6 +121,7 @@
     static NSString* cellIdentifier = @"OffersTableCell";
     OffersTableViewCell *cell = (OffersTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     cell.userProfileViewDelegate = self.requestDetailController;
+    cell.paymentDetailsDelegate = self.requestDetailController;
     if(!self.userData.isVendorViewShown)
     {
         [cell prepareCellForTabelView:tableView atIndex:indexPath withBids:self.bidDetails];

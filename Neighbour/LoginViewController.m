@@ -178,6 +178,9 @@
         [self savePreferences:responseDetails];
         
         NSDictionary *address= [responseDetails valueForKey:@"addresses"];
+        
+        NSDictionary *userProfile = [responseDetails valueForKey:@"user"];
+        [self saveUserProfile:userProfile];
         [self saveAddress:address];
         
         [self loadAppropriateView];
@@ -196,6 +199,17 @@
 
     }
     
+}
+
+-(void) saveUserProfile:(NSDictionary *) response
+{
+    NSString *cellPhone = [response valueForKey:@"cellPhone"];
+     NSString *description = [response valueForKey:@"description"];
+    NSString *emailId = [response valueForKey:@"emailId"];
+    NSString *userPoints = [response valueForKey:@"userPoints"];
+    NSString *vendorPoints = [response valueForKey:@"vendorPoints"];
+    
+  
 }
 -(void)savePreferences:(NSDictionary *) responseDetails
 {

@@ -14,6 +14,8 @@
 #import "User.h"
 #import "Reachability.h"
 #import "SystemLevelConstants.h"
+#import <Venmo-iOS-SDK/Venmo.h>
+
 
 
 @interface AppDelegate ()
@@ -47,7 +49,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-     [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox : @"Ad-iwxBZKzcCobNuH621s03dMgzgfrL5-27uYltcJIi_-F10yfO_MYtOvkni"}];
+    // [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox : @"Ad-iwxBZKzcCobNuH621s03dMgzgfrL5-27uYltcJIi_-F10yfO_MYtOvkni"}];
+    
+    [Venmo startWithAppId:@"2495" secret:@"YscXsyxHYcC5ktcE3LBCmSMtw49WgXba" name:@"BidKraft"];
+
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
     [self registerForNotifications];
@@ -110,6 +115,11 @@
 
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    
+    if ([[Venmo sharedInstance] handleOpenURL:url]) {
+        return YES;
+    }
+
     
     return [FBAppCall handleOpenURL:url
                   sourceApplication:sourceApplication];

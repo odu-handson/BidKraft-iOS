@@ -19,6 +19,9 @@
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *address;
 
+@property (nonatomic, strong) NSString *vendorPoints;
+@property (nonatomic, strong) NSString *userPoints;
+
 + (UserProfile *)sharedData;
 
 - (void)saveUserId:(NSString *)userId;
@@ -29,4 +32,8 @@
 - (void)saveEmail:(NSString *)email;
 - (void)saveAddress:(NSString *)address;
 - (void)saveProfilePicture:(UIImage *) profilePicture;
+
+- (void)saveVendorPoints:(NSString *)vendorPoints;
+- (void)saveUserPoints:(NSString *)userPoints;
+
 @end

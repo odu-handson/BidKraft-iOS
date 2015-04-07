@@ -33,7 +33,7 @@
     
     self.dropDownDateFormatter = [[NSDateFormatter alloc] init];
     [self.dropDownDateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    [self.dropDownDateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [self.dropDownDateFormatter setTimeStyle:NSDateFormatterMediumStyle];
     
     self.dropDownTimeFormatter = [[NSDateFormatter alloc] init];
     [self.dropDownTimeFormatter setDateStyle:NSDateFormatterNoStyle];
@@ -293,8 +293,8 @@
                 [self.dropDownDateFormatter setTimeStyle:NSDateFormatterShortStyle];
                 break;
             case UIDatePickerModeDateAndTime:
-                [self.dropDownDateFormatter setDateStyle:NSDateFormatterShortStyle];
-                [self.dropDownDateFormatter setTimeStyle:NSDateFormatterShortStyle];
+                [self.dropDownDateFormatter setDateStyle:NSDateFormatterMediumStyle];
+                [self.dropDownDateFormatter setTimeStyle:NSDateFormatterLongStyle];
                 break;
         }
     }

@@ -52,6 +52,10 @@
     self.vendorBidRequest.categoryId =[[request objectForKey:@"categoryId"] integerValue];
     self.vendorBidRequest.categoryName =[request objectForKey:@"categoryName"] ;
     self.vendorBidRequest.createdDate = [request objectForKey:@"createdDate"];
+    self.vendorBidRequest.bidEndDateTime = (NSDate *)[request objectForKey:@"bidEndDateTime"];
+    self.vendorBidRequest.jobTitle =[request objectForKey:@"jobTitle"];
+    self.vendorBidRequest.tags = (NSMutableArray *)[request objectForKey:@"tags"];
+
     self.vendorBidRequest.requestDescription = [request objectForKey:@"description"];
     self.vendorBidRequest.requestStatus = [request objectForKey:@"requestStatus"];
     self.vendorBidRequest.leastBidAmount =[[request objectForKey:@"leastBidAmount"] integerValue];
@@ -107,6 +111,11 @@
      self.vendorBidRequest.categoryName =[request objectForKey:@"categoryName"] ;
     self.vendorBidRequest.createdDate = [request objectForKey:@"createdDate"];
     self.vendorBidRequest.requestDescription = [request objectForKey:@"description"];
+    
+    self.vendorBidRequest.bidEndDateTime = (NSDate *)[request objectForKey:@"bidEndDateTime"];
+    self.vendorBidRequest.jobTitle = [request objectForKey:@"jobTitle"];
+    self.usrRequest.tags = (NSMutableArray *)[request objectForKey:@"tags"];
+
     self.vendorBidRequest.requestStatus = [request objectForKey:@"requestStatus"];
     self.vendorBidRequest.leastBidAmount =[[request objectForKey:@"leastBidAmount"] integerValue];
     self.vendorBidRequest.numberOfHours =[[request objectForKey:@"numberOfHours"] integerValue];

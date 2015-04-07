@@ -13,6 +13,7 @@
 #import "UserProfile.h"
 #import "User.h"
 
+
 @interface ProfileViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ServiceProtocol,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *userPoints;
@@ -35,6 +36,7 @@
 @property (nonatomic,strong) NSString *lattitude;
 @property (nonatomic,strong) NSString *longitude;
 @property (nonatomic,strong) UITextView *address;
+
 
 @end
 
@@ -62,29 +64,49 @@
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f]}];
     
+    UIBarButtonItem *rightBarButton;
     
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTapped:)];
+    if(self.isProfileShownModally)
+    {
+        rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"close" style:UIBarButtonItemStylePlain target:self action:@selector(closeTapped:)];
+
+    }
+    else
+    {
+       rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTapped:)];
+    }
     
-    [self.profileNavigationItem setRightBarButtonItem:anotherButton];
+    
+    [self.profileNavigationItem setRightBarButtonItem:rightBarButton];
+    self.imgProfile.layer.cornerRadius = (self.imgProfile.frame.size.width)/2;
+    self.imgProfile.clipsToBounds = YES;
     
     //[self.navigationItem setRightBarButtonItem:anotherButton];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f];
     self.navigationItem.backBarButtonItem.tintColor = [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:236.0f/255.0f green:240.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
-    [self disableEditing];
+    [self userProfileData];
     self.imgProfile.layer.cornerRadius = (self.imgProfile.frame.size.width)/2;
     self.imgProfile.clipsToBounds = YES;
     self.txtUserAddress.delegate = self;
     self.userDescription.delegate = self;
    
+    [self setUserProfileData];
     // Do any additional setup after loading the view.
 }
 -(void) viewWillAppear:(BOOL)animated
 {
      [self disableEditing];
-    self.navigationItem.rightBarButtonItem.title = @"Edit";
 }
 
+-(void) setUserProfileData
+{
+    self.txtUserName.text = self.userProfileData.firstName;
+    self.txtUserEmail.text = self.userProfileData.lastName;
+    self.txtUserPhoneNumber.text = self.userProfileData.phoneNumber;
+    //self.imgProfile.image = self.userProfileData.profilePicture;
+}
+     
 -(void) disableEditing
 {
     self.txtUserEmail.enabled = NO;
@@ -171,20 +193,24 @@
 
 -(void) editTapped :(UIBarButtonItem *) button
 {
-    
-    if([button.title isEqualToString:@"Edit"])
-    {
-        [self enableEditing];
-        button.title = @"Submit";
- 
-    }
-    else if([button.title isEqualToString:@"Submit"])
-    {
-       
-        
-    }
+    [self enableEditing];
+    UIBarButtonItem *rightBarButton;
+    rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Submit" style:UIBarButtonItemStylePlain target:self action:@selector(submitTapped:)];
+    [self.profileNavigationItem setRightBarButtonItem:rightBarButton];
     
 }
+-(void) submitTapped :(UIBarButtonItem *) button
+{
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+-(void) closeTapped :(UIBarButtonItem *) button
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
 
 -(NSMutableDictionary *) prepareParametersForProfile
 {

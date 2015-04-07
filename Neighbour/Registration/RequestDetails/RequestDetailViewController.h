@@ -11,7 +11,7 @@
 #import "OffersTableViewCell.h"
 
 
-@interface RequestDetailViewController : UIViewController <TPFloatRatingViewDelegate,UserProfileProtocol>
+@interface RequestDetailViewController : UIViewController <TPFloatRatingViewDelegate,UserProfileProtocol,PaymentProtocol>
 
 @property (strong, nonatomic) IBOutlet TPFloatRatingView *ratingView;
 @property (assign,nonatomic) NSInteger requestId;

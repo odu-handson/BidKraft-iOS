@@ -52,6 +52,19 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if(self.userRequests.count == 0)
+    {
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No data is currently available";
+        messageLabel.textColor = [UIColor whiteColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
     return self.userRequests.count;
 }
 
@@ -137,21 +150,21 @@
     [self prepareDataObjects];
     
     UITableViewRowAction *cancelAction;
-    UITableViewRowAction *acceptAction;
+    UITableViewRowAction *completeAction;
     cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault
                                                       title:@"Dispute" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
                                                           [self performDispute:indexPath onTableView:tableView];
                                                       }];
     cancelAction.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:2.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
     
-    acceptAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
+    completeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
                                                       title:@"Complete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
                                                           [self performComplete:indexPath onTableView:tableView];
                                                       }];
-    acceptAction.backgroundColor =[UIColor colorWithRed:25.0f/255.0f green:123.0f/255.0f blue:48.0f/255.0f alpha:1.0f];
+    completeAction.backgroundColor =[UIColor colorWithRed:25.0f/255.0f green:123.0f/255.0f blue:48.0f/255.0f alpha:1.0f];
     
   
-    return @[cancelAction,acceptAction];
+    return @[completeAction];
 }
 
 -(void) performDispute:(NSIndexPath *) indexPath onTableView:(UITableView *) tableView
@@ -292,8 +305,10 @@
             [self.userData saveUserAcceptedRequestsData:acceptedRequests];
         if(openRequests)
             [self.userData saveUserOpenRequestsData:openRequests];
-        [self.tableView deleteRowsAtIndexPaths:@[self.indexPath]
-                              withRowAnimation:UITableViewRowAnimationLeft];
+        
+        [self.tableView reloadData];
+       //[self.tableView deleteRowsAtIndexPaths:@[self.indexPath]
+                              //withRowAnimation:UITableViewRowAnimationLeft];
     }
     else
     {

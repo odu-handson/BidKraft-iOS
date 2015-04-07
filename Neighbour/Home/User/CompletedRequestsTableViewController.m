@@ -44,6 +44,20 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    
+    if(self.userRequests.count == 0)
+    {
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No data is currently available";
+        messageLabel.textColor = [UIColor whiteColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
     return self.userRequests.count;
 }
 

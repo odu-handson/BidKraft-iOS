@@ -66,7 +66,7 @@
     //self.btnUserName.titleLabel.text = requestBidDetail.userName;
     
     [self.lblBidAmount setText: [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"]];
-    [self.lblTime setText:@"123"];
+    [self.lblTime setText:@"5 hrs"];
     //self.lblBestOffers.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
     self.lblBidAmount.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
     self.bidOffererId  = requestBidDetail.offererUserId;
@@ -96,8 +96,13 @@
 
 - (IBAction)btnBidAccept:(id)sender
 {
+    
     UIButton *button =(UIButton *)sender;
     OffersTableViewCell *cell =(OffersTableViewCell *)[self.offersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
+    NSMutableDictionary *paymentDetails = [[NSMutableDictionary alloc]init];
+    [paymentDetails setObject:cell.bidAmount forKey:@"bidAmountPay"];
+       [paymentDetails setObject:[@(cell.bidId) stringValue] forKey:@"bidId"];
+    [self.paymentDetailsDelegate getPaymentDetails:paymentDetails];
     
 }
 

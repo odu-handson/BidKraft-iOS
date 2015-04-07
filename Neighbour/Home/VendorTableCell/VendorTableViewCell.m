@@ -146,7 +146,7 @@
 {
     
     
-    NSInteger index = (indexPath.section * vendorRequests.count)+ indexPath.section;
+    //NSInteger index = (indexPath.section * vendorRequests.count)+ indexPath.section;
     VendorBidRequest *vendorRequest = [vendorRequests objectAtIndex:indexPath.section];
     NSInteger lowestBid = (NSInteger)vendorRequest.leastBidAmount;
     vendorCell.lblLeastBidValue.text = [[@(lowestBid) stringValue] stringByAppendingString:@"$"];
@@ -168,8 +168,8 @@
     if(!self.imageNamesArray)
         [self mockData];
     
-    NSInteger index = (indexPath.section * vendorRequests.count )+ indexPath.section;
-    VendorBidRequest *vendorRequest = [vendorRequests objectAtIndex:index];
+    //NSInteger index = (indexPath.section * vendorRequests.count )+ indexPath.section;
+    VendorBidRequest *vendorRequest = [vendorRequests objectAtIndex:indexPath.section];
     int categoryId = (int)vendorRequest.categoryId;
     self.categoryImage.image = [UIImage imageNamed:[self.imageNamesArray objectAtIndex:(categoryId-1)]];
     [self prepareImageAtIndexPath:indexPath];

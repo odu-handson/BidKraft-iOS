@@ -104,6 +104,21 @@
 {
     
     self.userRequests = self.userData.userOpenRequests;
+    if(self.userRequests.count == 0)
+    {
+        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        
+        messageLabel.text = @"No data is currently available";
+        messageLabel.textColor = [UIColor whiteColor];
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = NSTextAlignmentCenter;
+        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+        [messageLabel sizeToFit];
+        self.tableView.backgroundView = messageLabel;
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+
+    
     return self.userRequests.count;
 }
 
@@ -211,7 +226,7 @@
 }
 -(void) performDelete:(NSIndexPath *)indexPath onTableView:(UITableView *)tableView
 {
-    [self.userRequests removeObjectAtIndex:indexPath.row];
+    //[self.userRequests removeObjectAtIndex:indexPath.section];
     RequestTableViewCell *tableCell = (RequestTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     self.requestIdToBeDeleted = tableCell.requestId ;
     NSString *url;
@@ -244,6 +259,9 @@
     if([status isEqualToString:@"success"])
     {
         
+        [self.tableView reloadData];
+        //[self.tableView deleteRowsAtIndexPaths:@[self.indexPath]
+                            //withRowAnimation:UITableViewRowAnimationLeft];
         NSDictionary *data = [response valueForKey:@"data"];
         NSMutableArray *openRequests = [data valueForKey:@"openRequests"];
         NSMutableArray *acceptedRequests = [data valueForKey:@"acceptedRequests"];
@@ -252,8 +270,7 @@
         if(openRequests)
             [self.userData saveUserOpenRequestsData:openRequests];
        
-        [self.tableView deleteRowsAtIndexPaths:@[self.indexPath]
-                              withRowAnimation:UITableViewRowAnimationLeft];
+       
     }
     else
     {

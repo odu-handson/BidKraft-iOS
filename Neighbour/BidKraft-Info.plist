@@ -30,9 +30,33 @@
 				<string>fb572753239517770</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>venmo2495</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>venmo2495</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>dfda912f2eed08069e93fb15fffe5e0d63d12a05</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>572753239517770</string>
 	<key>LSRequiresIPhoneOS</key>

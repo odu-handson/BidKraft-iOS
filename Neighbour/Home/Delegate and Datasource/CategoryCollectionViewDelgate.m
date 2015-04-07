@@ -16,6 +16,9 @@
 
 @property (nonatomic,strong) NSMutableArray *labelsArray;
 @property (nonatomic,strong) NSString *categoryType;
+@property (nonatomic,strong) NSString *categoryId;
+
+
 @end
 
 @implementation CategoryCollectionViewDelgate
@@ -44,7 +47,7 @@
     self.createRequestViewController = (CreateRequestViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"CreateRequestViewController"];
     self.createRequestViewController.categoryType = categoryType;
     self.createRequestViewController.homeViewController = self.homeViewController;
-    
+    self.createRequestViewController.categoryId = self.categoryId;
     [self.homeViewController.navigationController pushViewController:self.createRequestViewController animated:YES];
 }
 
@@ -53,6 +56,7 @@
     NSInteger index = indexPath.section * [(CategoryCollectionViewFlowLayout *)collectionView.collectionViewLayout numberOfItemsPerSection:indexPath.section] + indexPath.item;
     NSLog(@"selected %ld",(long)index);
     NSString *selectedLabel =[self.labelsArray objectAtIndex:index];
+    self.categoryId = [[NSString alloc] initWithFormat:@"%ld",((long)index+1)];
     return selectedLabel;
 }
 

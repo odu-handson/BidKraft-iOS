@@ -14,6 +14,7 @@
 @interface CreateRequestViewController : UIViewController
 
 @property (nonatomic,strong) NSString *categoryType;
+@property (nonatomic,strong) NSString *categoryId;
 @property (nonatomic,strong) HomeViewController *homeViewController;
 @property (weak, nonatomic) IBOutlet AMTagListView *tagListView;
 
