@@ -21,6 +21,9 @@
 
 @property (nonatomic, strong) NSString *vendorPoints;
 @property (nonatomic, strong) NSString *userPoints;
+@property (nonatomic, strong) NSString *userDescription;
+
+
 
 + (UserProfile *)sharedData;
 
@@ -35,5 +38,7 @@
 
 - (void)saveVendorPoints:(NSString *)vendorPoints;
 - (void)saveUserPoints:(NSString *)userPoints;
+- (void)saveUserDescription:(NSString *)userDescription;
+
 
 @end

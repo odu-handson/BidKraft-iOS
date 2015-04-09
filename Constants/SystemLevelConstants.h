@@ -47,6 +47,12 @@
 #define kNeighbor_vendorSettingId @"neighbor_vendorSettingsId"
 #define kNeighbor_vendorRadius @"neighbor_vendorRadius"
 
+#define kNeighbor_vendor_points @"neighbor_vendor_points"
+#define kNeighbor_user_points @"neighbor_user_points"
+#define kNeighbor_user_description @"neighbor_user_description"
+
+
+
 ////////////////////////////////////////////////////////////////////////
 //                 End of System constatns                           //
 //////////////////////////////////////////////////////////////////////

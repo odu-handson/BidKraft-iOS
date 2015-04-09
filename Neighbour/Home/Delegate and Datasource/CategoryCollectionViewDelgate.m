@@ -31,8 +31,8 @@
     //[self.labelsArray addObject:@"House Cleaning"];
     //[self.labelsArray addObject:@"Computer Repairs"];
     [self.labelsArray addObject:@"Pet Care"];
-    [self.labelsArray addObject:@"Tutoring"];
-    [self.labelsArray addObject:@"Books Selling"];
+    [self.labelsArray addObject:@"Tutor"];
+    [self.labelsArray addObject:@"Sell Books"];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

@@ -178,5 +178,58 @@
     return _phoneNumber;
 }
 
+-(void) saveVendorPoints:(NSString *)vendorPoints
+{
+    [self.defaults setObject:vendorPoints forKey:kNeighbor_vendor_points];
+    self.vendorPoints = vendorPoints;
+
+}
+-(NSString *) vendorPoints
+{
+    if(!_vendorPoints)
+    {
+        NSString *vendorPoints = [self.defaults stringForKey:kNeighbor_vendor_points];
+        if(vendorPoints)
+            _vendorPoints = vendorPoints;
+    }
+    return _vendorPoints;
+}
+
+-(void) saveUserPoints:(NSString *)userPoints
+{
+    [self.defaults setObject:userPoints forKey:kNeighbor_user_points];
+    self.userPoints = userPoints;
+}
+
+-(NSString *) userPoints
+{
+    if(!_userPoints)
+    {
+        NSString *userPoints = [self.defaults stringForKey:kNeighbor_user_points];
+        if(userPoints)
+            _userPoints = userPoints;
+    }
+    return _userPoints;
+}
+
+-(void) saveUserDescription:(NSString *)userDescription
+{
+    [self.defaults setObject:userDescription forKey:kNeighbor_user_description];
+    self.userDescription = userDescription;
+    
+}
+
+-(NSString *) userDescription
+{
+    if(!_userDescription)
+    {
+        NSString *userDescription = [self.defaults stringForKey:kNeighbor_user_description];
+        if(_userDescription)
+            _userDescription = userDescription;
+    }
+    return _userDescription;
+}
+
+
 
 @end

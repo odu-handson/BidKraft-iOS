@@ -95,7 +95,7 @@
 
 - (NSInteger)numberOfRowsAllowedPerScreenOnCollectionView
 {
-    return 1;
+    return 2;
 }
 
 @end

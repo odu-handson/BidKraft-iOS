@@ -12,8 +12,9 @@
 #import "ServiceManager.h"
 #import "ServiceURLProvider.h"
 #import "User.h"
+#import "NSDate+Utilities.h"
 
-@interface CreateRequestViewController ()<UIAlertViewDelegate,AMTagListDelegate,ServiceProtocol,UITextViewDelegate>
+@interface CreateRequestViewController ()<UIAlertViewDelegate,AMTagListDelegate,ServiceProtocol,UITextViewDelegate,UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet  IQDropDownTextField *btnRequestedDate;
@@ -135,6 +136,10 @@
     self.txtRequestEndTime.dropDownMode = IQDropDownModeDatePicker;
     [self.txtRequestEndTime setDatePickerMode:UIDatePickerModeDateAndTime];
     
+    self.txtRequestEndTime.delegate = self;
+    self.btnRequestedDate.delegate  = self;
+    self.btnBiddingEnds.delegate = self;
+    
 }
 
 -(void) submitTapped
@@ -195,15 +200,42 @@
     return requiredDateString;
 }
 
+#pragma UITextFieldDelegate methods
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    if(textField.tag == 1)
+    {
+        
+        NSDateFormatter *datesFormatter = [[NSDateFormatter alloc] init];
+        //[datesFormatter setDateFormat:@"MMM dd, yyyy, HH:mm:ss z"];
+        [datesFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [datesFormatter setTimeStyle:NSDateFormatterLongStyle];
+        [datesFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"EDT"]];
+        
+        NSDate * currentDate = [NSDate date];
+        
+        NSDate *formattedDateString = [datesFormatter dateFromString:textField.text];
+        NSComparisonResult result = [currentDate compare:formattedDateString];
+        
+        
+        
+        
+    }
+    
+    
+}
+
 
 #pragma UITextViewDelegate methods
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    
     return YES;
 }
-- (void) textViewDidBeginEditing:(UITextView *) textView {
+- (void) textViewDidBeginEditing:(UITextView *) textView
+{
     [textView setText:@""];
 }
 

@@ -209,6 +209,12 @@
     NSString *userPoints = [response valueForKey:@"userPoints"];
     NSString *vendorPoints = [response valueForKey:@"vendorPoints"];
     
+    [self.userProfileData saveUserPoints:userPoints];
+    [self.userProfileData saveVendorPoints:vendorPoints];
+    [self.userProfileData savePhoneNumber:cellPhone];
+    [self.userProfileData saveEmail:emailId];
+    [self.userProfileData saveUserDescription:description];
+    
   
 }
 -(void)savePreferences:(NSDictionary *) responseDetails

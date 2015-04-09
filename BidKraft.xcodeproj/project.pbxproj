@@ -89,6 +89,7 @@
 		DA0C3A931AD2CBFA000BB30E /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0C3A911AD2CBFA000BB30E /* PaymentViewController.m */; };
 		DA0C3A971AD32EAF000BB30E /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0C3A951AD32EAE000BB30E /* Crashlytics.framework */; };
 		DA0C3A981AD32EAF000BB30E /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0C3A961AD32EAE000BB30E /* Fabric.framework */; };
+		DA0C3AA31AD4423A000BB30E /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0C3AA21AD4423A000BB30E /* NSDate+Utilities.m */; };
 		DA14D3D819C0E9430080A1EB /* FacebookLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = DA14D3D719C0E9430080A1EB /* FacebookLogin.m */; };
 		DA2624CD19C28C7B0062CB40 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = DA2624CC19C28C7B0062CB40 /* profile.png */; };
 		DA26981D1ABD289400CCDC90 /* bidkraftTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = DA26981B1ABD289400CCDC90 /* bidkraftTitle.png */; };
@@ -280,6 +281,8 @@
 		DA0C3A911AD2CBFA000BB30E /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		DA0C3A951AD32EAE000BB30E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DA0C3A961AD32EAE000BB30E /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		DA0C3AA11AD4423A000BB30E /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		DA0C3AA21AD4423A000BB30E /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		DA14D3D619C0E9430080A1EB /* FacebookLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FacebookLogin.h; path = FacebookLogin/FacebookLogin.h; sourceTree = "<group>"; };
 		DA14D3D719C0E9430080A1EB /* FacebookLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FacebookLogin.m; path = FacebookLogin/FacebookLogin.m; sourceTree = "<group>"; };
 		DA2624CC19C28C7B0062CB40 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -713,6 +716,15 @@
 			path = Neighbour/Payments;
 			sourceTree = "<group>";
 		};
+		DA0C3AA01AD4423A000BB30E /* Date Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DA0C3AA11AD4423A000BB30E /* NSDate+Utilities.h */,
+				DA0C3AA21AD4423A000BB30E /* NSDate+Utilities.m */,
+			);
+			path = "Date Utilities";
+			sourceTree = "<group>";
+		};
 		DA14D3D219C0E8E70080A1EB /* FacebookLogin */ = {
 			isa = PBXGroup;
 			children = (
@@ -804,6 +816,7 @@
 		DAFC780B19B00B8700C66A14 /* Neighbour */ = {
 			isa = PBXGroup;
 			children = (
+				DA0C3AA01AD4423A000BB30E /* Date Utilities */,
 				DA2698221ABF03CC00CCDC90 /* Create Request */,
 				CA295D181A3FCC7F00512DAD /* Settings */,
 				CACBFC2E1A0E5B1400AC369E /* Registration */,
@@ -1086,6 +1099,7 @@
 				DA14D3D819C0E9430080A1EB /* FacebookLogin.m in Sources */,
 				CACBFC451A0E5B1E00AC369E /* OffersTableViewDatasource.m in Sources */,
 				CACBFC351A0E5B1400AC369E /* RegistrationDropDownCell.m in Sources */,
+				DA0C3AA31AD4423A000BB30E /* NSDate+Utilities.m in Sources */,
 				CACBFC751A0E5E0500AC369E /* UserProfile.m in Sources */,
 				CA295D281A3FF18300512DAD /* UserPeferencesTableViewController.m in Sources */,
 				CA295D2B1A3FF4BB00512DAD /* VendorPreferencesTableViewController.m in Sources */,
