@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HomeViewController.h"
+#import "PayListViewController.h"
 
-@interface AcceptedRequestsTableViewController : UITableViewController <UITableViewDelegate,UITableViewDataSource>
+
+
+@interface AcceptedRequestsTableViewController : UITableViewController <UITableViewDelegate,UITableViewDataSource,RatingViewProtocal>
 
 @property (nonatomic , strong) HomeViewController *homeViewController;
 @property (nonatomic , weak) UIView *userHeaderView;

@@ -41,9 +41,12 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger returnValue;
-    returnValue = [(CategoryCollectionViewFlowLayout *)collectionView.collectionViewLayout numberOfItemsPerSection:section];
-    return returnValue;
+    
+    if(section ==0)
+        return 3;
+    return 1;
+    //returnValue = [(CategoryCollectionViewFlowLayout *)collectionView.collectionViewLayout numberOfItemsPerSection:section];
+    //return returnValue;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

@@ -22,5 +22,6 @@ typedef NS_ENUM(NSInteger, RequestedMode) {
 @property (nonatomic,assign) NSInteger requestId;
 @property (nonatomic,assign) BOOL isTableReload;
 @property (nonatomic,assign) RequestedMode requestMode;
+//@property (nonatomic,strong)
 
 @end

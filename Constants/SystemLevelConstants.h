@@ -50,8 +50,8 @@
 #define kNeighbor_vendor_points @"neighbor_vendor_points"
 #define kNeighbor_user_points @"neighbor_user_points"
 #define kNeighbor_user_description @"neighbor_user_description"
-
-
+#define kNeighbor_user_fullname @"neighbor_user_fullname"
+#define kNeighbor_user_ratings @"neighbor_user_ratings"
 
 ////////////////////////////////////////////////////////////////////////
 //                 End of System constatns                           //

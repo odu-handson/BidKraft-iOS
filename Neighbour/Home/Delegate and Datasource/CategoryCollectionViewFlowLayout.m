@@ -19,14 +19,14 @@
 
 - (NSInteger)numberOfSections
 {
-    return 2;
+    return 4;
 }
 
-- (NSInteger)numberOfItemsPerSection:(NSInteger)section
-{
-    NSInteger returnValue = 4;
-        return returnValue;
-}
+//- (NSInteger)numberOfItemsPerSection:(NSInteger)section
+//{
+//    NSInteger returnValue = 2;
+//        return returnValue;
+//}
 
 - (NSInteger)numberOfItemsPerRow
 {
@@ -89,6 +89,9 @@
 {
     CGFloat width = ([self.collectionView bounds].size.width - self.sectionInset.left - self.sectionInset.right - (self.minimumInteritemSpacing * ([self numberOfItemsPerRow] -1))) / [self numberOfItemsPerRow];
     CGFloat height = ([self.collectionView bounds].size.height- self.sectionInset.top - self.sectionInset.bottom - (([self numberOfRowsAllowedPerScreenOnCollectionView]-1)*self.minimumInteritemSpacing) )/[self numberOfRowsAllowedPerScreenOnCollectionView];
+   
+    height = height - 10;
+    width = width - 45;
 
     return CGSizeMake(width, height);
 }

@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "RequestDetailViewController.h"
+#import "JobDetailViewController.h"
 
 @interface OffersTableViewDatasource : NSObject<UITableViewDataSource>
 
 @property (nonatomic,assign) NSInteger requestId;
 @property (nonatomic,strong) RequestDetailViewController *requestDetailController;
+@property (nonatomic,strong)  JobDetailViewController *jobDetailViewController;
+
 
 @end

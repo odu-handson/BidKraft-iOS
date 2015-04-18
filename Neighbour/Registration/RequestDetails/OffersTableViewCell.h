@@ -24,9 +24,13 @@
 @interface OffersTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIButton *btnAccept;
+@property (weak, nonatomic) IBOutlet UILabel *lblTimeAgo;
+
 @property (nonatomic,assign) NSInteger bidId;
 @property (nonatomic,assign) NSString *bidAmount;
 @property (nonatomic,assign) NSString *bidOffererId;
+@property (nonatomic,assign) NSInteger requestId;
+
 @property (nonatomic,strong) id<UserProfileProtocol> userProfileViewDelegate;
 @property (nonatomic,strong) id<PaymentProtocol> paymentDetailsDelegate;
 

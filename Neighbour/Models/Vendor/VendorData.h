@@ -32,6 +32,8 @@ typedef NS_ENUM(NSInteger, VendorMode) {
 @property (nonatomic,strong) NSString *vendorRadius;
 @property (nonatomic, strong) NSUserDefaults *defaults;
 
+@property (nonatomic, assign) BOOL reloadingAfterBidPlaced;
+
 + (VendorData *)sharedData;
 -(void) saveVendorData:(NSMutableArray *) responseData;
 -(void) saveEachVendorOpenRequestData:(NSMutableArray *) responseArray;

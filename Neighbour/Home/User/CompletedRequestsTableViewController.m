@@ -7,6 +7,8 @@
 //
 
 #import "CompletedRequestsTableViewController.h"
+#import "RequestDetailViewController.h"
+
 
 @interface CompletedRequestsTableViewController () <ServiceProtocol>
 
@@ -16,6 +18,9 @@
 @property (nonatomic,strong) ServiceManager *manager;
 @property (nonatomic,strong) NSIndexPath *indexPath;
 @property (nonatomic,assign) NSInteger requestIdToBeDeleted;
+@property (nonatomic,strong) RequestDetailViewController *requestDetailController;
+
+
 
 @end
 
@@ -40,6 +45,12 @@
     
     self.userRequests = self.userData.userCompletedRequests;
     // self.tableHeaderView = self.userHeaderView;
+}
+
+-(void) viewDidLoad
+{
+    self.userData.userRequestMode = CompletedMode;
+    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -103,16 +114,8 @@
     }
     cell.layer.masksToBounds = YES;
     cell.layer.cornerRadius = 25.0f;
-    if(indexPath.section <2)
-    {
-        cell.backgroundColor = [UIColor colorWithRed:211.0f/255.0f green:84.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
-    }
-    else
-    {
-        cell.backgroundColor = [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f];
-    }
+    cell.backgroundColor = [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f];
 
-    
     return cell;
 }
 
@@ -129,7 +132,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 {
+    RequestTableViewCell *tableCell = (RequestTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+    self.requestDetailController = (RequestDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"RequestDetailViewController"];
+    self.requestDetailController.requestId =  tableCell.requestId;
+    [self.homeViewController.navigationController pushViewController:self.requestDetailController animated:YES];
 }
 
 @end

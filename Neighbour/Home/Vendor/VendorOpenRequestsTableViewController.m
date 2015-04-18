@@ -43,8 +43,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.vendorData.vendorRequestMode = VendorOpenMode;
   
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {

@@ -122,6 +122,7 @@
     OffersTableViewCell *cell = (OffersTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     cell.userProfileViewDelegate = self.requestDetailController;
     cell.paymentDetailsDelegate = self.requestDetailController;
+    cell.requestId = self.requestId;
     if(!self.userData.isVendorViewShown)
     {
         [cell prepareCellForTabelView:tableView atIndex:indexPath withBids:self.bidDetails];
@@ -130,6 +131,9 @@
         cell.bidId = requestBidDetail.bidId;
         cell.btnAccept.layer.cornerRadius = 4;
         cell.bidAmount =requestBidDetail.bidAmount;
+        
+        if(self.userData.userRequestMode == ActiveMode || self.userData.userRequestMode == CompletedMode)
+            cell.btnAccept.alpha =0;
         return cell;
     }
     else

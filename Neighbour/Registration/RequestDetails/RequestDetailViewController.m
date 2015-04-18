@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 ODU_HANDSON. All rights reserved.
 //
 
+#import <EventKit/EventKit.h>
+
 #import "RequestDetailViewController.h"
 #import "OffersTabelViewDelegate.h"
 #import "OffersTableViewDatasource.h"
@@ -18,6 +20,7 @@
 #import "VendorData.h"
 #import "ProfileViewController.h"
 #import "PayListViewController.h"
+#import "UserProfile.h"
 
 @interface RequestDetailViewController ()<ServiceProtocol,UIAlertViewDelegate>
 
@@ -29,10 +32,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTimeLeft;
 @property (weak, nonatomic) IBOutlet UILabel *lblLowestBid;
 
-
-@property (weak, nonatomic) IBOutlet UIButton *btnBid;
-@property (weak, nonatomic) IBOutlet UITextField *btnBidAmount;
-@property (weak, nonatomic) IBOutlet UIView *bottomBidView;
 
 @property (strong,nonatomic) OffersTabelViewDelegate *tblOffersViewDelegate;
 @property (strong,nonatomic) OffersTableViewDatasource *tblOffersViewDataSource;
@@ -46,6 +45,8 @@
 @property (strong,nonatomic) VendorBidRequest *vendorRequest;
 @property (strong,nonatomic) UIStoryboard *storyBoard;
 @property (strong,nonatomic) ProfileViewController *profileViewController;
+@property (nonatomic,strong) UserProfile *userProfileData;
+
 
 @property BOOL showBidHistory;
 @end
@@ -66,6 +67,13 @@
     
     return _vendorData;
 }
+- (UserProfile *)userProfileData
+{
+    if(!_userProfileData)
+        _userProfileData = [UserProfile sharedData];
+    
+    return _userProfileData;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -84,18 +92,8 @@
      setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f]}];
     [self initializeDelegatesAndDatasource];
     [self setInitialUI];
-    self.btnBid.layer.masksToBounds = YES;
-    self.btnBid.layer.cornerRadius = 5.0f;
-    if(self.userData.isVendorViewShown)
-        self.bottomBidView.alpha = 1;
-//    self.ratingView.delegate = self;
-//    self.ratingView.emptySelectedImage = [UIImage imageNamed:@"StarEmpty"];
-//    self.ratingView.fullSelectedImage = [UIImage imageNamed:@"StarFull"];
-//    self.ratingView.contentMode = UIViewContentModeScaleAspectFill;
-//    self.ratingView.editable = YES;
-//    self.ratingView.halfRatings = YES;
-//    self.ratingView.floatRatings = NO;
     [self setRequestData];
+    //[self addEventsAndRemainders];
    
 }
 - (void)setInitialUI
@@ -109,24 +107,13 @@
 {
     self.requestArray = [[NSMutableArray alloc] init];
     UserRequests *userRequest;
-    VendorBidRequest *vendorRequest;
-    if(!self.userData.isVendorViewShown)
-    {
-        if(self.userData.userRequestMode == OpenMode)
-            self.requestArray = self.userData.userOpenRequests;
-        else if(self.userData.userRequestMode == ActiveMode)
-            self.requestArray = self.userData.userAcceptedRequests;
-        else if(self.userData.userRequestMode == CompletedMode)
-            self.requestArray = self.userData.userCompletedRequests;
-    }
-    else
-    {
-        if(self.vendorData.vendorRequestMode == VendorOpenMode)
-            self.requestArray = self.vendorData.vendorOpenRequests;
-        else if(self.vendorData.vendorRequestMode == VendorPlacedBidsMode)
-            self.requestArray = self.vendorData.vendorBids;
-    }
-    
+   
+    if(self.userData.userRequestMode == OpenMode)
+        self.requestArray = self.userData.userOpenRequests;
+    else if(self.userData.userRequestMode == ActiveMode)
+        self.requestArray = self.userData.userAcceptedRequests;
+    else if(self.userData.userRequestMode == CompletedMode)
+        self.requestArray = self.userData.userCompletedRequests;
     for(int i=0;i<self.requestArray.count;i++)
     {
         
@@ -139,34 +126,34 @@
                 break;
             }
         }
-        else
-        {
-            vendorRequest = [self.requestArray objectAtIndex:i];
-            if( vendorRequest.requestId == self.requestId)
-            {
-                self.vendorRequest = vendorRequest;
-                break;
-            }
-        }
     }
-    if(!self.userData.isVendorViewShown)
-    {
-         self.txtRequestDescriptioin.text = self.usrRequest.requestDescription;
-         self.lblRequestStartDate.text =[self getDateStringFromNSDate:(NSDate *)self.usrRequest.requestCreatedDate];
-        self.lblJobTitle.text = self.usrRequest.jobTitle;
-         self.lblLowestBid.text = [[@(self.usrRequest.lowestBid) stringValue] stringByAppendingString:@"$/hr"];
-    }
-    else
-    {
-         self.txtRequestDescriptioin.text = self.vendorRequest.requestDescription;
-         self.lblJobTitle.text = self.vendorRequest.jobTitle;
-         self.lblRequestStartDate.text =[self getDateStringFromNSDate:(NSDate *)self.vendorRequest.requestStartDate];
-         self.lblLowestBid.text = [[@(self.vendorRequest.leastBidAmount) stringValue] stringByAppendingString:@"$/hr"];
-    }
-        
-    //self.lblTimeLeft.text = self.usrRequest.
    
+    self.txtRequestDescriptioin.text = self.usrRequest.requestDescription;
+    self.lblRequestStartDate.text =[self getDateStringFromNSDate:(NSDate *)self.usrRequest.requestStartDate];
+    self.lblJobTitle.text = self.usrRequest.jobTitle;
+    self.lblLowestBid.text = [[@(self.usrRequest.lowestBid) stringValue] stringByAppendingString:@"$/hr"];
+    [self timeLeftForBiding];
 }
+
+-(void) timeLeftForBiding
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"E, dd MMM yyyy H:m:s z"];
+    NSDate *date1 = [[NSDate alloc] init];
+    date1 = [df dateFromString:(NSString *)self.usrRequest.bidEndDateTime];
+    
+    NSDate* date2 = [NSDate date];
+    NSTimeInterval distanceBetweenDates = [date1 timeIntervalSinceDate:date2];
+    double secondsInAnHour = 3600;
+    NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+    
+    if(hoursBetweenDates <0)
+       self.lblTimeLeft.text = @"Bidding Ended";
+    else
+        self.lblTimeLeft.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@"hrs"];
+}
+
+
 -(NSString *) getDateStringFromNSDate:(NSDate *)requestDate
 {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -207,7 +194,7 @@
                          }
                          completion:^(BOOL finished){
                              self.showBidHistory = YES;
-                             self.btnTableControl.titleLabel.text = @"Up";
+                             [self.btnTableControl setBackgroundImage:[UIImage imageNamed:@"down_arrow"] forState:UIControlStateNormal];
                          }];
     }
     else
@@ -220,67 +207,14 @@
                          }
                          completion:^(BOOL finished){
                              self.showBidHistory = NO;
+                             [self.btnTableControl setBackgroundImage:[UIImage imageNamed:@"up_arrow"] forState:UIControlStateNormal];
+
                              self.btnTableControl.titleLabel.text = @"Down";
                          }];
     }
     
 }
 
-- (IBAction)bidButtonTapped:(id)sender
-{
-    
-    if(![self.btnBidAmount.text isEqualToString:@""])
-    {
-        self.manager = [ServiceManager defaultManager];
-        self.manager.serviceDelegate = self;
-        NSMutableDictionary *parameters = [self prepareParmeters];
-        [self.manager serviceCallWithURL:@"http://rikers.cs.odu.edu:8080/bidding/bid/create" andParameters:parameters];
-    }
-    else
-    {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert!" message:@"Please enter your Bid Amount:" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
-        alert.delegate = self;
-        [alert show];
-    }
-}
-
--(NSMutableDictionary *) prepareParmeters
-{
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setObject:[@(self.requestId) stringValue] forKey:@"requestId"];
-    [parameters setObject:[self.userData userId] forKey:@"offererUserId"];
-    [parameters setObject:self.btnBidAmount.text forKey:@"bidAmount"];
-    return parameters;
-}
-
-#pragma mark - ServiceProtocol Methods
-
-- (void)serviceCallCompletedWithResponseObject:(id)response
-{
-    NSDictionary *responsedata = (NSDictionary *)response;
-    NSDictionary *data = [response valueForKey:@"data"];
-    NSLog(@"data%@",responsedata);
-    NSString *status = [[NSString alloc] initWithString:[responsedata valueForKey:@"status"]];
-    
-    if(self.userData.isVendorViewShown)
-    {
-        if([status isEqualToString:@"success"])
-        {
-            self.userData.isVendorViewShown = YES;
-            NSMutableArray *openBids =  [data valueForKey:@"openBids"];
-            NSMutableArray *placedBids =  [data valueForKey:@"placedBids"];
-            [self.vendorData saveEachVendorOpenRequestData:openBids];
-            [self.vendorData saveVendorData:placedBids];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
-   
-}
-
-- (void)serviceCallCompletedWithError:(NSError *)error
-{
-    NSLog(@"%@",error.description);
-}
 
 - (IBAction)dismissRequestDetailView:(id)sender
 {
@@ -326,6 +260,10 @@
 }
 -(void)getProfileView:(NSDictionary *) profileResponse
 {
+    
+    NSDictionary *data = [profileResponse valueForKey:@"data"];
+    
+    [self saveUserData:data];
     self.storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
     self.profileViewController = (ProfileViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
     self.profileViewController.isProfileShownModally =@"YES";
@@ -335,56 +273,203 @@
     [self  presentViewController:navcontroller animated:YES completion:nil];
 }
 
+-(void) saveUserData:(NSDictionary *) response
+{
+    NSString *cellPhone = [response valueForKey:@"cellPhone"];
+    NSString *description = [response valueForKey:@"description"];
+    NSString *emailId = [response valueForKey:@"emailId"];
+    NSString *userPoints = [response valueForKey:@"userPoints"];
+    NSString *vendorPoints = [response valueForKey:@"vendorPoints"];
+    NSString *userRatings = [response valueForKey:@"rating"];
+    NSString *userName = [response valueForKey:@"name"];
+    
+    [self.userProfileData saveUserPoints:userPoints];
+    [self.userProfileData saveVendorPoints:vendorPoints];
+    [self.userProfileData savePhoneNumber:cellPhone];
+    [self.userProfileData saveEmail:emailId];
+    [self.userProfileData saveUserDescription:description];
+    [self.userProfileData saveUserRating:userRatings];
+    [self.userProfileData saveFullName:userName];
+    
+}
+
 #pragma mark - Paymentprotocol method
 - (void)getPaymentDetails:(NSMutableDictionary *)paymentDetails
 {
-    NSLog(@"%@",paymentDetails);
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-    PayListViewController *payListViewController = [storyBoard instantiateViewControllerWithIdentifier:@"PayListViewController"];
-    payListViewController.bidAmount = [paymentDetails objectForKey:@"bidAmountPay"];
-    payListViewController.bidId = [paymentDetails objectForKey:@"bidId"];
-    payListViewController.requestId = [@(self.requestId) stringValue];
-    [self.navigationController pushViewController:payListViewController animated:YES];
+    [self serviceCall:paymentDetails];
 }
 
-//#pragma ServiceProtocol methods
-//
-//- (void)serviceCallCompletedWithResponseObject:(id)response
-//{
-//    NSDictionary *responsedata = (NSDictionary *)response;
-//    NSString *status =[responsedata objectForKey:@"status"];
-//    responsedata = [responsedata objectForKey:@"data"];
-//    NSMutableArray *requestedArray = [responsedata objectForKey:@"openRequests"];
-//    if(requestedArray)
-//        [self.userData saveUserOpenRequestsData:requestedArray];
-//    if( [status isEqualToString:@"success"])
+-(void)serviceCall:(NSMutableDictionary *) paymentDetails
+{
+    self.manager = [ServiceManager defaultManager];
+    self.manager.serviceDelegate = self;
+    NSMutableDictionary *parameters = [self preparePostData:[paymentDetails objectForKey:@"bidId"]];
+    NSString *url = [ServiceURLProvider getURLForServiceWithKey:kAcceptBidKey];
+    [self.manager serviceCallWithURL:url andParameters:parameters];
+}
+
+-(NSMutableDictionary *)preparePostData:(NSString *)bidId
+{
+    NSMutableDictionary *parameters = [[ NSMutableDictionary alloc] init];
+    [parameters setObject:bidId forKey:@"bidId"];
+    [parameters setObject:[@(self.requestId) stringValue] forKey:@"requestId"];
+    [parameters setObject:[self.userData userId] forKey:@"userId"];
+    return parameters;
+}
+#pragma mark - ServiceProtocol Methods
+
+- (void)serviceCallCompletedWithResponseObject:(id)response
+{
+    NSDictionary *responsedata = (NSDictionary *)response;
+    NSDictionary *data = [response valueForKey:@"data"];
+    NSLog(@"data%@",responsedata);
+    NSString *status = [[NSString alloc] initWithString:[responsedata valueForKey:@"status"]];
+    
+//    if(self.userData.isVendorViewShown)
 //    {
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirmation!"
-//                                                            message:@"Bid accepted"
-//                                                           delegate:nil
-//                                                  cancelButtonTitle:@"Ok"
-//                                                  otherButtonTitles:nil, nil];
-//        alertView.delegate = self;
-//        [alertView show];
+//        if([status isEqualToString:@"success"])
+//        {
+//            self.userData.isVendorViewShown = YES;
+//            NSMutableArray *openBids =  [data valueForKey:@"openBids"];
+//            NSMutableArray *placedBids =  [data valueForKey:@"placedBids"];
+//            [self.vendorData saveEachVendorOpenRequestData:openBids];
+//            [self.vendorData saveVendorData:placedBids];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        }
 //    }
-//    
-//}
-//
-//- (void)serviceCallCompletedWithError:(NSError *)error
-//{
-//    NSLog(@"%@",error.description);
-//}
-//
-//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    
-//   
-//    if (buttonIndex == 0)
-//    {
-//        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-//        self.homeViewController = (HomeViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"HomeViewController"];
-//        [self.navigationController showViewController:self.homeViewController sender:self];
-//    }
-//    
-//}
+    //else
+    //{
+        if( [status isEqualToString:@"success"])
+        {
+            
+            NSDictionary *responsedata = [response objectForKey:@"data"];
+            NSMutableArray *openRequests =  [responsedata objectForKey:@"openRequests"];
+            NSMutableArray *acceptedRequests =  [responsedata objectForKey:@"acceptedRequests"];
+            
+            if(openRequests)
+                [self.userData saveUserOpenRequestsData:openRequests];
+            if(acceptedRequests)
+                [self.userData saveUserAcceptedRequestsData:acceptedRequests];
+            
+            
+            
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirmation!"
+                                                                message:@"Bid accepted"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil, nil];
+            alertView.tag = 2;
+            alertView.delegate = self;
+            [alertView show];
+        }
+    //}
+    
+}
+
+- (void)serviceCallCompletedWithError:(NSError *)error
+{
+    NSLog(@"%@",error.description);
+}
+
+
+#pragma Calender Events and Remainders and methods
+
+-(void)addEventToCalender:(NSString *)eventDescription withEventDate:(NSDate *)eventDate
+{
+    EKEventStore *store = [[EKEventStore alloc] init];
+    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if (!granted) { return; }
+        EKEvent *event = [EKEvent eventWithEventStore:store];
+        event.title = eventDescription;
+        event.startDate = eventDate;
+        event.endDate = [event.startDate dateByAddingTimeInterval:60*60];  //set 1 hour meeting
+        [event setCalendar:[store defaultCalendarForNewEvents]];
+        NSError *err = nil;
+        [store saveEvent:event span:EKSpanThisEvent commit:YES error:&err];
+        //NSString *savedEventId = event.eventIdentifier;  //this is so you can access this event later
+    }];
+}
+
+-(void)addRemainder:(NSString *)remainderDescription withRemainderDate:(NSDate *)remainderDate
+{
+    EKEventStore *remainderEvent = [[EKEventStore alloc] init];
+    [remainderEvent requestAccessToEntityType:EKEntityTypeReminder completion:^(BOOL granted, NSError *error) {
+        if (!granted)
+            return;
+        if(remainderEvent!=nil)
+        {
+            EKReminder *reminder = [EKReminder
+                                    reminderWithEventStore:remainderEvent];
+            reminder.title = remainderDescription;
+            reminder.calendar = [remainderEvent defaultCalendarForNewReminders];
+            NSDate *remainderStartDate = remainderDate;
+            EKAlarm *alarm = [EKAlarm alarmWithAbsoluteDate:remainderStartDate];
+            [reminder addAlarm:alarm];
+            NSError *errorRemainder = nil;
+            [remainderEvent saveReminder:reminder commit:YES error:&errorRemainder];
+            if (errorRemainder)
+                NSLog(@"error = %@", errorRemainder);
+        }
+        
+    }];
+    
+}
+
+-(void)addEventsAndRemainders
+{
+
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"E, dd MMM yyyy H:m:s z"];
+    
+    NSDate *current = [[NSDate alloc] init];
+    current = [NSDate date];
+    NSDate *newDate = [[NSDate alloc] init];
+    newDate = [df dateFromString:(NSString *)self.usrRequest.requestStartDate];
+    
+    NSString *requiredString = [df stringFromDate:newDate];
+    
+    NSDateFormatter *requiredFormat = [[NSDateFormatter alloc]init];
+    [requiredFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *dateRequired = [df dateFromString:requiredString];
+    
+    [self addEventToCalender:self.usrRequest.requestDescription withEventDate:dateRequired];
+    [self addRemainder:self.usrRequest.requestDescription withRemainderDate:dateRequired];
+    
+}
+
+
+#pragma mark - AlertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+
+    
+    if (buttonIndex == 0 && alertView.tag ==2)
+    {
+        //[self parseAcceptedRequests];
+        
+        [self addEventsAndRemainders];
+        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+        self.homeViewController = (HomeViewController *)[storyBoard instantiateViewControllerWithIdentifier:@"HomeViewController"];
+        [self.navigationController showViewController:self.homeViewController sender:self];
+        //[self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+-(void) initializeObjects:(NSDictionary *) responseData
+{
+    responseData = [responseData valueForKey:@"data"];
+    NSMutableArray *openRequests = [responseData valueForKey:@"openRequests"];
+    NSMutableArray *acceptedRequests = [responseData valueForKey:@"acceptedRequests"];
+    NSMutableArray *completedRequests = [responseData valueForKey:@"servicedRequests"];
+    if(openRequests)
+        [self.userData saveUserOpenRequestsData:openRequests];
+    if(acceptedRequests)
+        [self.userData saveUserAcceptedRequestsData:acceptedRequests];
+    if(completedRequests)
+        [self.userData saveUserCompletedRequestsData:completedRequests];
+    
+    
+}
 
 @end

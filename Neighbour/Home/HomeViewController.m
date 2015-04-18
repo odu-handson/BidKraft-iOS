@@ -118,6 +118,16 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
 -(void) viewWillAppear:(BOOL)animated
 {
     //[self initialTableViewLoad];
+    if(self.userData.userRequestMode  == OpenMode &&  self.userData.reloadingAfterPost)
+    {
+        [self.openRequestsTableViewController.tableView reloadData];
+        self.userData.reloadingAfterPost = NO;
+    }
+    else if(self.userData.userRequestMode  == ActiveMode &&  self.userData.reloadingAfterPayments)
+    {
+        [self.acceptRequestsTableViewController.tableView reloadData];
+        self.userData.reloadingAfterPayments = NO;
+    }
 }
 
 -(void) setUpSegmentedControls
@@ -150,10 +160,6 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     [self.searchController.searchBar becomeFirstResponder];
     
 }
--(void)viewDidAppear:(BOOL)animated
-{
-   
-}
 
 -(void) prepareLoadIndicator
 {
@@ -161,8 +167,6 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     [self.navigationController.view addSubview:self.HUD];
     self.HUD.delegate = self;
 }
-
-
 
 - (void)initializeDelegatesAndDatasource
 {
@@ -186,21 +190,15 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     self.collectionView.dataSource = self.categoryCollectionViewDataSource;
 }
 
-
-
 - (void)initializeAndSetLayout
 {
     self.flowLayout = [[CategoryCollectionViewFlowLayout alloc] init];
     self.collectionView.collectionViewLayout = self.flowLayout;
 }
-
-
 -(void) profileControllerSetup
 {
-    
     self.settingsTableViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SettingsTableViewController"];
 }
-
 -(void) createNavigationItems
 {
     
@@ -229,7 +227,6 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     //self.openRequestsTableViewController.searchController.delegate=self.openRequestsTableViewController;
     [self.containerView addSubview:self.openRequestsTableViewController.tableView];
     [self.view bringSubviewToFront:self.openRequestsTableViewController.tableView];
-    
     self.requestorIndex = 0;
 }
 
@@ -243,6 +240,7 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
 -(void)loadCompletedRequestsTableView
 {
     self.completedRequestsTableViewController = (CompletedRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"CompletedRequestsTableViewController"];
+    self.completedRequestsTableViewController.homeViewController = self;
     [self.containerView addSubview:self.completedRequestsTableViewController.tableView];
 }
 

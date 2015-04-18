@@ -102,7 +102,11 @@
 		DA3C2B8519C771FE00C880E3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAE232F19B8FDAC003B9579 /* FacebookSDK.framework */; };
 		DA4F36E719C53FCD001CF539 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F36E319C53FCD001CF539 /* star@2x.png */; };
 		DA4F36E819C53FCD001CF539 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F36E419C53FCD001CF539 /* star.png */; };
+		DA65BBFC1AD8692D008F37C5 /* CustomerCareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA65BBFB1AD8692D008F37C5 /* CustomerCareViewController.m */; };
 		DA8DD6A119EC9B3D0061185B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8DD6A019EC9B3D0061185B /* CoreLocation.framework */; };
+		DAC1A13F1ADB3BA50053820B /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC1A13E1ADB3BA50053820B /* settings.png */; };
+		DAC1A1411ADB3CF90053820B /* createrequest.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC1A1401ADB3CF90053820B /* createrequest.png */; };
+		DAC1A1441ADC44C50053820B /* JobDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1A1431ADC44C50053820B /* JobDetailViewController.m */; };
 		DACE050C1A9CF6BF004D1627 /* login_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DACE050B1A9CF6BF004D1627 /* login_logo.png */; };
 		DACE050F1A9CFC80004D1627 /* user_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DACE050D1A9CFC80004D1627 /* user_icon.png */; };
 		DACE05101A9CFC80004D1627 /* vendor_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DACE050E1A9CFC80004D1627 /* vendor_icon.png */; };
@@ -301,7 +305,13 @@
 		DA44F97319CBBB750041AC38 /* CategoryIdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryIdConstants.h; sourceTree = "<group>"; };
 		DA4F36E319C53FCD001CF539 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
 		DA4F36E419C53FCD001CF539 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		DA65BBFA1AD8692D008F37C5 /* CustomerCareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerCareViewController.h; sourceTree = "<group>"; };
+		DA65BBFB1AD8692D008F37C5 /* CustomerCareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerCareViewController.m; sourceTree = "<group>"; };
 		DA8DD6A019EC9B3D0061185B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DAC1A13E1ADB3BA50053820B /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = Images/settings.png; sourceTree = "<group>"; };
+		DAC1A1401ADB3CF90053820B /* createrequest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = createrequest.png; path = Images/createrequest.png; sourceTree = "<group>"; };
+		DAC1A1421ADC44C50053820B /* JobDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobDetailViewController.h; sourceTree = "<group>"; };
+		DAC1A1431ADC44C50053820B /* JobDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobDetailViewController.m; sourceTree = "<group>"; };
 		DACE050B1A9CF6BF004D1627 /* login_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = login_logo.png; path = Images/login_logo.png; sourceTree = "<group>"; };
 		DACE050D1A9CFC80004D1627 /* user_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user_icon.png; path = Images/user_icon.png; sourceTree = "<group>"; };
 		DACE050E1A9CFC80004D1627 /* vendor_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vendor_icon.png; path = Images/vendor_icon.png; sourceTree = "<group>"; };
@@ -457,6 +467,8 @@
 				CA295D271A3FF18300512DAD /* UserPeferencesTableViewController.m */,
 				CA295D291A3FF4BB00512DAD /* VendorPreferencesTableViewController.h */,
 				CA295D2A1A3FF4BB00512DAD /* VendorPreferencesTableViewController.m */,
+				DA65BBFA1AD8692D008F37C5 /* CustomerCareViewController.h */,
+				DA65BBFB1AD8692D008F37C5 /* CustomerCareViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -617,6 +629,8 @@
 				CACBFC411A0E5B1E00AC369E /* OffersTableViewCell.m */,
 				CACBFC421A0E5B1E00AC369E /* RequestDetailViewController.h */,
 				CACBFC431A0E5B1E00AC369E /* RequestDetailViewController.m */,
+				DAC1A1421ADC44C50053820B /* JobDetailViewController.h */,
+				DAC1A1431ADC44C50053820B /* JobDetailViewController.m */,
 			);
 			name = RequestDetails;
 			path = Registration/RequestDetails;
@@ -876,6 +890,8 @@
 		DAFC783E19B0C38900C66A14 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DAC1A1401ADB3CF90053820B /* createrequest.png */,
+				DAC1A13E1ADB3BA50053820B /* settings.png */,
 				DA0C3A8B1AC9C291000BB30E /* up_arrow.png */,
 				DA0C3A871AC9C0D9000BB30E /* bar.png */,
 				DA0C3A881AC9C0D9000BB30E /* down_arrow.png */,
@@ -993,7 +1009,9 @@
 				DACE050F1A9CFC80004D1627 /* user_icon.png in Resources */,
 				DAFFCB8719F5B7A600352652 /* camera.png in Resources */,
 				DAE1325A19DF295D00769302 /* Main_iPhone.storyboard in Resources */,
+				DAC1A13F1ADB3BA50053820B /* settings.png in Resources */,
 				DA0C3A7C1AC762AA000BB30E /* tutor.png in Resources */,
+				DAC1A1411ADB3CF90053820B /* createrequest.png in Resources */,
 				DA0C3A7A1AC762AA000BB30E /* rigid_baby.png in Resources */,
 				DA26981D1ABD289400CCDC90 /* bidkraftTitle.png in Resources */,
 				DA4F36E819C53FCD001CF539 /* star.png in Resources */,
@@ -1089,6 +1107,7 @@
 				CACBFC471A0E5B1E00AC369E /* OffersTableViewCell.m in Sources */,
 				CACBFC371A0E5B1400AC369E /* RegistrationViewController.m in Sources */,
 				CA295D171A3FB78F00512DAD /* VendorTableViewCell.m in Sources */,
+				DA65BBFC1AD8692D008F37C5 /* CustomerCareViewController.m in Sources */,
 				CACBFC361A0E5B1400AC369E /* RegistrationTableViewCell.m in Sources */,
 				CA295D211A3FCC8000512DAD /* ProfileTableViewCell.m in Sources */,
 				DAFC781F19B00B8700C66A14 /* LoginViewController.m in Sources */,
@@ -1096,6 +1115,7 @@
 				DA0C3A821AC79908000BB30E /* AMTagListView.m in Sources */,
 				CA295D111A3FB78F00512DAD /* CompletedRequestsTableViewController.m in Sources */,
 				CA295D161A3FB78F00512DAD /* VendorPlacedBidsTableViewController.m in Sources */,
+				DAC1A1441ADC44C50053820B /* JobDetailViewController.m in Sources */,
 				DA14D3D819C0E9430080A1EB /* FacebookLogin.m in Sources */,
 				CACBFC451A0E5B1E00AC369E /* OffersTableViewDatasource.m in Sources */,
 				CACBFC351A0E5B1400AC369E /* RegistrationDropDownCell.m in Sources */,

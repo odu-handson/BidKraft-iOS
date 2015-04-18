@@ -41,9 +41,8 @@ typedef NS_ENUM(NSInteger, RequestMode) {
 @property (nonatomic,strong) NSString *longitude;
 @property (nonatomic,strong) NSString *homeAddress;
 @property (nonatomic,strong) NSString *userAddressId;
-
-
-
+@property (nonatomic,assign) BOOL reloadingAfterPayments;
+@property (nonatomic,assign) BOOL reloadingAfterPost;
 
 
 + (User *)sharedData;

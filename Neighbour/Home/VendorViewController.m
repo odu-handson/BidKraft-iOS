@@ -22,6 +22,7 @@
 #import "RequestTableViewCell.h"
 #import "RequestDetailViewController.h"
 #import "VendorTableViewCell.h"
+#import "JobDetailViewController.h"
 
 @interface VendorViewController () <ServiceProtocol,MBProgressHUDDelegate,VendorOpenRequestsProtocol,VendorPlacedBidsProtocol,VendorBidsOwnedProtocol>
 
@@ -41,6 +42,7 @@
 @property (nonatomic,strong) UISearchController *searchController;
 @property int vendorRequestorIndex;
 @property (nonatomic,strong) RequestDetailViewController *requestDetailController;
+@property (nonatomic,strong) JobDetailViewController *jobDetailViewController;
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIButton *btnOpenRequests;
@@ -78,6 +80,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if(self.vendorData.vendorRequestMode == VendorOpenMode && self.vendorData.reloadingAfterBidPlaced)
+    {
+        [self.vendorOpenRequestsTableViewController.tableView reloadData];
+    }
+            
+            
     [self prepareNavBar];
 }
 
@@ -337,9 +346,9 @@
 -(void)getCellData:(NSString *)requestDate withRequestDesc:(NSString *)requestDescription withRequestID:(NSInteger)requestID onCellData:(VendorTableViewCell *) cell
 {
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    self.requestDetailController = (RequestDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"RequestDetailViewController"];
-    self.requestDetailController.requestId =  cell.requestId;
-    [self.navigationController pushViewController:self.requestDetailController animated:YES];
+    self.jobDetailViewController = (JobDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"JobDetailViewController"];
+    self.jobDetailViewController.requestId =  cell.requestId;
+    [self.navigationController pushViewController:self.jobDetailViewController animated:YES];
 }
 
 
@@ -349,21 +358,18 @@
 {
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    self.requestDetailController = (RequestDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"RequestDetailViewController"];
-    self.requestDetailController.requestId =  cell.requestId;
-    [self.parentViewController.navigationController pushViewController:self.requestDetailController animated:YES];
+    self.jobDetailViewController = (JobDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"JobDetailViewController"];
+    self.jobDetailViewController.requestId =  cell.requestId;
+    [self.navigationController pushViewController:self.jobDetailViewController animated:YES];
 }
 
 #pragma VendorBidsOwnedProtocol Methods
 
--(void)getCellBidsOwnedData:(NSString *)requestDate withRequestDesc:(NSString *)requestDescription withRequestID:(NSInteger)requestID
-{
-        UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-        self.vendorRequestDetailViewController = (VendorRequestDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"VendorRequestDetailViewController"];
-        self.vendorRequestDetailViewController.requestDate=  requestDate;
-        self.vendorRequestDetailViewController.requestDescription = requestDescription;
-        self.vendorRequestDetailViewController.requestId =  requestID;
-        [self.homeViewController.navigationController pushViewController:self.vendorRequestDetailViewController animated:YES];
+-(void)getCellBidsOwnedData:(NSString *)requestDate withRequestDesc:(NSString *)requestDescription onCellData:(VendorTableViewCell *) cell
+{ UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+    self.jobDetailViewController = (JobDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"JobDetailViewController"];
+    self.jobDetailViewController.requestId =  cell.requestId;
+    [self.navigationController pushViewController:self.jobDetailViewController animated:YES];
    
 }
 

@@ -12,6 +12,7 @@
 #import "ServiceManager.h"
 #import "ServiceURLProvider.h"
 #import "RequestDetailViewController.h"
+#import "PayListViewController.h"
 
 @interface AcceptedRequestsTableViewController () <ServiceProtocol>
 
@@ -22,8 +23,12 @@
 @property (nonatomic,strong) NSIndexPath *indexPath;
 @property (nonatomic,assign) NSInteger requestIdToBeDeleted;
 @property (nonatomic,strong) RequestDetailViewController *requestDetailController;
+@property (nonatomic,strong) UserRequests *usrRequest;
+@property (nonatomic,strong) NSString *bidId;
+
 @property (strong, nonatomic) IBOutlet UIView *ratingView;
 @property (weak, nonatomic) IBOutlet UITextView *commentsForVendor;
+
 @end
 
 @implementation AcceptedRequestsTableViewController
@@ -42,10 +47,19 @@
     return _userData;
 }
 
+-(void) viewDidLoad
+{
+    self.userData.userRequestMode = ActiveMode;
+    
+}
+-(void) viewWillAppear:(BOOL)animated
+{
+    self.userRequests = self.userData.userAcceptedRequests;
+}
+
 -(void)setDelagatesAndDataSources
 {
-    
-    self.userRequests = self.userData.userAcceptedRequests;
+  
      self.manager = [ServiceManager defaultManager];
    // self.tableHeaderView = self.userHeaderView;
 }
@@ -65,13 +79,32 @@
         self.tableView.backgroundView = messageLabel;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
+    else
+    {
+        self.tableView.backgroundView = nil;
+    }
     return self.userRequests.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    //if(self.userRequests.count > 0)
+        return 1;
+//    else
+//    {
+//        UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//        
+//        messageLabel.text = @"No data is currently available";
+//        messageLabel.textColor = [UIColor whiteColor];
+//        messageLabel.numberOfLines = 0;
+//        messageLabel.textAlignment = NSTextAlignmentCenter;
+//        messageLabel.font = [UIFont fontWithName:@"Palatino-Italic" size:20];
+//        [messageLabel sizeToFit];
+//        self.tableView.backgroundView = messageLabel;
+//        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        return 0;
+//    }
     
-    return 1;
 }
 
 
@@ -148,35 +181,21 @@
 {
     
     [self prepareDataObjects];
-    
-    UITableViewRowAction *cancelAction;
     UITableViewRowAction *completeAction;
-    cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault
-                                                      title:@"Dispute" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                                          [self performDispute:indexPath onTableView:tableView];
-                                                      }];
-    cancelAction.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:2.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
-    
     completeAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
                                                       title:@"Complete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
                                                           [self performComplete:indexPath onTableView:tableView];
                                                       }];
     completeAction.backgroundColor =[UIColor colorWithRed:25.0f/255.0f green:123.0f/255.0f blue:48.0f/255.0f alpha:1.0f];
-    
   
     return @[completeAction];
 }
 
--(void) performDispute:(NSIndexPath *) indexPath onTableView:(UITableView *) tableView
-{
-    
-    
-    
-}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     RequestTableViewCell *tableCell = (RequestTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
     self.requestDetailController = (RequestDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"RequestDetailViewController"];
     self.requestDetailController.requestId =  tableCell.requestId;
@@ -191,7 +210,52 @@
     self.commentsForVendor.layer.borderWidth = 0.7;
     self.commentsForVendor.layer.borderColor = [UIColor grayColor].CGColor;
     self.commentsForVendor.layer.cornerRadius = 6.5;
-    [self.homeViewController.view addSubview:self.ratingView];
+    
+    
+    RequestTableViewCell *cell =(RequestTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    [self getRequestDetails:cell.requestId];
+    NSMutableDictionary *paymentDetails = [[NSMutableDictionary alloc]init];
+    
+    [paymentDetails setObject:[@(self.usrRequest.lowestBid) stringValue] forKey:@"bidAmountPay"];
+    [paymentDetails setObject:self.usrRequest.acceptedBidId forKey:@"bidId"];
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    PayListViewController *payListViewController = [storyBoard instantiateViewControllerWithIdentifier:@"PayListViewController"];
+    payListViewController.bidAmount = [@(self.usrRequest.lowestBid) stringValue];
+    payListViewController.bidId = self.usrRequest.acceptedBidId ;
+    payListViewController.requestId = [@(cell.requestId) stringValue];
+    payListViewController.homeViewController = self.homeViewController;
+    payListViewController.ratingViewDelegate = self;
+    payListViewController.requestIdToBeDeleted = [@(cell.requestId) stringValue];
+    [self.homeViewController.navigationController pushViewController:payListViewController animated:YES];
+    
+    //[self.homeViewController.view addSubview:self.ratingView];
+}
+
+-(void) getRequestDetails:(NSInteger ) requestId
+{
+    UserRequests *userRequest;
+    BidDetails *bidDetail;
+
+    for(int i=0;i<self.userRequests.count;i++)
+    {
+        if(!self.userData.isVendorViewShown)
+        {
+            userRequest = [self.userRequests objectAtIndex:i];
+            if( userRequest.requestId == requestId)
+            {
+                self.usrRequest = userRequest;
+                break;
+            }
+        }
+    }
+//    for(int i=0;i<self.usrRequest.bidsArray.count;i++)
+//    {
+//        bidDetail = [self.usrRequest.bidsArray objectAtIndex:i];
+//        if( [bidDetail.bidAmount integerValue] == self.usrRequest.lowestBid)
+//            self.bidId = [@(bidDetail.bidId) stringValue];
+//    }
+    
 }
 -(void)removeRatingViewFromSuperView
 {
@@ -225,7 +289,6 @@
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *userReview = [[NSMutableDictionary alloc]init];
-    [parameters setValue:[NSNumber numberWithInteger:self.requestIdToBeDeleted] forKey:@"requestId"];
     [parameters setValue:[self.userData userId] forKey:@"userId"];
     [parameters setValue:@"1" forKey:@"roleId"];
     [userReview setValue:[self.userData userId] forKey:@"reviewerUserId"];
@@ -274,6 +337,12 @@
 {
     self.userRequests = [[ NSMutableArray alloc] init];
     self.userRequests = self.userData.userAcceptedRequests;
+}
+
+#pragma mark - RatingViewProtocol Methods
+-(void) showRatingView
+{
+    [self.view addSubview:self.ratingView];
 }
 
 

@@ -23,6 +23,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.vendorData.vendorRequestMode = VendorPlacedBidsMode;
+
 }
 -(void) getVendorData
 {
@@ -91,7 +93,6 @@
     {
         vendorCell.backgroundColor = [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f];
     }
-    return vendorCell;
     return vendorCell;
 }
 

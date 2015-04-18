@@ -31,7 +31,7 @@
 @property (strong,nonatomic) UserRequests *usrRequest;
 @property (nonatomic,strong) BidDetails *bidDetail;
 @property (nonatomic,strong) NSMutableArray *bidsArray;
-
+@property BOOL isProfileView;
 
 @end
 @implementation OffersTableViewCell
@@ -70,16 +70,32 @@
     //self.lblBestOffers.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
     self.lblBidAmount.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
     self.bidOffererId  = requestBidDetail.offererUserId;
+    [self timeDifference:requestBidDetail];
     
 }
+
 
 - (void)prepareCellForVendorTabelView:(UITableView *)tableView atIndex:(NSIndexPath *)indexPath withBids:(NSMutableArray *)listOfBids{
     
     VendorBidDetail *requestBidDetail = [listOfBids objectAtIndex:indexPath.item];
     self.lblBidType.text= requestBidDetail.offererName;
     self.lblBestOffers.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
-    
 }
+
+-(void) timeDifference:(BidDetails *) requestBidDetail
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"E, dd MMM yyyy H:m:s z"];
+    NSDate *date1 = [[NSDate alloc] init];
+    date1 = [df dateFromString:(NSString *)requestBidDetail.bidCreatedDate];
+    
+    NSDate* date2 = [NSDate date];
+    NSTimeInterval distanceBetweenDates = [date2 timeIntervalSinceDate:date1];
+    double secondsInAnHour = 3600;
+    NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+    self.lblTimeAgo.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@"hrs ago"];
+}
+
 - (IBAction)userNameTapped:(id)sender
 {
    
@@ -89,8 +105,6 @@
     self.manager.serviceDelegate = self;
     NSMutableDictionary *parameters = [self prepareParmeters:cell.bidOffererId];
     [self.manager serviceCallWithURL:@"http://rikers.cs.odu.edu:8080/bidding/user/get" andParameters:parameters];
-    
-    
     
 }
 
@@ -106,12 +120,10 @@
     
 }
 
-
 -(NSMutableDictionary *) prepareParmeters:(NSString *) userId
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:userId forKey:@"userId"];
-    
     return parameters;
 }
 
@@ -120,9 +132,9 @@
 - (void)serviceCallCompletedWithResponseObject:(id)response
 {
     NSDictionary *responsedata = (NSDictionary *)response;
-    NSDictionary *data = [response valueForKey:@"data"];
+    //NSDictionary *data = [response valueForKey:@"data"];
     NSLog(@"data%@",responsedata);
-    NSString *status = [[NSString alloc] initWithString:[responsedata valueForKey:@"status"]];
+    //NSString *status = [[NSString alloc] initWithString:[responsedata valueForKey:@"status"]];
     [self.userProfileViewDelegate getProfileView:response];
     
 }

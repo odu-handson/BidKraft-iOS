@@ -31,13 +31,15 @@
     //[self.labelsArray addObject:@"House Cleaning"];
     //[self.labelsArray addObject:@"Computer Repairs"];
     [self.labelsArray addObject:@"Pet Care"];
-    [self.labelsArray addObject:@"Tutor"];
     [self.labelsArray addObject:@"Sell Books"];
+    [self.labelsArray addObject:@"Tutor"];
+
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self prepareLabelArray];
+    
     NSString *categoryType =[self collectionView:collectionView cellForItemAtIndexPath:indexPath];
     self.categoryType = [[NSString alloc] initWithString:categoryType];
     
@@ -53,7 +55,16 @@
 
 - (NSString *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSInteger index = indexPath.section * [(CategoryCollectionViewFlowLayout *)collectionView.collectionViewLayout numberOfItemsPerSection:indexPath.section] + indexPath.item;
+  //  NSInteger index = indexPath.section * [(CategoryCollectionViewFlowLayout *)collectionView.collectionViewLayout numberOfItemsPerSection:indexPath.section] + indexPath.item;
+    
+    NSInteger index;
+    
+    if(indexPath.section == 0)
+        
+        index = indexPath.row*(indexPath.section)+ indexPath.row;
+    else
+        index = indexPath.row*(indexPath.section)+ indexPath.row +3;
+    
     NSLog(@"selected %ld",(long)index);
     NSString *selectedLabel =[self.labelsArray objectAtIndex:index];
     self.categoryId = [[NSString alloc] initWithFormat:@"%ld",((long)index+1)];

@@ -42,6 +42,7 @@
 {
      [super awakeFromNib];
     [self prepareSearchBarAndSetDelegate];
+     self.userData.userRequestMode = OpenMode;
     [self hideSearchBar];
     if (self.searchControllerWasActive) {
         self.searchController.active = self.searchControllerWasActive;
@@ -55,26 +56,9 @@
     
 }
 
-//- (void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//    [self prepareSearchBarAndSetDelegate];
-//    [self hideSearchBar];
-//    if (self.searchControllerWasActive) {
-//        self.searchController.active = self.searchControllerWasActive;
-//        _searchControllerWasActive = NO;
-//        
-//        if (self.searchControllerSearchFieldWasFirstResponder) {
-//            [self.searchController.searchBar becomeFirstResponder];
-//            _searchControllerSearchFieldWasFirstResponder = NO;
-//        }
-//    }
-//
-//    
-//
-//   
-//}
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar*)searchBar {
-        return NO;
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar*)searchBar
+{
+    return NO;
 }
 - (void)presentSearchController:(UISearchController *)searchController
 {
@@ -118,7 +102,6 @@
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
 
-    
     return self.userRequests.count;
 }
 
@@ -127,7 +110,6 @@
     
     return 1;
 }
-
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -206,14 +188,12 @@
     NSArray *returnValue;
     
     UITableViewRowAction *cancelAction;
-    
-        cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
+    cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
                                                           title:@"Delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
                                                               [self performDelete:indexPath onTableView:tableView];
                                                           }];
-        cancelAction.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:2.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
-        
-        returnValue = @[cancelAction];
+    cancelAction.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:2.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
+    returnValue = @[cancelAction];
     
     return returnValue;
 }
@@ -226,7 +206,7 @@
 }
 -(void) performDelete:(NSIndexPath *)indexPath onTableView:(UITableView *)tableView
 {
-    //[self.userRequests removeObjectAtIndex:indexPath.section];
+    [self.userRequests removeObjectAtIndex:indexPath.section];
     RequestTableViewCell *tableCell = (RequestTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     self.requestIdToBeDeleted = tableCell.requestId ;
     NSString *url;

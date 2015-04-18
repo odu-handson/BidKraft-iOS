@@ -12,6 +12,7 @@
 #import "ServiceURLProvider.h"
 #import "UserProfile.h"
 #import "User.h"
+#import "ASStarRatingView.h"
 
 
 @interface ProfileViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate,ServiceProtocol,UITextViewDelegate>
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *txtUserPhoneNumber;
 @property (weak, nonatomic) IBOutlet UITextView *txtUserAddress;
 @property (weak, nonatomic) IBOutlet UINavigationItem *profileNavigationItem;
+@property (weak, nonatomic) IBOutlet ASStarRatingView *ratingView;
 
 
 @property (nonatomic) UIImagePickerController *imagePickerController;
@@ -64,6 +66,8 @@
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f]}];
     
+    
+    
     UIBarButtonItem *rightBarButton;
     
     if(self.isProfileShownModally)
@@ -101,9 +105,18 @@
 
 -(void) setUserProfileData
 {
-    self.txtUserName.text = self.userProfileData.firstName;
-    self.txtUserEmail.text = self.userProfileData.lastName;
-    self.txtUserPhoneNumber.text = self.userProfileData.phoneNumber;
+    
+    long userPOints = [[self.userProfileData userPoints] longLongValue];
+    long vendorPoints = [[self.userProfileData vendorPoints] longLongValue];
+    
+    self.txtUserName.text = [self.userProfileData fullname];
+    self.txtUserEmail.text = [self.userProfileData email];
+    self.txtUserPhoneNumber.text = [self.userProfileData phoneNumber];
+    self.txtUserAddress.text = [self.userProfileData address];
+    self.userDescription.text = [self.userProfileData userDescription];
+    self.userPoints.text = [[@(userPOints) stringValue] stringByAppendingString:@"  User Points"] ;
+    self.vendorPoints.text = [[@(vendorPoints) stringValue] stringByAppendingString:@" Vendor Points"] ;
+    
     //self.imgProfile.image = self.userProfileData.profilePicture;
 }
      

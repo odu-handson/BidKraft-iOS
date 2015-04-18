@@ -55,6 +55,9 @@
     self.vendorBidRequest.bidEndDateTime = (NSDate *)[request objectForKey:@"bidEndDateTime"];
     self.vendorBidRequest.jobTitle =[request objectForKey:@"jobTitle"];
     self.vendorBidRequest.tags = (NSMutableArray *)[request objectForKey:@"tags"];
+    self.vendorBidRequest.userName = [request objectForKey:@"requesterUserName"];
+    self.vendorBidRequest.requesterId = [request objectForKey:@"requesterUserId"];
+
 
     self.vendorBidRequest.requestDescription = [request objectForKey:@"description"];
     self.vendorBidRequest.requestStatus = [request objectForKey:@"requestStatus"];
@@ -65,6 +68,7 @@
     self.vendorBidRequest.totalBids =[[request objectForKey:@"totalBids"] integerValue];
     self.vendorBidRequest.requestStartDate = [request objectForKey:@"requestStartDate"];
     self.vendorBidRequest.requestStartFromTime = [request objectForKey:@"requestStartTime"];
+    
     [self saveVendorBid:bidDetails];
     
     return self.vendorBidRequest;
@@ -111,6 +115,10 @@
      self.vendorBidRequest.categoryName =[request objectForKey:@"categoryName"] ;
     self.vendorBidRequest.createdDate = [request objectForKey:@"createdDate"];
     self.vendorBidRequest.requestDescription = [request objectForKey:@"description"];
+    self.vendorBidRequest.userName = [request objectForKey:@"requesterUserName"];
+    self.vendorBidRequest.requesterId = [request objectForKey:@"requesterUserId"];
+
+
     
     self.vendorBidRequest.bidEndDateTime = (NSDate *)[request objectForKey:@"bidEndDateTime"];
     self.vendorBidRequest.jobTitle = [request objectForKey:@"jobTitle"];

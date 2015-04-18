@@ -7,6 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeViewController.h"
+
+@protocol RatingViewProtocal <NSObject>
+
+-(void) showRatingView;
+
+@end
 
 @interface PayListViewController : UIViewController
 
@@ -14,5 +21,9 @@
 @property (nonatomic, strong) NSString *payTo;
 @property (nonatomic, strong) NSString *requestId;
 @property (nonatomic, strong) NSString *bidId;
+@property (nonatomic, strong) NSString *requestIdToBeDeleted;
+
+@property (nonatomic,strong) HomeViewController *homeViewController;
+@property (nonatomic,strong) id<RatingViewProtocal> ratingViewDelegate;
 
 @end

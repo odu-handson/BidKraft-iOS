@@ -40,7 +40,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
- 
+    self.vendorData.vendorRequestMode = VendorBidsOwnMode;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,14 +110,12 @@
         vendorCell.backgroundColor = [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f];
     }
     return vendorCell;
-    return vendorCell;
 }
 
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
  forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    
 
 }
 
@@ -126,7 +125,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     VendorTableViewCell *tableCell = (VendorTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [self.vendorBidsOwnedNavControlDelegate getCellBidsOwnedData:[tableCell getRequestDate] withRequestDesc:[tableCell getRequestDescription] withRequestID:tableCell.requestId onCellData:tableCell];
+    [self.vendorBidsOwnedNavControlDelegate getCellDataPlacedBids:[tableCell getRequestDate] withRequestDesc:tableCell.requestDescription onCellData:tableCell];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

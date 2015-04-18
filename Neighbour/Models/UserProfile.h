@@ -18,10 +18,12 @@
 @property (nonatomic, strong) NSString *middleName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *address;
-
+@property (nonatomic, strong) NSString *fullname;
 @property (nonatomic, strong) NSString *vendorPoints;
 @property (nonatomic, strong) NSString *userPoints;
 @property (nonatomic, strong) NSString *userDescription;
+@property (nonatomic, strong) NSString *userRating;
+
 
 
 
@@ -34,6 +36,8 @@
 - (void)saveLastName:(NSString *)lastName;
 - (void)saveEmail:(NSString *)email;
 - (void)saveAddress:(NSString *)address;
+- (void)saveFullName:(NSString *)fullname;
+- (void)saveUserRating:(NSString *)userRating;
 - (void)saveProfilePicture:(UIImage *) profilePicture;
 
 - (void)saveVendorPoints:(NSString *)vendorPoints;

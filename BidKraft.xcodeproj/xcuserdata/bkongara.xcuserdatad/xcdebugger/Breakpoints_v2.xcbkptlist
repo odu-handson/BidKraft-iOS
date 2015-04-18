@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Neighbour/LoginViewController.m"
-            timestampString = "434936243.935172"
+            timestampString = "450758864.159552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333">
+            startingLineNumber = "336"
+            endingLineNumber = "336">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Neighbour/LoginViewController.m"
-            timestampString = "434936243.935172"
+            timestampString = "450758864.159552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329">
+            startingLineNumber = "332"
+            endingLineNumber = "332">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -38,11 +38,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Neighbour/LoginViewController.m"
-            timestampString = "434936243.935172"
+            timestampString = "450758864.159552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331">
+            startingLineNumber = "334"
+            endingLineNumber = "334">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -52,11 +52,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Neighbour/LoginViewController.m"
-            timestampString = "434936243.935172"
+            timestampString = "450758864.159552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321">
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "@implementation LoginViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Neighbour/LoginViewController.m"
-            timestampString = "434936243.935172"
+            timestampString = "450758864.159552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323">
+            startingLineNumber = "326"
+            endingLineNumber = "326">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -80,11 +82,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Neighbour/LoginViewController.m"
-            timestampString = "434936243.935172"
+            timestampString = "450758864.159552"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325">
+            startingLineNumber = "328"
+            endingLineNumber = "328">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

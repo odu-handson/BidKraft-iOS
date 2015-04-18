@@ -39,9 +39,9 @@
     // [self.labelsArray addObject:@"Home Repairs"];
     // [self.labelsArray addObject:@"House Cleaning"];
     [self.labelsArray addObject:@"Pet Care"];
-    [self.labelsArray addObject:@"TextBook Selling"];
+    [self.labelsArray addObject:@"Sell Books"];
     
-    [self.labelsArray addObject:@"Tutoring"];
+    [self.labelsArray addObject:@"Tutor"];
     
     self.imageNamesArray = [[NSMutableArray alloc] initWithCapacity:5];
     [self.imageNamesArray addObject:@"rigid_baby"];
@@ -64,10 +64,15 @@
     if(!self.imageNamesArray)
         [self mockData];
     
-    NSInteger index = indexPath.section * [(CategoryCollectionViewFlowLayout *)collectionView.collectionViewLayout numberOfItemsPerSection:indexPath.section] + indexPath.item;
+   
+    NSInteger index;
     
-    if(indexPath.section ==1)
-        ++index;
+    if(indexPath.section == 0)
+    
+      index = indexPath.row*(indexPath.section)+ indexPath.row;
+    else
+        index = indexPath.row*(indexPath.section)+ indexPath.row +3;
+    
     
    
     self.categoryImage.image = [UIImage imageNamed:[self.imageNamesArray objectAtIndex:index]];

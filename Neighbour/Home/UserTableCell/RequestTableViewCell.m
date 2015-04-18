@@ -27,7 +27,6 @@
 
 @end
 
-
 @implementation RequestTableViewCell
 
 - (User *)userData
@@ -37,7 +36,6 @@
     
     return _userData;
 }
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -115,7 +113,7 @@
     UserRequests *usrRequest = [self.userRequestsArray objectAtIndex:indexPath.section];
     NSInteger lowestBid = (NSInteger)usrRequest.lowestBid;
     
-        cell.lblLeastBidValue.text = [[@(lowestBid) stringValue] stringByAppendingString:@"$/hr"];
+   
         //NSInteger totalBids = (NSInteger)usrRequest.totalBids;
         //NSString *totalBidsText = @"Total : ";
         //cell.lblTotalBids.text=[totalBidsText stringByAppendingString:[@(totalBids) stringValue]];
@@ -124,8 +122,19 @@
         cell.lblDescription.text = [usrRequest valueForKey:@"requestDescription"];
         //cell.timeSlotBtn1.text = usrRequest.requestStartFromTime;
         //[self getBidAmount:usrRequest];
-        //cell.lblLeastBidValue.text = [self.acceptBidAmount stringByAppendingString:@"$/hr"];
-    
+    if(self.userData.userRequestMode == ActiveMode)
+    {
+         [self getBidAmount:usrRequest];
+        NSString *acceptBid = [self.acceptBidAmount stringByAppendingString:@"/hr"];
+        NSString *dollarString =@"$";
+         cell.lblLeastBidValue.text = [dollarString stringByAppendingString:acceptBid];
+    }
+    else
+    {
+        NSString *acceptBid = [[@(lowestBid) stringValue] stringByAppendingString:@"/hr"];
+        NSString *dollarString =@"$";
+        cell.lblLeastBidValue.text = [dollarString stringByAppendingString:acceptBid];
+    }
 }
 
 -(void) getBidAmount:(UserRequests *) usrRequest
@@ -133,7 +142,6 @@
     self.bidsArray = usrRequest.bidsArray;
     self.acceptBidAmount = [NSString stringWithFormat:@"%@",[self.bidsArray valueForKey:@"bidAmount"][0]];
 }
-
 
 #pragma String utilities
                                       

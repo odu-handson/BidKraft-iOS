@@ -229,6 +229,39 @@
     }
     return _userDescription;
 }
+-(void) saveFullName:(NSString *)fullName
+{
+    [self.defaults setObject:fullName forKey:kNeighbor_user_fullname];
+    self.fullname = fullName;
+}
+
+-(NSString *) fullname
+{
+    if(!_userDescription)
+    {
+        NSString *fullName = [self.defaults stringForKey:kNeighbor_user_fullname];
+        if(_fullname)
+            _fullname = fullName;
+    }
+    return _fullname;
+}
+
+-(void) saveUserRating:(NSString *)userRating
+{
+    [self.defaults setObject:userRating forKey:kNeighbor_user_ratings];
+    self.userRating = userRating;
+}
+
+-(NSString *) userRating
+{
+    if(!_userDescription)
+    {
+        NSString *userRating = [self.defaults stringForKey:kNeighbor_user_ratings];
+        if(_userRating)
+            _userRating = userRating;
+    }
+    return _userRating;
+}
 
 
 

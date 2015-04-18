@@ -208,6 +208,9 @@
     NSString *emailId = [response valueForKey:@"emailId"];
     NSString *userPoints = [response valueForKey:@"userPoints"];
     NSString *vendorPoints = [response valueForKey:@"vendorPoints"];
+    NSString *userName = [response valueForKey:@"name"];
+    
+    [self.userProfileData saveFullName:userName];
     
     [self.userProfileData saveUserPoints:userPoints];
     [self.userProfileData saveVendorPoints:vendorPoints];

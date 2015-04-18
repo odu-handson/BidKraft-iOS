@@ -81,13 +81,13 @@
         [self.tagListView addTags:tags andRearrange:YES];
         
     }
-    else if([self.categoryType isEqualToString:@"Tutoring"])
+    else if([self.categoryType isEqualToString:@"Tutor"])
     {
         NSArray *tags =@[@"Tutoring",@"classes"];
         [self.tagListView addTags:tags andRearrange:YES];
         
     }
-    else if([self.categoryType isEqualToString:@"Books Selling"])
+    else if([self.categoryType isEqualToString:@"Sell Books"])
     {
         NSArray *tags =@[@"Books",@"college"];
         [self.tagListView addTags:tags andRearrange:YES];
@@ -129,6 +129,7 @@
     self.btnRequestedDate.dropDownMode = IQDropDownModeDatePicker;
     self.btnBiddingEnds.dropDownMode = IQDropDownModeDatePicker;
     [self.btnBiddingEnds setBorderStyle:UITextBorderStyleNone];
+    [self.txtRequestEndTime setBorderStyle:UITextBorderStyleNone];
     [self.btnRequestedDate setBorderStyle:UITextBorderStyleNone];
     [self.btnRequestedDate setDatePickerMode:UIDatePickerModeDateAndTime];
     [self.btnBiddingEnds setDatePickerMode:UIDatePickerModeDateAndTime];
@@ -139,7 +140,6 @@
     self.txtRequestEndTime.delegate = self;
     self.btnRequestedDate.delegate  = self;
     self.btnBiddingEnds.delegate = self;
-    
 }
 
 -(void) submitTapped
@@ -155,30 +155,39 @@
 {
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     
-    [parameters setObject:self.categoryId forKey:@"categoryId"];
-    [parameters setObject:self.userData.userId forKey:@"requesterUserId"];
-    [parameters setObject:self.txtDescription.text forKey:@"description"];
-    [parameters setObject:[self makeRequiredDateFormat:self.btnRequestedDate.text] forKey:@"requestStartDate"];
-    [parameters setObject:[self makeRequiredDateFormat:self.txtRequestEndTime.text] forKey:@"requestEndDate"];
-    [parameters setObject:[self makeRequiredDateFormat:self.btnBiddingEnds.text] forKey:@"bidEndDateTime"];
-    [parameters setObject:self.txtJobTitle.text forKey:@"jobTitle"];
-    
-    NSMutableArray *tagList = [self.tagListView tags];
-    NSMutableArray *tagslist = [[NSMutableArray alloc] init];
-    
-    for(int i=0;i<tagList.count;i++)
+    if([self.txtDescription.text  isEqual: @""] || self.btnRequestedDate.text == nil || self.txtRequestEndTime.text == nil || self.btnBiddingEnds.text == nil || [self.btnRequestedDate.text isEqual:@""] || [self.txtRequestEndTime.text isEqual:@""] || [self.btnBiddingEnds.text isEqual:@""] )
     {
-        [tagslist addObject:[(AMTagView *)tagList[i] tagText]];
+        UIAlertView *addTagAlert = [[UIAlertView alloc]initWithTitle:@"Incorrect Fields" message:@"Please enter all field correctly" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+        addTagAlert.tag = 4;
+        [addTagAlert show];
     }
-    [parameters setObject:tagslist forKey:@"tags"];
+    else
+    {
+        
+        [parameters setObject:self.categoryId forKey:@"categoryId"];
+        [parameters setObject:self.userData.userId forKey:@"requesterUserId"];
+        [parameters setObject:self.txtDescription.text forKey:@"description"];
+        [parameters setObject:[self makeRequiredDateFormat:self.btnRequestedDate.text] forKey:@"requestStartDate"];
+        [parameters setObject:[self makeRequiredDateFormat:self.txtRequestEndTime.text] forKey:@"requestEndDate"];
+        [parameters setObject:[self makeRequiredDateFormat:self.btnBiddingEnds.text] forKey:@"bidEndDateTime"];
+        [parameters setObject:self.txtJobTitle.text forKey:@"jobTitle"];
+        
+        NSMutableArray *tagList = [self.tagListView tags];
+        NSMutableArray *tagslist = [[NSMutableArray alloc] init];
+        
+        for(int i=0;i<tagList.count;i++)
+        {
+            [tagslist addObject:[(AMTagView *)tagList[i] tagText]];
+        }
+        [parameters setObject:tagslist forKey:@"tags"];
+    }
+    
     //[self.tagListView tags]
     return parameters;
 }
 
 -(NSString *) makeRequiredDateFormat:(NSString *)oldDateFormat
 {
-    
-    
     
     NSDateFormatter *datesFormatter = [[NSDateFormatter alloc] init];
     
@@ -204,7 +213,6 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    
     if(textField.tag == 1)
     {
         
@@ -217,14 +225,48 @@
         NSDate * currentDate = [NSDate date];
         
         NSDate *formattedDateString = [datesFormatter dateFromString:textField.text];
-        NSComparisonResult result = [currentDate compare:formattedDateString];
+       // NSComparisonResult result = [currentDate compare:formattedDateString];
         
+        NSDate * twoHoursDate = [currentDate dateByAddingHours:2];
         
-        
-        
+        NSComparisonResult resultComparision = [twoHoursDate compare:formattedDateString];
+        if(resultComparision == NSOrderedAscending)
+        {
+           // [textField setText:textField.text];
+            NSDate * requestEndDate = [formattedDateString dateByAddingHours:2];
+            NSString *requestedEndDateString = [datesFormatter stringFromDate:requestEndDate];
+            
+            NSInteger diffDays = [currentDate distanceInDaysToDate:formattedDateString];
+            
+            NSDate *bindingEndDate = [formattedDateString dateByAddingDays:diffDays/2];
+            NSString *bindingEndDateString = [datesFormatter stringFromDate:bindingEndDate];
+            
+            
+            NSDate *dateA;
+            NSDate *dateB;
+            
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDateComponents *components = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
+                                                       fromDate:currentDate
+                                                         toDate:formattedDateString
+                                                        options:0];
+            
+            NSLog(@"Difference in date components: %li/%li/%li", (long)components.day, (long)components.month, (long)components.year);
+            
+            self.btnBiddingEnds.text = bindingEndDateString;
+            self.txtRequestEndTime.text = requestedEndDateString;
+            
+        }
+        else if(resultComparision == NSOrderedDescending)
+        {
+            [textField setText:@""];
+            textField.placeholder =@"Requested Date";
+            UIAlertView *invalidDateAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Date" message:@"Please Select Date More than two hours from now" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+            invalidDateAlert.tag = 4;
+            //invalidDateAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [invalidDateAlert show];
+        }
     }
-    
-    
 }
 
 
@@ -265,6 +307,7 @@
         NSMutableDictionary *userData = [self.responsedata valueForKey:@"data"];
         NSMutableArray *requestsArray = [userData valueForKey:@"requests"];
         [self.userData saveUserOpenRequestsData:requestsArray];
+        self.userData.reloadingAfterPost = YES;
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

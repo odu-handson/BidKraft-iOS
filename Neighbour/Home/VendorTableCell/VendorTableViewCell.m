@@ -159,7 +159,6 @@
     vendorCell.requestId = vendorRequest.requestId;
     vendorCell.requestDescription = vendorRequest.requestDescription;
     vendorCell.timeSlotBtn1.text = vendorRequest.requestDescription;
-    vendorCell.timeSlotBtn1.text = vendorRequest.requestStartFromTime;
     
 }
 

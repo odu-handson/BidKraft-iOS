@@ -29,6 +29,8 @@
 @property (nonatomic,strong) NSString *jobTitle;
 @property (nonatomic,strong) NSMutableArray *tags;
 @property (nonatomic,strong) NSDate *bidEndDateTime;
+@property (nonatomic,strong) NSString *userName;
+@property (nonatomic,strong) NSString *requesterId;
 
 
 @end

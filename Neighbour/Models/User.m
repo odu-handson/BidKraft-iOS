@@ -125,6 +125,8 @@
     self.usrRequest = [[UserRequests alloc]init];
     self.usrRequest.requestCreatedDate = (NSDate *)[request objectForKey:@"createdDate"];
     self.usrRequest.bidEndDateTime = (NSDate *)[request objectForKey:@"bidEndDateTime"];
+    self.usrRequest.acceptedBidId = (NSString *)[request objectForKey:@"acceptedBidId"];
+    self.usrRequest.userName = [request  objectForKey:@"requesterUserName"];
     self.usrRequest.jobTitle = [request objectForKey:@"jobTitle"];
     self.usrRequest.tags = (NSMutableArray *)[request objectForKey:@"tags"];
     self.usrRequest.requestStatus = [request objectForKey:@"requestStatus"];
