@@ -25,6 +25,8 @@
 #define kDeleteBid @"bid/delete"
 #define kUpdateProfile @"user/profile/update"
 #define kUpdatePreferences @"user/setting/update"
+#define kGetUserProfile @"user/get"
+
 
 
 

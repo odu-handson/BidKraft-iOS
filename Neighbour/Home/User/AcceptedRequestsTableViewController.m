@@ -13,6 +13,7 @@
 #import "ServiceURLProvider.h"
 #import "RequestDetailViewController.h"
 #import "PayListViewController.h"
+#import "ResultsSearchTableViewController.h"
 
 @interface AcceptedRequestsTableViewController () <ServiceProtocol>
 
@@ -25,6 +26,8 @@
 @property (nonatomic,strong) RequestDetailViewController *requestDetailController;
 @property (nonatomic,strong) UserRequests *usrRequest;
 @property (nonatomic,strong) NSString *bidId;
+@property (nonatomic, strong) ResultsSearchTableViewController *resultsSearchTableViewController;
+
 
 @property (strong, nonatomic) IBOutlet UIView *ratingView;
 @property (weak, nonatomic) IBOutlet UITextView *commentsForVendor;
@@ -33,11 +36,6 @@
 
 @implementation AcceptedRequestsTableViewController
 
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    [self setDelagatesAndDataSources];
-}
 
 - (User *)userData
 {
@@ -47,14 +45,17 @@
     return _userData;
 }
 
--(void) viewDidLoad
+-(void)awakeFromNib
 {
-    self.userData.userRequestMode = ActiveMode;
-    
+    [super awakeFromNib];
+    [self setDelagatesAndDataSources];
+    self.userData.userRequestMode = OpenMode;
 }
+
 -(void) viewWillAppear:(BOOL)animated
 {
     self.userRequests = self.userData.userAcceptedRequests;
+    self.userData.userRequestMode = ActiveMode;
 }
 
 -(void)setDelagatesAndDataSources
@@ -352,6 +353,12 @@
     [parameters setValue:[NSNumber numberWithInteger:self.requestIdToBeDeleted] forKey:@"requestId"];
     [parameters setValue:[self.userData userId] forKey:@"userId"];
     return parameters;
+}
+
+#pragma mark - UISearchResultsUpdating
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    
 }
 
 

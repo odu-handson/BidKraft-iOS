@@ -26,7 +26,7 @@
 #import "VendorViewController.h"
 
 
-@interface HomeViewController ()<UINavigationControllerDelegate,ServiceProtocol,MBProgressHUDDelegate>
+@interface HomeViewController ()<UINavigationControllerDelegate,ServiceProtocol,MBProgressHUDDelegate,UISearchBarDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView *bottomControlsView;
 @property (nonatomic, weak) IBOutlet UIButton *btnProfile;
@@ -109,10 +109,12 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
      setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f]}];
     [self createNavigationItems];
     self.definesPresentationContext = true;
-    [self initialTableViewLoad];
+    
     [self setUpSegmentedControls];
-    //[self prepareSearchBarAndSetDelegate];
-    //[self hideSearchBar];
+     self.resultsSearchTableViewController = [[ResultsSearchTableViewController alloc] init];
+    [self initializeAllRequestControllers];
+    [self initialTableViewLoad];
+    
 
 }
 -(void) viewWillAppear:(BOOL)animated
@@ -128,6 +130,17 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
         [self.acceptRequestsTableViewController.tableView reloadData];
         self.userData.reloadingAfterPayments = NO;
     }
+}
+
+-(void) initializeAllRequestControllers
+{
+    self.storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+    self.openRequestsTableViewController = (OpenRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"OpenRequestsTableViewController"];
+    self.openRequestsTableViewController.homeViewController = self;
+    self.acceptRequestsTableViewController = (AcceptedRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"AcceptedRequestsTableViewController"];
+    self.acceptRequestsTableViewController.homeViewController = self;
+    self.completedRequestsTableViewController = (CompletedRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"CompletedRequestsTableViewController"];
+    self.completedRequestsTableViewController.homeViewController = self;
 }
 
 -(void) setUpSegmentedControls
@@ -151,13 +164,13 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
 
 -(void) prepareSearchBarAndSetDelegate
 {
-    self.resultsSearchTableViewController = [[ResultsSearchTableViewController alloc] init];
+   
     self.searchController =[[UISearchController alloc] initWithSearchResultsController:self.resultsSearchTableViewController];
     self.searchController.searchResultsUpdater = self.resultsSearchTableViewController;
     [self.searchController.searchBar sizeToFit];
     self.openRequestsTableViewController.tableView.tableHeaderView =self.searchController.searchBar;
     self.searchController.hidesNavigationBarDuringPresentation = NO;
-    [self.searchController.searchBar becomeFirstResponder];
+    //[self.searchController.searchBar becomeFirstResponder];
     
 }
 
@@ -209,22 +222,16 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     [button addTarget:self action:@selector(showVendorButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:236.0f/255.0f green:240.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
-    //UIBarButtonItem *aButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"user_icon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showVendorButtonTapped)];
-        //self.navigationController.navigationItem.rightBarButtonItem.enabled = YES;
-        [self.navigationItem setRightBarButtonItem:barButtonItem];
-        self.navigationController.delegate = self;
-        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
-        [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-      self.definesPresentationContext = YES;
+    [self.navigationItem setRightBarButtonItem:barButtonItem];
+    self.navigationController.delegate = self;
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.definesPresentationContext = YES;
 }
-
 
 -(void)initialTableViewLoad
 {
-    self.storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    self.openRequestsTableViewController = (OpenRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"OpenRequestsTableViewController"];
-    self.openRequestsTableViewController.homeViewController = self;
-    //self.openRequestsTableViewController.searchController.delegate=self.openRequestsTableViewController;
+    
     [self.containerView addSubview:self.openRequestsTableViewController.tableView];
     [self.view bringSubviewToFront:self.openRequestsTableViewController.tableView];
     self.requestorIndex = 0;
@@ -232,15 +239,13 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
 
 -(void)loadAcceptedTableView
 {
-    self.acceptRequestsTableViewController = (AcceptedRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"AcceptedRequestsTableViewController"];
-    self.acceptRequestsTableViewController.homeViewController = self;
+   
    [self.containerView addSubview:self.acceptRequestsTableViewController.tableView];
     
 }
 -(void)loadCompletedRequestsTableView
 {
-    self.completedRequestsTableViewController = (CompletedRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"CompletedRequestsTableViewController"];
-    self.completedRequestsTableViewController.homeViewController = self;
+    
     [self.containerView addSubview:self.completedRequestsTableViewController.tableView];
 }
 
@@ -354,6 +359,15 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
 
     }
 }
+
+- (IBAction)searchClicked:(UIBarButtonItem *)sender {
+   
+    self.searchController =[[UISearchController alloc] initWithSearchResultsController:self.resultsSearchTableViewController];
+    self.searchController.searchResultsUpdater = self.resultsSearchTableViewController;
+    self.searchController.hidesNavigationBarDuringPresentation = YES;
+    [self presentViewController:self.searchController animated:YES completion:nil];
+}
+
 
 -(void) showVendorButtonTapped
 {

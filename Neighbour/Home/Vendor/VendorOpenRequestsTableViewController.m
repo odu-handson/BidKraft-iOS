@@ -53,6 +53,10 @@
 {
     [super didReceiveMemoryWarning];
 }
+-(void) viewWillAppear:(BOOL)animated
+{
+    [self.tableView reloadData];
+}
 
 -(void) getVendorData
 {
@@ -91,6 +95,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.tableView.backgroundView = nil;
     static NSString* cellIdentifier;
     cellIdentifier = @"VendorTableViewCell";
     return [self prepareVendorTableForOpenRequests:tableView withIdentifier:cellIdentifier atIndexPath:indexPath];
@@ -124,10 +129,10 @@
     return vendorCell;
 }
 
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
+//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return UITableViewCellEditingStyleDelete;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -136,12 +141,12 @@
     
 }
 
-
-- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
- forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
+//
+//- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+// forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -152,23 +157,23 @@
     return 8.0;
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *returnValue;
-    [self prepareDataObjects];
-    
-    UITableViewRowAction *cancelAction;
-    
-    cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
-                                                      title:@"Delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
-                                                          [self performDelete:indexPath onTableView:tableView];
-                                                      }];
-    cancelAction.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:2.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
-    
-    returnValue = @[cancelAction];
-    
-    return returnValue;
-}
+//- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSArray *returnValue;
+//    [self prepareDataObjects];
+//    
+//    UITableViewRowAction *cancelAction;
+//    
+//    cancelAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal
+//                                                      title:@"Delete" handler:^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+//                                                          [self performDelete:indexPath onTableView:tableView];
+//                                                      }];
+//    cancelAction.backgroundColor = [UIColor colorWithRed:251.0f/255.0f green:2.0f/255.0f blue:22.0f/255.0f alpha:1.0f];
+//    
+//    //returnValue = @[cancelAction];
+//    
+//    return returnValue;
+//}
 
 -(void)prepareDataObjects
 {

@@ -104,6 +104,8 @@
             self.requestArray = self.vendorData.vendorOpenRequests;
         else if(self.vendorData.vendorRequestMode == VendorPlacedBidsMode)
             self.requestArray = self.vendorData.vendorBids;
+        else if(self.vendorData.vendorRequestMode == VendorBidsOwnMode)
+              self.requestArray = self.vendorData.vendorOwnBids;
     
     for(int i=0;i<self.requestArray.count;i++)
     {
@@ -121,8 +123,12 @@
     self.requesterId = self.vendorRequest.requesterId;
         //self.lblJobTitle.text = self.vendorRequest.jobTitle;
     self.lblRequestedDate.text =[self getDateStringFromNSDate:(NSDate *)self.vendorRequest.requestStartDate];
-    self.lblLowestBidAmount.text = [[@(self.vendorRequest.leastBidAmount) stringValue] stringByAppendingString:@"$/hr"];
-    [self timeLeftForBiding];
+    
+    NSString *lowestBid = [[@(self.vendorRequest.leastBidAmount) stringValue] stringByAppendingString:@"/hr"];
+    NSString *dollarString =@"$";
+    self.lblLowestBidAmount.text = [dollarString stringByAppendingString:lowestBid];
+    
+       [self timeLeftForBiding];
     
 }
 -(void) timeLeftForBiding
@@ -137,6 +143,10 @@
     double secondsInAnHour = 3600;
     NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
     
+    
+    if(self.vendorData.vendorRequestMode == VendorBidsOwnMode)
+        self.lblTimeLeft.text = @"Request Ended";
+
     if(hoursBetweenDates <0)
     {
         self.lblTimeLeft.text = @"Binding Ended";
@@ -153,7 +163,7 @@
     NSDate *newDate = [[NSDate alloc] init];
     newDate = [df dateFromString:(NSString *)requestDate];
     NSDateFormatter *requiredFormat = [[NSDateFormatter alloc]init];
-    [requiredFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [requiredFormat setDateFormat:@"MM/dd/yyy HH:mm:ss"];
     NSString * requiredStringFormat = [ requiredFormat stringFromDate:newDate];
     return requiredStringFormat;
 }
@@ -228,7 +238,9 @@
         self.manager = [ServiceManager defaultManager];
         self.manager.serviceDelegate = self;
         NSMutableDictionary *parameters = [self prepareParmeters];
-        [self.manager serviceCallWithURL:@"http://rikers.cs.odu.edu:8080/bidding/bid/create" andParameters:parameters];
+        NSString *url = [ServiceURLProvider getURLForServiceWithKey:kCreateBid];
+
+        [self.manager serviceCallWithURL:url andParameters:parameters];
     }
     else
     {
@@ -247,7 +259,8 @@
     self.manager = [ServiceManager defaultManager];
     self.manager.serviceDelegate = self;
     NSMutableDictionary *parameters = [self prepareParmeters:self.requesterId];
-    [self.manager serviceCallWithURL:@"http://rikers.cs.odu.edu:8080/bidding/user/get" andParameters:parameters];
+    NSString *url = [ServiceURLProvider getURLForServiceWithKey:kGetUserProfile];
+    [self.manager serviceCallWithURL:url andParameters:parameters];
     
 }
 

@@ -131,7 +131,10 @@
     self.txtRequestDescriptioin.text = self.usrRequest.requestDescription;
     self.lblRequestStartDate.text =[self getDateStringFromNSDate:(NSDate *)self.usrRequest.requestStartDate];
     self.lblJobTitle.text = self.usrRequest.jobTitle;
-    self.lblLowestBid.text = [[@(self.usrRequest.lowestBid) stringValue] stringByAppendingString:@"$/hr"];
+    
+    NSString *lowestBid = [[@(self.usrRequest.lowestBid) stringValue] stringByAppendingString:@"/hr"];
+    NSString *dollarString =@"$";
+    self.lblLowestBid.text = [dollarString stringByAppendingString:lowestBid];
     [self timeLeftForBiding];
 }
 
@@ -150,7 +153,9 @@
     if(hoursBetweenDates <0)
        self.lblTimeLeft.text = @"Bidding Ended";
     else
-        self.lblTimeLeft.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@"hrs"];
+        self.lblTimeLeft.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@"  hrs"];
+    if(self.userData.userRequestMode == CompletedMode)
+        self.lblTimeLeft.text = @"Request Ended";
 }
 
 
@@ -161,7 +166,7 @@
     NSDate *newDate = [[NSDate alloc] init];
     newDate = [df dateFromString:(NSString *)requestDate];
     NSDateFormatter *requiredFormat = [[NSDateFormatter alloc]init];
-    [requiredFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [requiredFormat setDateFormat:@"MM/dd/yyy HH:mm:ss"];
     NSString * requiredStringFormat = [ requiredFormat stringFromDate:newDate];
     return requiredStringFormat;
 }

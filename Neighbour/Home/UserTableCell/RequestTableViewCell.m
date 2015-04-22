@@ -122,9 +122,9 @@
         cell.lblDescription.text = [usrRequest valueForKey:@"requestDescription"];
         //cell.timeSlotBtn1.text = usrRequest.requestStartFromTime;
         //[self getBidAmount:usrRequest];
-    if(self.userData.userRequestMode == ActiveMode)
+    if(self.userData.userRequestMode == ActiveMode || self.userData.userRequestMode == CompletedMode)
     {
-         [self getBidAmount:usrRequest];
+        [self getBidAmount:usrRequest];
         NSString *acceptBid = [self.acceptBidAmount stringByAppendingString:@"/hr"];
         NSString *dollarString =@"$";
          cell.lblLeastBidValue.text = [dollarString stringByAppendingString:acceptBid];

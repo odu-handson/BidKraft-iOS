@@ -104,7 +104,9 @@
     
     VendorBidRequest *usrRequest = [self.userRequestsArray objectAtIndex:indexPath.section];
     NSInteger lowestBid = (NSInteger)usrRequest.leastBidAmount;
-    cell.lblLeastBidValue.text = [[@(lowestBid) stringValue] stringByAppendingString:@"$"];
+    NSString *reformatBid = [[@(lowestBid) stringValue] stringByAppendingString:@"/hr"];
+    NSString *dollarString =@"$";
+    cell.lblLeastBidValue.text = [dollarString stringByAppendingString:reformatBid];
     NSInteger totalBids = (NSInteger)usrRequest.totalBids;
     NSString *totalBidsText = @"Total:";
     cell.lblTotalBids.text=[totalBidsText stringByAppendingString:[@(totalBids) stringValue]];
@@ -116,7 +118,9 @@
     if(self.vendorData.vendorRequestMode == VendorBidsOwnMode)
     {
         [self getBidAmount:usrRequest];
-        cell.lblLeastBidValue.text = [self.bidAmount stringByAppendingString:@"$/hr"];
+        NSString *reformatBid = [self.bidAmount stringByAppendingString:@"/hr"];
+        NSString *dollarString =@"$";
+        cell.lblLeastBidValue.text = [dollarString stringByAppendingString:reformatBid];
     }
 }
 
@@ -149,7 +153,10 @@
     //NSInteger index = (indexPath.section * vendorRequests.count)+ indexPath.section;
     VendorBidRequest *vendorRequest = [vendorRequests objectAtIndex:indexPath.section];
     NSInteger lowestBid = (NSInteger)vendorRequest.leastBidAmount;
-    vendorCell.lblLeastBidValue.text = [[@(lowestBid) stringValue] stringByAppendingString:@"$"];
+    
+    NSString *reformatBid = [[@(lowestBid) stringValue] stringByAppendingString:@"/hr"];
+    NSString *dollarString =@"$";
+    vendorCell.lblLeastBidValue.text = [dollarString stringByAppendingString:reformatBid];
     NSInteger totalBids = (NSInteger)vendorRequest.totalBids;
     NSString *totalBidsText = @"Total:";
     vendorCell.lblTotalBids.text=[totalBidsText stringByAppendingString:[@(totalBids) stringValue]];

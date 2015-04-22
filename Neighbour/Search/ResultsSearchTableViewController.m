@@ -35,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self prepareDataObjects];
     [self.tableView registerNib:[UINib nibWithNibName:@"TableCell" bundle:nil] forCellReuseIdentifier:@"RequestCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"VendorTableCell" bundle:nil] forCellReuseIdentifier:@"VendorTableViewCell"];
 }
@@ -86,14 +86,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.userRequests.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    [self prepareDataObjects];
-    return self.userRequests.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -155,15 +154,26 @@
     NSMutableArray *searchItemsPredicate = [NSMutableArray array];
     
     NSMutableArray *andMatchPredicates = [NSMutableArray array];
-    NSExpression *lhs = [NSExpression expressionForKeyPath:@"categoryName"];
-    NSExpression *rhs = [NSExpression expressionForConstantValue:searchText];
+    NSExpression *lhsCategory = [NSExpression expressionForKeyPath:@"categoryName"];
+    NSExpression *rhsCategory  = [NSExpression expressionForConstantValue:searchText];
     NSPredicate *finalPredicate = [NSComparisonPredicate
-                                   predicateWithLeftExpression:lhs
-                                   rightExpression:rhs
+                                   predicateWithLeftExpression:lhsCategory
+                                   rightExpression:rhsCategory
                                    modifier:NSDirectPredicateModifier
                                    type:NSContainsPredicateOperatorType
                                    options:NSCaseInsensitivePredicateOption];
+    
+    NSExpression *lhsTags = [NSExpression expressionForKeyPath:@"tags"];
+    NSExpression *rhsTags = [NSExpression expressionForConstantValue:searchText];
+    NSPredicate *finalPredicateTags = [NSComparisonPredicate
+                                   predicateWithLeftExpression:lhsTags
+                                   rightExpression:rhsTags
+                                   modifier:NSDirectPredicateModifier
+                                   type:NSContainsPredicateOperatorType
+                                   options:NSCaseInsensitivePredicateOption];
+    
     [searchItemsPredicate addObject:finalPredicate];
+    [searchItemsPredicate addObject:finalPredicateTags];
     
     NSCompoundPredicate *orMatchPredicates = (NSCompoundPredicate *)[NSCompoundPredicate orPredicateWithSubpredicates:searchItemsPredicate];
     [andMatchPredicates addObject:orMatchPredicates];
@@ -174,33 +184,25 @@
     finalCompoundPredicate =
     (NSCompoundPredicate *)[NSCompoundPredicate andPredicateWithSubpredicates:andMatchPredicates];
     
-    
-    //NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"categoryName == %@",searchText];
-    
-    
     if([searchText isEqualToString:@""])
     {
         
     }
     else
     {
-        
-        
         self.searchResults = [[self.userRequests  filteredArrayUsingPredicate:finalCompoundPredicate] mutableCopy];
+        self.userRequests= [self.searchResults mutableCopy];
         
-        if(self.userData.userRequestMode == OpenMode)
-            self.userData.userOpenRequests =  [self.searchResults mutableCopy];
-        else if(self.userData.userRequestMode == ActiveMode)
-            self.userData.userAcceptedRequests =  [self.searchResults mutableCopy];
-        else if(self.userData.userRequestMode == CompletedMode)
-            self.userData.userCompletedRequests =  [self.searchResults mutableCopy];
-        
+//        if(self.userData.userRequestMode == OpenMode)
+//            self.userData.userOpenRequests =  [self.searchResults mutableCopy];
+//        else if(self.userData.userRequestMode == ActiveMode)
+//            self.userData.userAcceptedRequests =  [self.searchResults mutableCopy];
+//        else if(self.userData.userRequestMode == CompletedMode)
+//            self.userData.userCompletedRequests =  [self.searchResults mutableCopy];
       
         [self.tableView reloadData];
-        
     }
 }
-
 
 #pragma mark - ServiceProtocol Methods
 

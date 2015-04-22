@@ -17,5 +17,7 @@
 
 @property (nonatomic , strong) HomeViewController *homeViewController;
 @property (nonatomic , weak) UIView *userHeaderView;
+@property (nonatomic, strong) UISearchController *searchController;
+
 
 @end

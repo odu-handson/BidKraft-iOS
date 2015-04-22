@@ -103,6 +103,7 @@
 		DA4F36E719C53FCD001CF539 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F36E319C53FCD001CF539 /* star@2x.png */; };
 		DA4F36E819C53FCD001CF539 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = DA4F36E419C53FCD001CF539 /* star.png */; };
 		DA65BBFC1AD8692D008F37C5 /* CustomerCareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA65BBFB1AD8692D008F37C5 /* CustomerCareViewController.m */; };
+		DA79874B1AE7E17D0057DD09 /* accept.png in Resources */ = {isa = PBXBuildFile; fileRef = DA79874A1AE7E17D0057DD09 /* accept.png */; };
 		DA8DD6A119EC9B3D0061185B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8DD6A019EC9B3D0061185B /* CoreLocation.framework */; };
 		DAC1A13F1ADB3BA50053820B /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC1A13E1ADB3BA50053820B /* settings.png */; };
 		DAC1A1411ADB3CF90053820B /* createrequest.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC1A1401ADB3CF90053820B /* createrequest.png */; };
@@ -307,6 +308,7 @@
 		DA4F36E419C53FCD001CF539 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		DA65BBFA1AD8692D008F37C5 /* CustomerCareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerCareViewController.h; sourceTree = "<group>"; };
 		DA65BBFB1AD8692D008F37C5 /* CustomerCareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerCareViewController.m; sourceTree = "<group>"; };
+		DA79874A1AE7E17D0057DD09 /* accept.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = accept.png; path = Images/accept.png; sourceTree = "<group>"; };
 		DA8DD6A019EC9B3D0061185B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DAC1A13E1ADB3BA50053820B /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = Images/settings.png; sourceTree = "<group>"; };
 		DAC1A1401ADB3CF90053820B /* createrequest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = createrequest.png; path = Images/createrequest.png; sourceTree = "<group>"; };
@@ -890,6 +892,7 @@
 		DAFC783E19B0C38900C66A14 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				DA79874A1AE7E17D0057DD09 /* accept.png */,
 				DAC1A1401ADB3CF90053820B /* createrequest.png */,
 				DAC1A13E1ADB3BA50053820B /* settings.png */,
 				DA0C3A8B1AC9C291000BB30E /* up_arrow.png */,
@@ -1018,6 +1021,7 @@
 				DAFC782119B00B8700C66A14 /* Images.xcassets in Resources */,
 				DA4F36E719C53FCD001CF539 /* star@2x.png in Resources */,
 				CA6C6C0B1A126D670075C43E /* not_selected_star.png in Resources */,
+				DA79874B1AE7E17D0057DD09 /* accept.png in Resources */,
 				CA6C6C061A126CBE0075C43E /* half_selected_star@2x.png in Resources */,
 				CAC136631A2457210041BFFD /* VendorTableCell.xib in Resources */,
 				CA6C6C071A126CBE0075C43E /* selected_star.png in Resources */,
@@ -1086,7 +1090,7 @@
 		};
 		DA0C3A941AD32E5A000BB30E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1306,7 +1310,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Neighbour/BidKraft-Prefix.pch";
 				INFOPLIST_FILE = "Neighbour/BidKraft-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1349,7 +1353,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Neighbour/BidKraft-Prefix.pch";
 				INFOPLIST_FILE = "Neighbour/BidKraft-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

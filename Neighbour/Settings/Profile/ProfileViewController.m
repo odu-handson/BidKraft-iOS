@@ -114,8 +114,9 @@
     self.txtUserPhoneNumber.text = [self.userProfileData phoneNumber];
     self.txtUserAddress.text = [self.userProfileData address];
     self.userDescription.text = [self.userProfileData userDescription];
-    self.userPoints.text = [[@(userPOints) stringValue] stringByAppendingString:@"  User Points"] ;
-    self.vendorPoints.text = [[@(vendorPoints) stringValue] stringByAppendingString:@" Vendor Points"] ;
+    self.userPoints.text = [[@(userPOints) stringValue] stringByAppendingString:@"  User Points"];
+    self.vendorPoints.text = [[@(vendorPoints) stringValue] stringByAppendingString:@" Vendor Points"];
+    self.ratingView.rating = [self.userProfileData.userRating floatValue];
     
     //self.imgProfile.image = self.userProfileData.profilePicture;
 }
@@ -184,7 +185,7 @@
 {
     CLGeocoder  *geocoder = [[CLGeocoder alloc] init];
     //NSMutableDictionary *parametersList =[[NSMutableDictionary alloc]init];
-    [geocoder geocodeAddressString:self.address.text
+    [geocoder geocodeAddressString:self.txtUserAddress.text
                  completionHandler:^(NSArray* placemarks, NSError* error){
                      for (CLPlacemark* aPlacemark in placemarks)
                      {
@@ -195,7 +196,7 @@
                          self.longitude = [[NSString alloc ]initWithFormat:@"%f",coordinate.longitude];
                          self.manager = [ServiceManager defaultManager];
                          self.manager.serviceDelegate = self;
-                         NSMutableDictionary *parameters = [self prepareParametersForProfile];
+                         NSMutableDictionary *parameters = [self prepareParameters];
                          url = [ServiceURLProvider getURLForServiceWithKey:kUpdateProfile];
                          [self.manager serviceCallWithURL:url andParameters:parameters];
                          
@@ -214,7 +215,36 @@
 }
 -(void) submitTapped :(UIBarButtonItem *) button
 {
+   
+    
+    [self convertAddressToLatLong];
+    
     //[self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+-(NSMutableDictionary *) prepareParameters
+{
+    
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setValue:self.userData.userId forKey:@"userId"];
+    [parameters setValue:self.txtUserName.text forKey:@"name"];
+    [parameters setValue:self.txtUserPhoneNumber.text forKey:@"cellPhone"];
+    [parameters setValue:self.txtUserEmail.text forKey:@"emailId"];
+    
+    NSMutableDictionary *homeAddress = [[NSMutableDictionary alloc] init];
+    [homeAddress setValue:[self.userData userAddressId]   forKey:@"userAddressId"];
+    [homeAddress setValue:self.lattitude forKey:@"latitude"];
+    [homeAddress setValue:self.longitude forKey:@"longitude"];
+    [homeAddress setValue:self.txtUserAddress.text forKey:@"address"];
+    
+    NSMutableDictionary *addressDictionary = [[NSMutableDictionary alloc] init];
+    [addressDictionary setValue:homeAddress forKey:@"homeAddress"];
+    
+    [parameters setValue:addressDictionary forKey:@"addresses"];
+    
+    return parameters;
     
 }
 -(void) closeTapped :(UIBarButtonItem *) button
@@ -260,6 +290,7 @@
                                                            delegate:nil
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil, nil];
+        [alertView show];
         
     }
     else

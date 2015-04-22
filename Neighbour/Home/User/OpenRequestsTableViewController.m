@@ -41,49 +41,14 @@
 -(void)awakeFromNib
 {
      [super awakeFromNib];
-    [self prepareSearchBarAndSetDelegate];
      self.userData.userRequestMode = OpenMode;
-    [self hideSearchBar];
-    if (self.searchControllerWasActive) {
-        self.searchController.active = self.searchControllerWasActive;
-        _searchControllerWasActive = NO;
-        
-        if (self.searchControllerSearchFieldWasFirstResponder) {
-            [self.searchController.searchBar becomeFirstResponder];
-            _searchControllerSearchFieldWasFirstResponder = NO;
-        }
-    }
-    
 }
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar*)searchBar
+-(void) viewWillAppear:(BOOL)animated
 {
-    return NO;
-}
-- (void)presentSearchController:(UISearchController *)searchController
-{
-    
+    self.userData.userRequestMode = OpenMode;
 }
 
--(void) hideSearchBar
-{
-    CGFloat yOffset = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGPoint point = CGPointMake(0, self.searchController.searchBar.frame.size.height + yOffset);
-    self.tableView.contentOffset = point;
-}
-
--(void) prepareSearchBarAndSetDelegate
-{
-    self.resultsSearchTableViewController = [[ResultsSearchTableViewController alloc] init];
-    self.searchController =[[UISearchController alloc] initWithSearchResultsController:self.resultsSearchTableViewController];
-    self.searchController.searchResultsUpdater = self;
-    //self.searchController.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    [self.searchController.searchBar sizeToFit];
-    self.tableView.tableHeaderView =self.searchController.searchBar;
-    
-    self.tableView.tableHeaderView.userInteractionEnabled = YES;
-}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
@@ -113,6 +78,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.tableView.backgroundView = nil;
     static NSString* cellIdentifier;
     cellIdentifier = @"RequestCell";
      return [self prepareUserRequestsCell:self.tableView WithIdentifier:cellIdentifier atIndexPath:indexPath];
@@ -239,7 +205,7 @@
     if([status isEqualToString:@"success"])
     {
         
-        [self.tableView reloadData];
+        
         //[self.tableView deleteRowsAtIndexPaths:@[self.indexPath]
                             //withRowAnimation:UITableViewRowAnimationLeft];
         NSDictionary *data = [response valueForKey:@"data"];
@@ -249,6 +215,7 @@
             [self.userData saveUserAcceptedRequestsData:acceptedRequests];
         if(openRequests)
             [self.userData saveUserOpenRequestsData:openRequests];
+        [self.tableView reloadData];
        
        
     }
@@ -270,6 +237,8 @@
 {
     NSLog(@"%@",error.description);
 }
+
+#pragma mark - UISearchResultsUpdating
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     

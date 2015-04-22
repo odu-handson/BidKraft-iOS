@@ -4,7 +4,7 @@
 
 @protocol VendorBidsOwnedProtocol <NSObject>
 
--(void)getCellDataPlacedBids:(NSString *)requestDate withRequestDesc:(NSString *)requestDescription onCellData:(VendorTableViewCell *) cell;
+ -(void)getCellBidsOwnedData:(NSString *)requestDate withRequestDesc:(NSString *)requestDescription onCellData:(VendorTableViewCell *) cell;
 
 @end
 

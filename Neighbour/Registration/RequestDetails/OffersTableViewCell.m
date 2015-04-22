@@ -93,7 +93,7 @@
     NSTimeInterval distanceBetweenDates = [date2 timeIntervalSinceDate:date1];
     double secondsInAnHour = 3600;
     NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
-    self.lblTimeAgo.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@"hrs ago"];
+    self.lblTimeAgo.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@" hrs ago"];
 }
 
 - (IBAction)userNameTapped:(id)sender
@@ -104,7 +104,8 @@
     self.manager = [ServiceManager defaultManager];
     self.manager.serviceDelegate = self;
     NSMutableDictionary *parameters = [self prepareParmeters:cell.bidOffererId];
-    [self.manager serviceCallWithURL:@"http://rikers.cs.odu.edu:8080/bidding/user/get" andParameters:parameters];
+    NSString *url = [ServiceURLProvider getURLForServiceWithKey:kGetUserProfile];
+    [self.manager serviceCallWithURL:url andParameters:parameters];
     
 }
 

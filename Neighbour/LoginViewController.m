@@ -209,6 +209,7 @@
     NSString *userPoints = [response valueForKey:@"userPoints"];
     NSString *vendorPoints = [response valueForKey:@"vendorPoints"];
     NSString *userName = [response valueForKey:@"name"];
+    NSString *rating = [response valueForKey:@"rating"];
     
     [self.userProfileData saveFullName:userName];
     
@@ -217,7 +218,7 @@
     [self.userProfileData savePhoneNumber:cellPhone];
     [self.userProfileData saveEmail:emailId];
     [self.userProfileData saveUserDescription:description];
-    
+    [self.userProfileData saveUserRating:rating];    
   
 }
 -(void)savePreferences:(NSDictionary *) responseDetails

@@ -112,12 +112,12 @@
     return vendorCell;
 }
 
-- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
- forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-
-}
+//- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+// forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//
+//}
 
 
 #pragma TableView Delegates
@@ -125,7 +125,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     VendorTableViewCell *tableCell = (VendorTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [self.vendorBidsOwnedNavControlDelegate getCellDataPlacedBids:[tableCell getRequestDate] withRequestDesc:tableCell.requestDescription onCellData:tableCell];
+    [self.vendorBidsOwnedNavControlDelegate getCellBidsOwnedData:[tableCell getRequestDate] withRequestDesc:tableCell.requestDescription onCellData:tableCell];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

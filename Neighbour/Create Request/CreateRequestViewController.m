@@ -147,7 +147,9 @@
     self.manager = [ServiceManager defaultManager];
     self.manager.serviceDelegate = self;
     NSMutableDictionary *parameters = [self prepareParmeters];
-    [self.manager serviceCallWithURL:@"http://rikers.cs.odu.edu:8080/bidding/request/create" andParameters:parameters];
+    NSString *url = [ServiceURLProvider getURLForServiceWithKey:kCreateRequestKey];
+
+    [self.manager serviceCallWithURL:url andParameters:parameters];
     
 }
 
@@ -174,7 +176,6 @@
         
         NSMutableArray *tagList = [self.tagListView tags];
         NSMutableArray *tagslist = [[NSMutableArray alloc] init];
-        
         for(int i=0;i<tagList.count;i++)
         {
             [tagslist addObject:[(AMTagView *)tagList[i] tagText]];

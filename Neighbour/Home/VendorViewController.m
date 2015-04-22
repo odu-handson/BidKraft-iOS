@@ -85,14 +85,11 @@
     {
         [self.vendorOpenRequestsTableViewController.tableView reloadData];
     }
-            
-            
     [self prepareNavBar];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void) setUpSegmentedControls
@@ -118,25 +115,14 @@
 
 -(void) prepareSearchBarAndSetDelegate
 {
-     //self.navigationItem.titleView = nil;
     self.searchTableViewController = [[VendorSearchTableViewController alloc] init];
-   
-//    self.searchController =[[UISearchController alloc] initWithSearchResultsController: self.searchTableViewController];
-//    self.searchController.searchResultsUpdater = self.searchTableViewController;
-//    [self.searchController.searchBar sizeToFit];
-//    self.navigationItem.titleView = self.searchController.searchBar;
-//    self.searchController.hidesNavigationBarDuringPresentation = NO;
-//    self.searchController.dimsBackgroundDuringPresentation = NO;
-    
+  
 }
 
 
 -(void) createNavigationItems
 {
-    
-//    UIBarButtonItem *aButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"vendor_icon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(buttonTapped)];
-//   self.navigationController.navigationItem.rightBarButtonItem.enabled = YES;
-//    [self.navigationItem setRightBarButtonItem:aButton];
+
     UIImage *image = [UIImage imageNamed:@"vendor_icon.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.bounds = CGRectMake( 0, 0, image.size.width, image.size.height );
@@ -144,11 +130,9 @@
     [button addTarget:self action:@selector(buttonTapped) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:236.0f/255.0f green:240.0f/255.0f blue:241.0f/255.0f alpha:1.0f];
-    //UIBarButtonItem *aButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"user_icon.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showVendorButtonTapped)];
-    //self.navigationController.navigationItem.rightBarButtonItem.enabled = YES;
+   
     [self.navigationItem setRightBarButtonItem:barButtonItem];
     
-    //self.navigationController.delegate = self;
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
     self.definesPresentationContext = YES;
@@ -258,6 +242,13 @@
     [self getVendorPlacedBids];
 }
 
+- (IBAction)serachTapped:(UIBarButtonItem *)sender
+{
+    self.searchController =[[UISearchController alloc] initWithSearchResultsController:self.searchTableViewController];
+    self.searchController.searchResultsUpdater = self.searchTableViewController;
+    self.searchController.hidesNavigationBarDuringPresentation = YES;
+    [self presentViewController:self.searchController animated:YES completion:nil];
+}
 
 -(void) getVendorPlacedBids
 {

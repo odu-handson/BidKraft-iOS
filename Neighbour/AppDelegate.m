@@ -16,6 +16,8 @@
 #import "SystemLevelConstants.h"
 #import <Venmo-iOS-SDK/Venmo.h>
 
+#import <Fabric/Fabric.h>
+#import  <Crashlytics/Crashlytics.h>
 
 
 @interface AppDelegate ()
@@ -50,6 +52,7 @@
 {
     // Override point for customization after application launch.
     // [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox : @"Ad-iwxBZKzcCobNuH621s03dMgzgfrL5-27uYltcJIi_-F10yfO_MYtOvkni"}];
+    [Fabric with:@[CrashlyticsKit]];
     
     [Venmo startWithAppId:@"2495" secret:@"YscXsyxHYcC5ktcE3LBCmSMtw49WgXba" name:@"BidKraft"];
 

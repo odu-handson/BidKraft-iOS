@@ -9,6 +9,7 @@
 #import "ServiceURLProvider.h"
 
 #define base_url @"http://rikers.cs.odu.edu:8080/bidding/"
+#define aws_url  @"http://54.88.17.100:8080/bidding/"
 
 @interface ServiceURLProvider ()
 
@@ -19,7 +20,7 @@
 
 +(NSString *)getURLForServiceWithKey:(NSString *)key
 {
-    NSString *returnString = [NSString stringWithFormat:@"%@%@",base_url,key];
+    NSString *returnString = [NSString stringWithFormat:@"%@%@",aws_url,key];
     return returnString;
 }
 

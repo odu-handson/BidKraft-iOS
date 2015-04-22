@@ -8,6 +8,8 @@
 
 #import "CompletedRequestsTableViewController.h"
 #import "RequestDetailViewController.h"
+#import "ResultsSearchTableViewController.h"
+
 
 
 @interface CompletedRequestsTableViewController () <ServiceProtocol>
@@ -19,18 +21,14 @@
 @property (nonatomic,strong) NSIndexPath *indexPath;
 @property (nonatomic,assign) NSInteger requestIdToBeDeleted;
 @property (nonatomic,strong) RequestDetailViewController *requestDetailController;
+@property (nonatomic, strong) ResultsSearchTableViewController *resultsSearchTableViewController;
+
 
 
 
 @end
 
 @implementation CompletedRequestsTableViewController
-
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    [self setDelagatesAndDataSources];
-}
 
 - (User *)userData
 {
@@ -39,18 +37,20 @@
     
     return _userData;
 }
-
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self setDelagatesAndDataSources];
+    [self setDelagatesAndDataSources];
+}
 -(void)setDelagatesAndDataSources
 {
-    
     self.userRequests = self.userData.userCompletedRequests;
-    // self.tableHeaderView = self.userHeaderView;
 }
 
--(void) viewDidLoad
+-(void) viewWillAppear:(BOOL)animated
 {
     self.userData.userRequestMode = CompletedMode;
-    
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -103,7 +103,6 @@
     
     if(self.userRequests.count>0)
     {
-        
         [cell prepareCellForTabelView:tableView atIndex:indexPath];
         [cell prepareTableCellData:cell withIndexPath :indexPath];
     }
@@ -127,8 +126,6 @@
 {
     return 8.0;
 }
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 {
