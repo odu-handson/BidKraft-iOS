@@ -61,11 +61,9 @@ NSInteger indexOfCurrentActiveTextField;
     [self.data addObject:@"UserName"];
     [self.data addObject:@"Password"];
     [self.data addObject:@"Reenter Password"];
-    [self.data addObject:@"First Name"];
-    [self.data addObject:@"Last Name"];
+    [self.data addObject:@"Full Name"];
     [self.data addObject:@"Email"];
     [self.data addObject:@"Mobile Number"];
-
     self.btnContinue.layer.cornerRadius = 5.0f;
     self.flags = [[NSMutableArray alloc] initWithObjects:@"0",@"0",@"0",@"0",@"0",@"0",@"0", nil];
 }
@@ -168,18 +166,15 @@ NSInteger indexOfCurrentActiveTextField;
     
     requiredTextField = [self.textFieldArray  objectAtIndex:1];
     [parameters setObject:requiredTextField.text forKey:@"password"];
-    requiredTextField = [self.textFieldArray  objectAtIndex:3];
+    requiredTextField = [self.textFieldArray  objectAtIndex:2];
     
-    [parameters setObject:requiredTextField.text forKey:@"firstName"];
+    [parameters setObject:requiredTextField.text forKey:@"name"];
+    
     requiredTextField = [self.textFieldArray  objectAtIndex:4];
-    
-    [parameters setObject:requiredTextField.text  forKey:@"lastName"];
-    
-    requiredTextField = [self.textFieldArray  objectAtIndex:5];
     
     [parameters setObject:requiredTextField.text  forKey:@"emailId"];
     
-    requiredTextField = [self.textFieldArray  objectAtIndex:6];
+    requiredTextField = [self.textFieldArray  objectAtIndex:5];
 
      [parameters setObject:requiredTextField.text  forKey:@"cellPhone"];
     
@@ -261,10 +256,9 @@ NSInteger indexOfCurrentActiveTextField;
                 [self handleValidationIssueOnTextField:textField atIndex:2];
             break;
         }
-            
         case 3:
             
-            if(textField.text.length > 2)
+            if(textField.text.length>0)
                 [self handleValidationClearOnTextField:textField atIndex:3];
             else
                 [self handleValidationIssueOnTextField:textField atIndex:3];
@@ -272,21 +266,13 @@ NSInteger indexOfCurrentActiveTextField;
             break;
         case 4:
             
-            if(textField.text.length>0)
-                [self handleValidationClearOnTextField:textField atIndex:4];
-            else
-                [self handleValidationIssueOnTextField:textField atIndex:4];
-            
-            break;
-        case 5:
-            
             if([self validateEmail:textField.text])
                 [self handleValidationClearOnTextField:textField atIndex:4];
             else
                 [self handleValidationIssueOnTextField:textField atIndex:4];
             
             break;
-        case 6:
+        case 5:
             
             if(textField.text.length == 10)
                 [self handleValidationClearOnTextField:textField atIndex:5];

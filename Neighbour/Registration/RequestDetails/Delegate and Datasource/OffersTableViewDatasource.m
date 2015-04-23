@@ -127,7 +127,7 @@
     {
         [cell prepareCellForTabelView:tableView atIndex:indexPath withBids:self.bidDetails];
         cell.btnAccept.tag = indexPath.row;
-        BidDetails *requestBidDetail = [self.usrRequest.bidsArray objectAtIndex:indexPath.row];
+        BidDetails *requestBidDetail = [self.usrRequest.bidsArray objectAtIndex:indexPath.section];
         cell.bidId = requestBidDetail.bidId;
         cell.btnAccept.layer.cornerRadius = 4;
         cell.bidAmount =requestBidDetail.bidAmount;
@@ -140,7 +140,7 @@
     {
         [cell prepareCellForVendorTabelView:tableView atIndex:indexPath withBids:self.bidDetails];
         cell.btnAccept.tag = indexPath.row;
-        VendorBidDetail *requestBidDetail = [self.usrRequest.bidsArray objectAtIndex:indexPath.row];
+        VendorBidDetail *requestBidDetail = [self.usrRequest.bidsArray objectAtIndex:indexPath.section];
         cell.bidId = requestBidDetail.bidId;
         cell.btnAccept.alpha = 1;
     }

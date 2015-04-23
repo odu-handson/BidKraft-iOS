@@ -97,8 +97,8 @@
 }
 -(void)setScrollEnabled
 {
-    [self.loginScrollView setScrollEnabled:YES];
-    [self.loginScrollView  setContentSize:CGSizeMake(self.view.frame.size.width,self.view.frame.size.height)];
+    //[self.loginScrollView setScrollEnabled:YES];
+    //[self.loginScrollView  setContentSize:CGSizeMake(self.view.frame.size.width,self.view.frame.size.height)];
 }
 -(void) prepareButtonsAndTextField
 {

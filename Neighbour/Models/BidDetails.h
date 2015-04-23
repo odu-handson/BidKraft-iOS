@@ -14,7 +14,7 @@
 @property (nonatomic,strong) NSString *offererName;
 @property (nonatomic,strong) NSString *offererUserId;
 @property (nonatomic,strong) NSString *userName;
-@property (nonatomic,strong) NSString *bidAmount;
+@property (nonatomic,assign) float bidAmount;
 @property (nonatomic,assign) NSInteger bidId;
 @property (nonatomic,assign) BOOL deleteBid;
 

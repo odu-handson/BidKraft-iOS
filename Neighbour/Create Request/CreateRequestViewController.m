@@ -31,7 +31,6 @@
 @property (nonatomic,strong) NSDictionary *responsedata;
 
 
-
 @end
 
 @implementation CreateRequestViewController
@@ -65,31 +64,29 @@
     [self designTags];
     [self designUI];
     self.txtDescription.delegate = self;
-   
-    // Do any additional setup after loading the view.
 }
 -(void) viewWillAppear:(BOOL)animated
 {
     if([self.categoryType isEqualToString:@"Baby Sitting"])
     {
-        NSArray *tags =@[@"Child Care",@"baby"];
+        NSArray *tags =@[@"Child Care",@"Baby"];
         [self.tagListView addTags:tags andRearrange:YES];
     }
     else if([self.categoryType isEqualToString:@"Pet Care"])
     {
-        NSArray *tags =@[@"Pet Care",@"pet"];
+        NSArray *tags =@[@"Pet Care",@"Pet"];
         [self.tagListView addTags:tags andRearrange:YES];
         
     }
     else if([self.categoryType isEqualToString:@"Tutor"])
     {
-        NSArray *tags =@[@"Tutoring",@"classes"];
+        NSArray *tags =@[@"Tutoring",@"Classes"];
         [self.tagListView addTags:tags andRearrange:YES];
         
     }
     else if([self.categoryType isEqualToString:@"Sell Books"])
     {
-        NSArray *tags =@[@"Books",@"college"];
+        NSArray *tags =@[@"Books",@"College"];
         [self.tagListView addTags:tags andRearrange:YES];
     }
 }
@@ -99,6 +96,8 @@
 - (void)designUI
 {
     self.btnAddTag.layer.cornerRadius = self.btnAddTag.frame.size.width/2.0;
+    //[self.txtDescription setContentOffset: CGPointMake(0,-220) animated:NO];
+    //self.txtDescription.contentInset = UIEdgeInsetsMake(2.0,1.0,0,0.0);
 }
 - (void)designTags
 {
@@ -212,6 +211,7 @@
 
 #pragma UITextFieldDelegate methods
 
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if(textField.tag == 1)
@@ -280,11 +280,16 @@
 - (void) textViewDidBeginEditing:(UITextView *) textView
 {
     [textView setText:@""];
+    textView.contentInset = UIEdgeInsetsMake(-10.0,0.0,0,0.0);
 }
 
 #pragma Add Tags
 - (IBAction)addTags:(id)sender
 {
+    [self.btnBiddingEnds resignFirstResponder];
+    [self.btnRequestedDate resignFirstResponder];
+    [self.txtRequestEndTime resignFirstResponder];
+    
     UIAlertView *addTagAlert = [[UIAlertView alloc]initWithTitle:@"Tags" message:@"Create your own tag" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     addTagAlert.tag = 1;
     addTagAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -340,6 +345,17 @@
                                                   otherButtonTitles:nil, nil];
         alertView.tag =3;
         [alertView setDelegate:self];
+        [alertView show];
+        
+    }
+    else
+    {
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"error!"
+                                                            message:[response valueForKey:@"message"]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil, nil];
         [alertView show];
         
     }

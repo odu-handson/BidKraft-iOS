@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnPayWithPayPal;
 @property  (nonatomic,assign) NSInteger cellBidID;
 @property  (nonatomic,assign) NSInteger requestID;
-@property  (nonatomic,strong) NSString *bidAmount;
+@property  (nonatomic,assign) float bidAmount;
 
 @end

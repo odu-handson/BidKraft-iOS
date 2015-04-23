@@ -113,7 +113,7 @@
     cell.lblBidDate.text = [self getDateStringFromNSDate:(NSDate *)usrRequest.requestStartDate];
     cell.requestId = [[usrRequest valueForKey:@"requestId"] integerValue];
      cell.requestDescription = usrRequest.requestDescription;
-    cell.timeSlotBtn1.text = usrRequest.requestDescription;
+    cell.timeSlotBtn1.text = usrRequest.jobTitle;
     //cell.timeSlotBtn1.text = usrRequest.requestStartFromTime;
     if(self.vendorData.vendorRequestMode == VendorBidsOwnMode)
     {
@@ -165,7 +165,7 @@
     vendorCell.categoryImage.image = [UIImage imageNamed:[self.imageNamesArray objectAtIndex:(categoryId-1)]];
     vendorCell.requestId = vendorRequest.requestId;
     vendorCell.requestDescription = vendorRequest.requestDescription;
-    vendorCell.timeSlotBtn1.text = vendorRequest.requestDescription;
+    vendorCell.timeSlotBtn1.text = vendorRequest.jobTitle;
     
 }
 

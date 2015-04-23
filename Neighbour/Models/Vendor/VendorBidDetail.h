@@ -10,7 +10,7 @@
 
 @interface VendorBidDetail : NSObject
 
-@property (nonatomic,strong) NSString *bidAmount;
+@property (nonatomic,assign) float bidAmount;
 @property (nonatomic,assign) NSInteger bidId;
 @property (nonatomic,strong) NSString *bidPlacedDate;
 @property (nonatomic,strong) NSString *createdDate;

@@ -64,11 +64,15 @@
     self.btnUserName.tag = indexPath.item;
     self.btnAccept.tag = indexPath.section;
     //self.btnUserName.titleLabel.text = requestBidDetail.userName;
-    
-    [self.lblBidAmount setText: [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"]];
-    [self.lblTime setText:@"5 hrs"];
+    [self.lblBidAmount setText: [[@(requestBidDetail.bidAmount)stringValue] stringByAppendingString:@"$/hr"]];
+    //[self.lblTime setText:@"5 hrs"];
     //self.lblBestOffers.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
-    self.lblBidAmount.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
+    NSString *lowestBid = [[@(requestBidDetail.bidAmount)stringValue] stringByAppendingString:@"/hr"];
+    NSString *dollarString =@"$";
+    
+   // [self.lblBidAmount setText:[dollarString stringByAppendingString:lowestBid]];
+    
+    self.lblBidAmount.text = [dollarString stringByAppendingString:lowestBid];
     self.bidOffererId  = requestBidDetail.offererUserId;
     [self timeDifference:requestBidDetail];
     
@@ -79,7 +83,28 @@
     
     VendorBidDetail *requestBidDetail = [listOfBids objectAtIndex:indexPath.item];
     self.lblBidType.text= requestBidDetail.offererName;
-    self.lblBestOffers.text = [requestBidDetail.bidAmount stringByAppendingString:@"$/hr"];
+    [self.btnUserName setTitle:requestBidDetail.offererName forState:UIControlStateNormal];
+    self.lblBestOffers.text = [[@(requestBidDetail.bidAmount) stringValue]  stringByAppendingString:@"$/hr"];
+    
+    NSString *lowestBid = [[@(requestBidDetail.bidAmount)stringValue] stringByAppendingString:@"/hr"];
+    NSString *dollarString =@"$";
+
+    [self.lblBidAmount setText:[dollarString stringByAppendingString:lowestBid]];
+    [self timeDifferenceForVendor:requestBidDetail];
+}
+
+-(void) timeDifferenceForVendor:(VendorBidDetail *) requestBidDetail
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"E, dd MMM yyyy H:m:s z"];
+    NSDate *date1 = [[NSDate alloc] init];
+    date1 = [df dateFromString:(NSString *)requestBidDetail.createdDate];
+    
+    NSDate* date2 = [NSDate date];
+    NSTimeInterval distanceBetweenDates = [date2 timeIntervalSinceDate:date1];
+    double secondsInAnHour = 3600;
+    NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+    self.lblTimeAgo.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@" hrs ago"];
 }
 
 -(void) timeDifference:(BidDetails *) requestBidDetail
@@ -115,7 +140,7 @@
     UIButton *button =(UIButton *)sender;
     OffersTableViewCell *cell =(OffersTableViewCell *)[self.offersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
     NSMutableDictionary *paymentDetails = [[NSMutableDictionary alloc]init];
-    [paymentDetails setObject:cell.bidAmount forKey:@"bidAmountPay"];
+    [paymentDetails setObject:[@(cell.bidAmount) stringValue] forKey:@"bidAmountPay"];
        [paymentDetails setObject:[@(cell.bidId) stringValue] forKey:@"bidId"];
     [self.paymentDetailsDelegate getPaymentDetails:paymentDetails];
     

@@ -41,14 +41,12 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
     }
     return self;
 }
 
 - (void)awakeFromNib
 {
-    // Initialization code
     [self prepareTableData];
 }
 
@@ -56,9 +54,7 @@
 {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
-
 
 - (void)mockData
 {
@@ -66,8 +62,8 @@
     self.imageNamesArray = [[NSMutableArray alloc] init];
     [self.imageNamesArray addObject:@"rigid_baby"];
     [self.imageNamesArray addObject:@"pet"];
-    [self.imageNamesArray addObject:@"tutor"];
     [self.imageNamesArray addObject:@"textbook"];
+    [self.imageNamesArray addObject:@"tutor"];
     [self prepareTableData];
 
 }
@@ -111,17 +107,9 @@
 -(void) prepareTableCellData:(RequestTableViewCell *)cell withIndexPath:(NSIndexPath *) indexPath
 {
     UserRequests *usrRequest = [self.userRequestsArray objectAtIndex:indexPath.section];
-    NSInteger lowestBid = (NSInteger)usrRequest.lowestBid;
-    
-   
-        //NSInteger totalBids = (NSInteger)usrRequest.totalBids;
-        //NSString *totalBidsText = @"Total : ";
-        //cell.lblTotalBids.text=[totalBidsText stringByAppendingString:[@(totalBids) stringValue]];
-        //cell.lblBidDate.text = [self getDateStringFromNSDate:(NSDate *)usrRequest.requestStartDate];
-        cell.requestId = [[usrRequest valueForKey:@"requestId"] integerValue];
-        cell.lblDescription.text = [usrRequest valueForKey:@"requestDescription"];
-        //cell.timeSlotBtn1.text = usrRequest.requestStartFromTime;
-        //[self getBidAmount:usrRequest];
+    NSString *lowestBid = [[NSNumber numberWithFloat:usrRequest.lowestBid] stringValue];
+    cell.requestId = [[usrRequest valueForKey:@"requestId"] integerValue];
+    cell.lblDescription.text = [usrRequest valueForKey:@"jobTitle"];
     if(self.userData.userRequestMode == ActiveMode || self.userData.userRequestMode == CompletedMode)
     {
         [self getBidAmount:usrRequest];
@@ -131,7 +119,7 @@
     }
     else
     {
-        NSString *acceptBid = [[@(lowestBid) stringValue] stringByAppendingString:@"/hr"];
+        NSString *acceptBid = [lowestBid stringByAppendingString:@"/hr"];
         NSString *dollarString =@"$";
         cell.lblLeastBidValue.text = [dollarString stringByAppendingString:acceptBid];
     }

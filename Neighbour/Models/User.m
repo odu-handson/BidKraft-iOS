@@ -136,7 +136,7 @@
     self.usrRequest.requestStartFromTime = [request objectForKey:@"requestStartTime"];
     self.usrRequest.categoryId = [(NSString *)[request objectForKey:@"categoryId"] integerValue];
      self.usrRequest.categoryName =[request objectForKey:@"categoryName"];
-    self.usrRequest.lowestBid = [(NSString *)[request objectForKey:@"leastBidAmount"] integerValue];
+    self.usrRequest.lowestBid = [[request objectForKey:@"leastBidAmount"] floatValue];
     self.usrRequest.totalBids = [(NSString *)[request objectForKey:@"totalBids"] integerValue];
 
     return self.usrRequest;
@@ -151,7 +151,7 @@
     self.usrRequest.bidDetail.offererUserId = [eachBid objectForKey:@"offererUserId"];
     self.usrRequest.bidDetail.userName = [eachBid objectForKey:@"userName"];
     self.usrRequest.bidDetail.bidId = [[eachBid objectForKey:@"bidId"] intValue];
-    self.usrRequest.bidDetail.bidAmount = [NSString stringWithFormat:@"%@",[eachBid objectForKey:@"bidAmount"]];
+    self.usrRequest.bidDetail.bidAmount = [[eachBid objectForKey:@"bidAmount"] floatValue];
     [self.usrRequest.bidsArray addObject:self.usrRequest.bidDetail];
     return self.usrRequest.bidDetail;
 }

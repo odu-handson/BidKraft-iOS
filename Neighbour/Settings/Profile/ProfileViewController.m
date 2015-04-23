@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *txtUserAddress;
 @property (weak, nonatomic) IBOutlet UINavigationItem *profileNavigationItem;
 @property (weak, nonatomic) IBOutlet ASStarRatingView *ratingView;
+@property (weak, nonatomic) IBOutlet UIButton *btnPicture;
+
 
 
 @property (nonatomic) UIImagePickerController *imagePickerController;
@@ -66,20 +68,19 @@
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:243.0f/255.0f green:156.0f/255.0f blue:18.0f/255.0f alpha:1.0f]}];
     
-    
-    
     UIBarButtonItem *rightBarButton;
     
     if(self.isProfileShownModally)
     {
         rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"close" style:UIBarButtonItemStylePlain target:self action:@selector(closeTapped:)];
-
+        
+        self.btnPicture.userInteractionEnabled = NO;
     }
     else
     {
        rightBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editTapped:)];
+         self.btnPicture.userInteractionEnabled = YES;
     }
-    
     
     [self.profileNavigationItem setRightBarButtonItem:rightBarButton];
     self.imgProfile.layer.cornerRadius = (self.imgProfile.frame.size.width)/2;
@@ -200,7 +201,6 @@
                          url = [ServiceURLProvider getURLForServiceWithKey:kUpdateProfile];
                          [self.manager serviceCallWithURL:url andParameters:parameters];
                          
-                         
                      }
                  }];
 }
@@ -216,16 +216,13 @@
 -(void) submitTapped :(UIBarButtonItem *) button
 {
    
-    
     [self convertAddressToLatLong];
-    
     //[self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
 -(NSMutableDictionary *) prepareParameters
 {
-    
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setValue:self.userData.userId forKey:@"userId"];

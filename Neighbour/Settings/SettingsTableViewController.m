@@ -39,8 +39,8 @@
 {
     self.setttingsNamesArray = [[NSMutableArray alloc] init];
     [self.setttingsNamesArray addObject:@"Profile"];
-    [self.setttingsNamesArray addObject:@"UserPreferences"];
-    [self.setttingsNamesArray addObject:@"VendorPreferences"];
+    [self.setttingsNamesArray addObject:@"User Preferences"];
+    [self.setttingsNamesArray addObject:@"Vendor Preferences"];
     [self.setttingsNamesArray addObject:@"Customer Support"];
     [self.setttingsNamesArray addObject:@"About Us"];
     self.navigationController.title =@"Settings";

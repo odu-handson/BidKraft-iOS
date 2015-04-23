@@ -110,7 +110,7 @@
     for(int i=0;i<self.requestArray.count;i++)
     {
        
-            self.vendorRequest = [self.requestArray objectAtIndex:i];
+            vendorRequest = [self.requestArray objectAtIndex:i];
             if( vendorRequest.requestId == self.requestId)
             {
                 self.vendorRequest = vendorRequest;
@@ -235,6 +235,8 @@
     
     if(![self.txtBidAmount.text isEqualToString:@""])
     {
+        [self.txtBidAmount resignFirstResponder];
+        //[self.txtDescription]
         self.manager = [ServiceManager defaultManager];
         self.manager.serviceDelegate = self;
         NSMutableDictionary *parameters = [self prepareParmeters];
@@ -334,9 +336,9 @@
             NSMutableArray *openRequests =  [responsedata objectForKey:@"openBids"];
             
             if(openRequests)
-                [self.vendorData saveVendorData:openRequests];
+                [self.vendorData saveEachVendorOpenRequestData:openRequests];
             if(placedBids)
-                [self.vendorData saveVendorOwnBidsData:placedBids];
+                [self.vendorData saveVendorData:placedBids];
             
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Confirmation!"
                                                                 message:@"Bid Placed"

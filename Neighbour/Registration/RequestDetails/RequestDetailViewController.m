@@ -31,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnTableControl;
 @property (weak, nonatomic) IBOutlet UILabel *lblTimeLeft;
 @property (weak, nonatomic) IBOutlet UILabel *lblLowestBid;
-
+@property (weak, nonatomic) IBOutlet UILabel *lblTimeLeftTxt;
 
 @property (strong,nonatomic) OffersTabelViewDelegate *tblOffersViewDelegate;
 @property (strong,nonatomic) OffersTableViewDatasource *tblOffersViewDataSource;
@@ -149,13 +149,24 @@
     NSTimeInterval distanceBetweenDates = [date1 timeIntervalSinceDate:date2];
     double secondsInAnHour = 3600;
     NSInteger hoursBetweenDates = distanceBetweenDates / secondsInAnHour;
+   
+    
     
     if(hoursBetweenDates <0)
        self.lblTimeLeft.text = @"Bidding Ended";
     else
         self.lblTimeLeft.text = [[@(hoursBetweenDates) stringValue] stringByAppendingString:@"  hrs"];
     if(self.userData.userRequestMode == CompletedMode)
+    {
         self.lblTimeLeft.text = @"Request Ended";
+        self.lblTimeLeftTxt.alpha = 1;
+    }
+     else if(self.userData.userRequestMode == ActiveMode)
+     {
+        self.lblTimeLeft.text = @"Accepted";
+         self.lblTimeLeftTxt.alpha = 0;
+     }
+    
 }
 
 

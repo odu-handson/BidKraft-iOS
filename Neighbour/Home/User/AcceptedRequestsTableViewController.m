@@ -113,6 +113,7 @@
 {
     //[self regitsterForTableCell];
     static NSString* cellIdentifier;
+    self.tableView.backgroundView = nil;
     
     cellIdentifier = @"RequestCell";
     //RequestTableViewCell *cell =(RequestTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -172,7 +173,7 @@
 {
     return 50;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 8.0;
 }
@@ -212,7 +213,6 @@
     self.commentsForVendor.layer.borderColor = [UIColor grayColor].CGColor;
     self.commentsForVendor.layer.cornerRadius = 6.5;
     
-    
     RequestTableViewCell *cell =(RequestTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [self getRequestDetails:cell.requestId];
     NSMutableDictionary *paymentDetails = [[NSMutableDictionary alloc]init];
@@ -222,7 +222,7 @@
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     PayListViewController *payListViewController = [storyBoard instantiateViewControllerWithIdentifier:@"PayListViewController"];
-    payListViewController.bidAmount = [@(self.usrRequest.lowestBid) stringValue];
+    payListViewController.bidAmount = self.usrRequest.lowestBid;
     payListViewController.bidId = self.usrRequest.acceptedBidId ;
     payListViewController.requestId = [@(cell.requestId) stringValue];
     payListViewController.homeViewController = self.homeViewController;

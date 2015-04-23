@@ -17,7 +17,7 @@
 
 @interface PayListViewController : UIViewController
 
-@property (nonatomic, strong) NSString *bidAmount;
+@property (nonatomic, assign) float bidAmount;
 @property (nonatomic, strong) NSString *payTo;
 @property (nonatomic, strong) NSString *requestId;
 @property (nonatomic, strong) NSString *bidId;

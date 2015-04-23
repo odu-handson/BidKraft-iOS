@@ -77,11 +77,12 @@
 -(void ) saveVendorBid:(NSMutableArray *) bidDetails
 {
     self.vendorBidRequest.bidsArray = [[NSMutableArray alloc] init];
-    self.vendorBidRequest.vendorPlacedBid = [[VendorBidDetail alloc] init];
+   
     for(int i=0;i<bidDetails.count;i++)
     {
+        self.vendorBidRequest.vendorPlacedBid = [[VendorBidDetail alloc] init];
         NSDictionary *bidDetail = [bidDetails objectAtIndex:i];
-        self.vendorBidRequest.vendorPlacedBid .bidAmount = [NSString stringWithFormat:@"%@",[bidDetail objectForKey:@"bidAmount"]];
+        self.vendorBidRequest.vendorPlacedBid .bidAmount = [[bidDetail objectForKey:@"bidAmount"] floatValue];
         self.vendorBidRequest.vendorPlacedBid .bidId = (NSInteger )[bidDetail objectForKey:@"offererUserId"];
         self.vendorBidRequest.vendorPlacedBid .offererName = [bidDetail objectForKey:@"userName"];
         self.vendorBidRequest.vendorPlacedBid .createdDate = [bidDetail objectForKey:@"createdDate"];
@@ -118,7 +119,6 @@
     self.vendorBidRequest.userName = [request objectForKey:@"requesterUserName"];
     self.vendorBidRequest.requesterId = [request objectForKey:@"requesterUserId"];
 
-
     
     self.vendorBidRequest.bidEndDateTime = (NSDate *)[request objectForKey:@"bidEndDateTime"];
     self.vendorBidRequest.jobTitle = [request objectForKey:@"jobTitle"];
@@ -137,14 +137,13 @@
 
 -(BidDetails *)getBid:(NSMutableDictionary *) eachBid
 {
-    
     self.usrRequest.bidDetail = [[BidDetails alloc] init];
     self.usrRequest.bidDetail.bidCreatedDate = (NSDate *)[eachBid objectForKey:@"createdDate"];
     self.usrRequest.bidDetail.offererName = [eachBid objectForKey:@"offererName"];
     self.usrRequest.bidDetail.offererUserId = [eachBid objectForKey:@"offererUserId"];
     self.usrRequest.bidDetail.userName = [eachBid objectForKey:@"userName"];
     self.usrRequest.bidDetail.bidId = [[eachBid objectForKey:@"bidId"] intValue];
-    self.usrRequest.bidDetail.bidAmount =[eachBid objectForKey:@"bidAmount"];
+    self.usrRequest.bidDetail.bidAmount =[[eachBid objectForKey:@"bidAmount"] floatValue];
     [self.usrRequest.bidsArray addObject:self.usrRequest.bidDetail];
     return self.usrRequest.bidDetail;
 }
