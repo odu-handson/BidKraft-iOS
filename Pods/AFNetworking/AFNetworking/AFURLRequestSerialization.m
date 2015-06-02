@@ -742,6 +742,7 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
 
 @implementation AFMultipartBodyStream
 
+@synthesize streamStatus,streamError;
 - (id)initWithStringEncoding:(NSStringEncoding)encoding {
     self = [super init];
     if (!self) {
