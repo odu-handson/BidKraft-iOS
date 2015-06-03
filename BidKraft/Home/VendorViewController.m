@@ -9,9 +9,7 @@
 #import "VendorViewController.h"
 #import "VendorOpenRequestsTableViewController.h"
 #import "VendorPlacedBidsTableViewController.h"
-#import "VendorRequestDetailViewController.h"
-#import "VendorPlacedBidViewController.h"
-#import "VendorBidsOwnedTableViewController.h"
+#import "VendorBidsWonTableViewController.h"
 #import "MBProgressHUD.h"
 #import "ServiceManager.h"
 #import "ServiceURLProvider.h"
@@ -29,9 +27,8 @@
 
 @property (nonatomic,strong) VendorOpenRequestsTableViewController *vendorOpenRequestsTableViewController;
 @property (nonatomic,strong) VendorPlacedBidsTableViewController *vendorPlacedBidsTableViewController;
-@property (nonatomic,strong) VendorBidsOwnedTableViewController *vendorBidsOwnedTableViewController;
-@property (nonatomic,strong) VendorRequestDetailViewController *vendorRequestDetailViewController;
-@property (nonatomic,strong) VendorPlacedBidViewController *vendorPlacedBidViewController;
+@property (nonatomic,strong) VendorBidsWonTableViewController *vendorBidsOwnedTableViewController;
+@property (nonatomic,strong) VendorPlacedBidsTableViewController *vendorPlacedBidViewController;
 @property (nonatomic,strong) MBProgressHUD *HUD;
 @property (nonatomic,strong) ServiceManager *manager;
 @property (nonatomic,strong) User *userData;
@@ -153,7 +150,7 @@
     self.storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
     self.vendorOpenRequestsTableViewController = (VendorOpenRequestsTableViewController *)[self.storyBoard instantiateViewControllerWithIdentifier:@"VendorOpenRequestsTableViewController"];
     self.vendorPlacedBidsTableViewController = (VendorPlacedBidsTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"VendorPlacedBidsTableViewController"];
-    self.vendorBidsOwnedTableViewController = (VendorBidsOwnedTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"VendorBidsOwnedTableViewController"];
+    self.vendorBidsOwnedTableViewController = (VendorBidsWonTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"VendorBidsOwnedTableViewController"];
 }
 
 

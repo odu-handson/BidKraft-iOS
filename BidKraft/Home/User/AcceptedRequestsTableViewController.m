@@ -15,11 +15,10 @@
 #import "PayListViewController.h"
 #import "ResultsSearchTableViewController.h"
 
-@interface AcceptedRequestsTableViewController () <ServiceProtocol>
+@interface AcceptedRequestsTableViewController () <ServiceProtocol,RatingViewProtocal>
 
 @property (strong, nonatomic) IBOutlet UIView *ratingView;
 @property (weak, nonatomic) IBOutlet UITextView *commentsForVendor;
-
 
 @property (nonatomic,strong) NSMutableArray *userRequests;
 @property (nonatomic,strong) User *userData;
@@ -186,7 +185,6 @@
 {
     
     RequestTableViewCell *tableCell = (RequestTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
     self.requestDetailController = (RequestDetailViewController *) [storyBoard instantiateViewControllerWithIdentifier:@"RequestDetailViewController"];
     self.requestDetailController.requestId =  tableCell.requestId;
@@ -201,7 +199,6 @@
     self.commentsForVendor.layer.borderWidth = 0.7;
     self.commentsForVendor.layer.borderColor = [UIColor grayColor].CGColor;
     self.commentsForVendor.layer.cornerRadius = 6.5;
-    
     RequestTableViewCell *cell =(RequestTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     [self getRequestDetails:cell.requestId];
     NSMutableDictionary *paymentDetails = [[NSMutableDictionary alloc]init];
@@ -215,10 +212,9 @@
     payListViewController.bidId = self.usrRequest.acceptedBidId ;
     payListViewController.requestId = [@(cell.requestId) stringValue];
     payListViewController.homeViewController = self.homeViewController;
-    payListViewController.ratingViewDelegate = self;
+    //payListViewController.ratingViewDelegate = self;
     payListViewController.requestIdToBeDeleted = [@(cell.requestId) stringValue];
     [self.homeViewController.navigationController pushViewController:payListViewController animated:YES];
-    
     //[self.homeViewController.view addSubview:self.ratingView];
 }
 

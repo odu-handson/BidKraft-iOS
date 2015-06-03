@@ -27,6 +27,9 @@
 		DAD3B04C1B1B8BF9005EF1C5 /* OffersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD3B0451B1B8BF9005EF1C5 /* OffersTableViewCell.m */; };
 		DAD3B04D1B1B8BF9005EF1C5 /* RequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD3B0471B1B8BF9005EF1C5 /* RequestDetailViewController.m */; };
 		DAD3B04E1B1BDDB7005EF1C5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAD6FB991B1B756B006D9ED2 /* InfoPlist.strings */; };
+		DAD3B0571B1E75E9005EF1C5 /* RadiusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD3B0541B1E75E9005EF1C5 /* RadiusTableViewCell.m */; };
+		DAD3B0581B1E75E9005EF1C5 /* SettingsTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD3B0561B1E75E9005EF1C5 /* SettingsTableCell.m */; };
+		DAD3B05C1B1E764E005EF1C5 /* PaymentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD3B05B1B1E764E005EF1C5 /* PaymentTableViewCell.m */; };
 		DAD6FC671B1B756C006D9ED2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FB861B1B756B006D9ED2 /* AppDelegate.m */; };
 		DAD6FC681B1B756C006D9ED2 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD6FB871B1B756B006D9ED2 /* Main_iPhone.storyboard */; };
 		DAD6FC6C1B1B756C006D9ED2 /* CreateRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FB8F1B1B756B006D9ED2 /* CreateRequestViewController.m */; };
@@ -38,14 +41,11 @@
 		DAD6FC761B1B756C006D9ED2 /* CategoryCollectionViewDelgate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBA51B1B756B006D9ED2 /* CategoryCollectionViewDelgate.m */; };
 		DAD6FC771B1B756C006D9ED2 /* CategoryCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBA71B1B756B006D9ED2 /* CategoryCollectionViewFlowLayout.m */; };
 		DAD6FC781B1B756C006D9ED2 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBA91B1B756B006D9ED2 /* HomeViewController.m */; };
-		DAD6FC791B1B756C006D9ED2 /* PaymentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBAC1B1B756B006D9ED2 /* PaymentTableViewCell.m */; };
 		DAD6FC7A1B1B756C006D9ED2 /* AcceptedRequestsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBAF1B1B756B006D9ED2 /* AcceptedRequestsTableViewController.m */; };
 		DAD6FC7B1B1B756C006D9ED2 /* CompletedRequestsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBB11B1B756B006D9ED2 /* CompletedRequestsTableViewController.m */; };
 		DAD6FC7C1B1B756C006D9ED2 /* OpenRequestsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBB31B1B756B006D9ED2 /* OpenRequestsTableViewController.m */; };
 		DAD6FC7D1B1B756C006D9ED2 /* RequestTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBB61B1B756B006D9ED2 /* RequestTableViewCell.m */; };
-		DAD6FC7E1B1B756C006D9ED2 /* RadiusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBB91B1B756B006D9ED2 /* RadiusTableViewCell.m */; };
-		DAD6FC7F1B1B756C006D9ED2 /* SettingsTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBBB1B1B756B006D9ED2 /* SettingsTableCell.m */; };
-		DAD6FC801B1B756C006D9ED2 /* VendorBidsOwnedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBBD1B1B756B006D9ED2 /* VendorBidsOwnedTableViewController.m */; };
+		DAD6FC801B1B756C006D9ED2 /* VendorBidsWonTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBBD1B1B756B006D9ED2 /* VendorBidsWonTableViewController.m */; };
 		DAD6FC811B1B756C006D9ED2 /* VendorOpenRequestsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBBF1B1B756B006D9ED2 /* VendorOpenRequestsTableViewController.m */; };
 		DAD6FC821B1B756C006D9ED2 /* VendorPlacedBidsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBC11B1B756B006D9ED2 /* VendorPlacedBidsTableViewController.m */; };
 		DAD6FC831B1B756C006D9ED2 /* VendorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FBC41B1B756B006D9ED2 /* VendorTableViewCell.m */; };
@@ -109,8 +109,6 @@
 		DAD6FCD31B1B756C006D9ED2 /* MPGNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FC521B1B756C006D9ED2 /* MPGNotification.m */; };
 		DAD6FCD51B1B756C006D9ED2 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FC5E1B1B756C006D9ED2 /* MBProgressHUD.m */; };
 		DAD6FCD61B1B756C006D9ED2 /* ASStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FC611B1B756C006D9ED2 /* ASStarRatingView.m */; };
-		DAD6FCD71B1B756C006D9ED2 /* VendorPlacedBidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FC641B1B756C006D9ED2 /* VendorPlacedBidViewController.m */; };
-		DAD6FCD81B1B756C006D9ED2 /* VendorRequestDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD6FC661B1B756C006D9ED2 /* VendorRequestDetailViewController.m */; };
 		DAD6FCDE1B1B7708006D9ED2 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD6FCD91B1B7708006D9ED2 /* camera.png */; };
 		DAD6FCDF1B1B7708006D9ED2 /* default_profile_pic.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD6FCDA1B1B7708006D9ED2 /* default_profile_pic.png */; };
 		DAD6FCE01B1B7708006D9ED2 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = DAD6FCDB1B1B7708006D9ED2 /* profile.png */; };
@@ -169,6 +167,12 @@
 		DAD3B0461B1B8BF9005EF1C5 /* RequestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestDetailViewController.h; sourceTree = "<group>"; };
 		DAD3B0471B1B8BF9005EF1C5 /* RequestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestDetailViewController.m; sourceTree = "<group>"; };
 		DAD3B04F1B1BDF8F005EF1C5 /* CommonHeaderFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeaderFiles.h; sourceTree = "<group>"; };
+		DAD3B0531B1E75E9005EF1C5 /* RadiusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiusTableViewCell.h; sourceTree = "<group>"; };
+		DAD3B0541B1E75E9005EF1C5 /* RadiusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusTableViewCell.m; sourceTree = "<group>"; };
+		DAD3B0551B1E75E9005EF1C5 /* SettingsTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableCell.h; sourceTree = "<group>"; };
+		DAD3B0561B1E75E9005EF1C5 /* SettingsTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableCell.m; sourceTree = "<group>"; };
+		DAD3B05A1B1E764E005EF1C5 /* PaymentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentTableViewCell.h; sourceTree = "<group>"; };
+		DAD3B05B1B1E764E005EF1C5 /* PaymentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentTableViewCell.m; sourceTree = "<group>"; };
 		DAD6FB851B1B756B006D9ED2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DAD6FB861B1B756B006D9ED2 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		DAD6FB881B1B756B006D9ED2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
@@ -193,8 +197,6 @@
 		DAD6FBA71B1B756B006D9ED2 /* CategoryCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		DAD6FBA81B1B756B006D9ED2 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		DAD6FBA91B1B756B006D9ED2 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		DAD6FBAB1B1B756B006D9ED2 /* PaymentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentTableViewCell.h; sourceTree = "<group>"; };
-		DAD6FBAC1B1B756B006D9ED2 /* PaymentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentTableViewCell.m; sourceTree = "<group>"; };
 		DAD6FBAE1B1B756B006D9ED2 /* AcceptedRequestsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptedRequestsTableViewController.h; sourceTree = "<group>"; };
 		DAD6FBAF1B1B756B006D9ED2 /* AcceptedRequestsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptedRequestsTableViewController.m; sourceTree = "<group>"; };
 		DAD6FBB01B1B756B006D9ED2 /* CompletedRequestsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletedRequestsTableViewController.h; sourceTree = "<group>"; };
@@ -203,12 +205,8 @@
 		DAD6FBB31B1B756B006D9ED2 /* OpenRequestsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenRequestsTableViewController.m; sourceTree = "<group>"; };
 		DAD6FBB51B1B756B006D9ED2 /* RequestTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTableViewCell.h; sourceTree = "<group>"; };
 		DAD6FBB61B1B756B006D9ED2 /* RequestTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTableViewCell.m; sourceTree = "<group>"; };
-		DAD6FBB81B1B756B006D9ED2 /* RadiusTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadiusTableViewCell.h; sourceTree = "<group>"; };
-		DAD6FBB91B1B756B006D9ED2 /* RadiusTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RadiusTableViewCell.m; sourceTree = "<group>"; };
-		DAD6FBBA1B1B756B006D9ED2 /* SettingsTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableCell.h; sourceTree = "<group>"; };
-		DAD6FBBB1B1B756B006D9ED2 /* SettingsTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableCell.m; sourceTree = "<group>"; };
-		DAD6FBBC1B1B756B006D9ED2 /* VendorBidsOwnedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorBidsOwnedTableViewController.h; sourceTree = "<group>"; };
-		DAD6FBBD1B1B756B006D9ED2 /* VendorBidsOwnedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorBidsOwnedTableViewController.m; sourceTree = "<group>"; };
+		DAD6FBBC1B1B756B006D9ED2 /* VendorBidsWonTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorBidsWonTableViewController.h; sourceTree = "<group>"; };
+		DAD6FBBD1B1B756B006D9ED2 /* VendorBidsWonTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorBidsWonTableViewController.m; sourceTree = "<group>"; };
 		DAD6FBBE1B1B756B006D9ED2 /* VendorOpenRequestsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorOpenRequestsTableViewController.h; sourceTree = "<group>"; };
 		DAD6FBBF1B1B756B006D9ED2 /* VendorOpenRequestsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorOpenRequestsTableViewController.m; sourceTree = "<group>"; };
 		DAD6FBC01B1B756B006D9ED2 /* VendorPlacedBidsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorPlacedBidsTableViewController.h; sourceTree = "<group>"; };
@@ -308,10 +306,6 @@
 		DAD6FC5E1B1B756C006D9ED2 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		DAD6FC601B1B756C006D9ED2 /* ASStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASStarRatingView.h; sourceTree = "<group>"; };
 		DAD6FC611B1B756C006D9ED2 /* ASStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASStarRatingView.m; sourceTree = "<group>"; };
-		DAD6FC631B1B756C006D9ED2 /* VendorPlacedBidViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorPlacedBidViewController.h; sourceTree = "<group>"; };
-		DAD6FC641B1B756C006D9ED2 /* VendorPlacedBidViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorPlacedBidViewController.m; sourceTree = "<group>"; };
-		DAD6FC651B1B756C006D9ED2 /* VendorRequestDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VendorRequestDetailViewController.h; sourceTree = "<group>"; };
-		DAD6FC661B1B756C006D9ED2 /* VendorRequestDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VendorRequestDetailViewController.m; sourceTree = "<group>"; };
 		DAD6FCD91B1B7708006D9ED2 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		DAD6FCDA1B1B7708006D9ED2 /* default_profile_pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_profile_pic.png; sourceTree = "<group>"; };
 		DAD6FCDB1B1B7708006D9ED2 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -411,6 +405,26 @@
 			path = "Delegate and Datasource";
 			sourceTree = "<group>";
 		};
+		DAD3B0521B1E75E9005EF1C5 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				DAD3B0531B1E75E9005EF1C5 /* RadiusTableViewCell.h */,
+				DAD3B0541B1E75E9005EF1C5 /* RadiusTableViewCell.m */,
+				DAD3B0551B1E75E9005EF1C5 /* SettingsTableCell.h */,
+				DAD3B0561B1E75E9005EF1C5 /* SettingsTableCell.m */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		DAD3B0591B1E764E005EF1C5 /* PaymentTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				DAD3B05A1B1E764E005EF1C5 /* PaymentTableViewCell.h */,
+				DAD3B05B1B1E764E005EF1C5 /* PaymentTableViewCell.m */,
+			);
+			path = PaymentTableCell;
+			sourceTree = "<group>";
+		};
 		DAD6FB841B1B756B006D9ED2 /* BidKraft */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,7 +452,6 @@
 				DAD6FC251B1B756C006D9ED2 /* Search */,
 				DAD6FC2F1B1B756C006D9ED2 /* Settings */,
 				DAD6FC441B1B756C006D9ED2 /* ThirdParty */,
-				DAD6FC621B1B756C006D9ED2 /* VendorViews */,
 			);
 			path = BidKraft;
 			sourceTree = "<group>";
@@ -477,7 +490,6 @@
 				DAD6FBA11B1B756B006D9ED2 /* Delegate and Datasource */,
 				DAD6FBA81B1B756B006D9ED2 /* HomeViewController.h */,
 				DAD6FBA91B1B756B006D9ED2 /* HomeViewController.m */,
-				DAD6FBAA1B1B756B006D9ED2 /* PaymentTableCell */,
 				DAD6FBAD1B1B756B006D9ED2 /* User */,
 				DAD6FBB41B1B756B006D9ED2 /* UserTableCell */,
 				DAD6FBB71B1B756B006D9ED2 /* Vendor */,
@@ -512,15 +524,6 @@
 			path = "Delegate and Datasource";
 			sourceTree = "<group>";
 		};
-		DAD6FBAA1B1B756B006D9ED2 /* PaymentTableCell */ = {
-			isa = PBXGroup;
-			children = (
-				DAD6FBAB1B1B756B006D9ED2 /* PaymentTableViewCell.h */,
-				DAD6FBAC1B1B756B006D9ED2 /* PaymentTableViewCell.m */,
-			);
-			path = PaymentTableCell;
-			sourceTree = "<group>";
-		};
 		DAD6FBAD1B1B756B006D9ED2 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,12 +549,8 @@
 		DAD6FBB71B1B756B006D9ED2 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				DAD6FBB81B1B756B006D9ED2 /* RadiusTableViewCell.h */,
-				DAD6FBB91B1B756B006D9ED2 /* RadiusTableViewCell.m */,
-				DAD6FBBA1B1B756B006D9ED2 /* SettingsTableCell.h */,
-				DAD6FBBB1B1B756B006D9ED2 /* SettingsTableCell.m */,
-				DAD6FBBC1B1B756B006D9ED2 /* VendorBidsOwnedTableViewController.h */,
-				DAD6FBBD1B1B756B006D9ED2 /* VendorBidsOwnedTableViewController.m */,
+				DAD6FBBC1B1B756B006D9ED2 /* VendorBidsWonTableViewController.h */,
+				DAD6FBBD1B1B756B006D9ED2 /* VendorBidsWonTableViewController.m */,
 				DAD6FBBE1B1B756B006D9ED2 /* VendorOpenRequestsTableViewController.h */,
 				DAD6FBBF1B1B756B006D9ED2 /* VendorOpenRequestsTableViewController.m */,
 				DAD6FBC01B1B756B006D9ED2 /* VendorPlacedBidsTableViewController.h */,
@@ -638,6 +637,7 @@
 		DAD6FBFB1B1B756B006D9ED2 /* Payments */ = {
 			isa = PBXGroup;
 			children = (
+				DAD3B0591B1E764E005EF1C5 /* PaymentTableCell */,
 				DAD3B0371B1B8A3E005EF1C5 /* RequestPaymentViewController.h */,
 				DAD3B0381B1B8A3E005EF1C5 /* RequestPaymentViewController.m */,
 				DAD6FBFD1B1B756C006D9ED2 /* PayListViewController.h */,
@@ -688,6 +688,7 @@
 		DAD6FC2F1B1B756C006D9ED2 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				DAD3B0521B1E75E9005EF1C5 /* TableCells */,
 				DAD6FC301B1B756C006D9ED2 /* CustomerCareViewController.h */,
 				DAD6FC311B1B756C006D9ED2 /* CustomerCareViewController.m */,
 				DAD6FC321B1B756C006D9ED2 /* Profile */,
@@ -773,17 +774,6 @@
 				DAD6FC611B1B756C006D9ED2 /* ASStarRatingView.m */,
 			);
 			path = Rating;
-			sourceTree = "<group>";
-		};
-		DAD6FC621B1B756C006D9ED2 /* VendorViews */ = {
-			isa = PBXGroup;
-			children = (
-				DAD6FC631B1B756C006D9ED2 /* VendorPlacedBidViewController.h */,
-				DAD6FC641B1B756C006D9ED2 /* VendorPlacedBidViewController.m */,
-				DAD6FC651B1B756C006D9ED2 /* VendorRequestDetailViewController.h */,
-				DAD6FC661B1B756C006D9ED2 /* VendorRequestDetailViewController.m */,
-			);
-			path = VendorViews;
 			sourceTree = "<group>";
 		};
 		DAD6FCE31B1B7937006D9ED2 /* Networking */ = {
@@ -1057,6 +1047,7 @@
 				DAD6FC771B1B756C006D9ED2 /* CategoryCollectionViewFlowLayout.m in Sources */,
 				DAD6FC7D1B1B756C006D9ED2 /* RequestTableViewCell.m in Sources */,
 				DAD6FCC91B1B756C006D9ED2 /* UserPeferencesTableViewController.m in Sources */,
+				DAD3B05C1B1E764E005EF1C5 /* PaymentTableViewCell.m in Sources */,
 				DAD6FCC41B1B756C006D9ED2 /* CustomerCareViewController.m in Sources */,
 				DAD6FCD01B1B756C006D9ED2 /* AMTagView.m in Sources */,
 				DAD6FCC81B1B756C006D9ED2 /* SettingsTableViewController.m in Sources */,
@@ -1065,6 +1056,7 @@
 				DAD6FCF01B1B7951006D9ED2 /* CategoryIdConstants.m in Sources */,
 				DAD6FCCB1B1B756C006D9ED2 /* VendorPreferencesTableViewController.m in Sources */,
 				DAD6FCA21B1B756C006D9ED2 /* LoginViewController.m in Sources */,
+				DAD3B0581B1E75E9005EF1C5 /* SettingsTableCell.m in Sources */,
 				DAD6FC7B1B1B756C006D9ED2 /* CompletedRequestsTableViewController.m in Sources */,
 				DAD6FCA81B1B756C006D9ED2 /* UserRequests.m in Sources */,
 				DAD6FCC51B1B756C006D9ED2 /* ProfileAddressView.m in Sources */,
@@ -1078,14 +1070,13 @@
 				DAD6FCC01B1B756C006D9ED2 /* ResultsSearchTableViewController.m in Sources */,
 				DAD6FC671B1B756C006D9ED2 /* AppDelegate.m in Sources */,
 				DAD6FC6C1B1B756C006D9ED2 /* CreateRequestViewController.m in Sources */,
-				DAD6FC7E1B1B756C006D9ED2 /* RadiusTableViewCell.m in Sources */,
 				DAD3B0491B1B8BF9005EF1C5 /* OffersTableViewDatasource.m in Sources */,
 				DAD6FCD51B1B756C006D9ED2 /* MBProgressHUD.m in Sources */,
 				DAD6FCB11B1B756C006D9ED2 /* RegistrationDropDownCell.m in Sources */,
 				DAD6FCAF1B1B756C006D9ED2 /* PaymentViewController.m in Sources */,
-				DAD6FCD71B1B756C006D9ED2 /* VendorPlacedBidViewController.m in Sources */,
 				DAD6FC831B1B756C006D9ED2 /* VendorTableViewCell.m in Sources */,
 				DAD6FCD61B1B756C006D9ED2 /* ASStarRatingView.m in Sources */,
+				DAD3B0571B1E75E9005EF1C5 /* RadiusTableViewCell.m in Sources */,
 				DAD6FC7C1B1B756C006D9ED2 /* OpenRequestsTableViewController.m in Sources */,
 				DAD6FCB31B1B756C006D9ED2 /* RegistrationViewController.m in Sources */,
 				DAD6FCAE1B1B756C006D9ED2 /* PayListViewController.m in Sources */,
@@ -1095,12 +1086,11 @@
 				DAD6FCE91B1B7937006D9ED2 /* ServiceManager.m in Sources */,
 				DAD3B0391B1B8A3E005EF1C5 /* RequestPaymentViewController.m in Sources */,
 				DAD3B04A1B1B8BF9005EF1C5 /* TPFloatRatingView.m in Sources */,
-				DAD6FCD81B1B756C006D9ED2 /* VendorRequestDetailViewController.m in Sources */,
 				DAD6FC6D1B1B756C006D9ED2 /* UIBlurView.m in Sources */,
 				DAD6FCA31B1B756C006D9ED2 /* main.m in Sources */,
 				DAD6FCC71B1B756C006D9ED2 /* ProfileViewController.m in Sources */,
 				DAD6FCB21B1B756C006D9ED2 /* RegistrationTableViewCell.m in Sources */,
-				DAD6FC801B1B756C006D9ED2 /* VendorBidsOwnedTableViewController.m in Sources */,
+				DAD6FC801B1B756C006D9ED2 /* VendorBidsWonTableViewController.m in Sources */,
 				DAD6FC841B1B756C006D9ED2 /* VendorViewController.m in Sources */,
 				DAD6FCA61B1B756C006D9ED2 /* User.m in Sources */,
 				DAD6FCE81B1B7937006D9ED2 /* Reachability.m in Sources */,
@@ -1113,14 +1103,12 @@
 				DAD6FCA71B1B756C006D9ED2 /* UserProfile.m in Sources */,
 				DAD6FCD21B1B756C006D9ED2 /* IQDropDownTextField.m in Sources */,
 				DAD6FCC31B1B756C006D9ED2 /* VendorSearchTableViewController.m in Sources */,
-				DAD6FC791B1B756C006D9ED2 /* PaymentTableViewCell.m in Sources */,
 				DAD6FCCF1B1B756C006D9ED2 /* AMTagListView.m in Sources */,
 				DAD6FCA51B1B756C006D9ED2 /* ProfileData.m in Sources */,
 				DAD3B04C1B1B8BF9005EF1C5 /* OffersTableViewCell.m in Sources */,
 				DAD6FC6E1B1B756C006D9ED2 /* NSDate+Utilities.m in Sources */,
 				DAD6FC751B1B756C006D9ED2 /* CategoryCollectionViewDatasource.m in Sources */,
 				DAD6FC781B1B756C006D9ED2 /* HomeViewController.m in Sources */,
-				DAD6FC7F1B1B756C006D9ED2 /* SettingsTableCell.m in Sources */,
 				DAD6FCAA1B1B756C006D9ED2 /* VendorBidRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -228,8 +228,8 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
 -(void)loadCompletedRequestsTableView
 {
     
-    self.completedRequestsTableViewController = (CompletedRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"CompletedRequestsTableViewController"];
-    self.completedRequestsTableViewController.homeViewController = self;
+//    self.completedRequestsTableViewController = (CompletedRequestsTableViewController *) [self.storyBoard instantiateViewControllerWithIdentifier:@"CompletedRequestsTableViewController"];
+//    self.completedRequestsTableViewController.homeViewController = self;
     [self.containerView addSubview:self.completedRequestsTableViewController.tableView];
 }
 
@@ -287,7 +287,7 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     selectedButton.adjustsImageWhenHighlighted = NO;
     [self.btnCompletedRequests setSelected:NO];
     [self.btnAcceptedRequests setSelected:NO];
-    //[self removeRequestSubviews];
+    
     [self initialTableViewLoad];
     self.requestorIndex = 0;
     self.userData.userRequestMode = OpenMode;
@@ -302,7 +302,6 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     [self.btnCompletedRequests setSelected:NO];
     [self.btnOpenRequests setSelected:NO];
     self.requestorIndex = 1;
-    [self loadAcceptedTableView];
     self.userData.userRequestMode = ActiveMode;
     [self getUserRequests];
 }
@@ -318,7 +317,6 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
     [self.btnAcceptedRequests setSelected:NO];
     self.requestorIndex = 2;
     self.userData.userRequestMode = CompletedMode;
-    [self loadCompletedRequestsTableView];
     [self getUserRequests];
 }
 
@@ -484,7 +482,10 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
         if(openRequests)
             [self.userData saveUserOpenRequestsData:openRequests];
         if(acceptedRequests)
-            [self.userData saveUserAcceptedRequestsData:acceptedRequests];
+        {
+             [self.userData saveUserAcceptedRequestsData:acceptedRequests];
+        }
+        
         if(completedRequests)
             [self.userData saveUserCompletedRequestsData:completedRequests];
     }
@@ -497,12 +498,19 @@ UITapGestureRecognizer *tapGestureFordismissingCollectionView;
 
 -(void) reloadAppropriateView
 {
+    [self removeRequestSubviews];
     if(self.userData.userRequestMode == OpenMode)
         [self.openRequestsTableViewController.tableView reloadData];
     else if(self.userData.userRequestMode == ActiveMode)
-         [self.acceptRequestsTableViewController.tableView reloadData];
+    {
+        [self loadAcceptedTableView];
+    }
+    
     else if(self.userData.userRequestMode == CompletedMode)
-         [self.acceptRequestsTableViewController.tableView reloadData];
+    {
+        [self loadCompletedRequestsTableView];
+    }
+    
     
 }
 @end

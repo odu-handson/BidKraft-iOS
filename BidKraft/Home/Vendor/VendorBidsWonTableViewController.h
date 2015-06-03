@@ -8,7 +8,7 @@
 
 @end
 
-@interface VendorBidsOwnedTableViewController : UITableViewController
+@interface VendorBidsWonTableViewController : UITableViewController
 
 @property (nonatomic,strong) id<VendorBidsOwnedProtocol> vendorBidsOwnedNavControlDelegate;
 

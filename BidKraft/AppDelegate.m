@@ -49,7 +49,7 @@
     // Override point for customization after application launch.
     // [PayPalMobile initializeWithClientIdsForEnvironments:@{PayPalEnvironmentSandbox : @"Ad-iwxBZKzcCobNuH621s03dMgzgfrL5-27uYltcJIi_-F10yfO_MYtOvkni"}];
     
-    [Venmo startWithAppId:@"2495" secret:@"YscXsyxHYcC5ktcE3LBCmSMtw49WgXba" name:@"BidKraft"];
+    [Venmo startWithAppId:@"2660" secret:@"5SDYdjJdHGG5Mkqd4PUXGZ2fQk98LDN6" name:@"BidKraft"];
 
     
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;

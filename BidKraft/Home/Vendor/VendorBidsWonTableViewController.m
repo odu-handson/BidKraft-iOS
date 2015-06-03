@@ -1,11 +1,11 @@
 
-#import "VendorBidsOwnedTableViewController.h"
+#import "VendorBidsWonTableViewController.h"
 #import "User.h"
 #import "VendorData.h"
 
 
 
-@interface VendorBidsOwnedTableViewController ()
+@interface VendorBidsWonTableViewController ()
 
 @property (nonatomic,strong) User *userData;
 @property (nonatomic,strong) VendorData *vendorData;
@@ -13,7 +13,7 @@
 
 @end
 
-@implementation VendorBidsOwnedTableViewController
+@implementation VendorBidsWonTableViewController
 
 
 - (User *)userData

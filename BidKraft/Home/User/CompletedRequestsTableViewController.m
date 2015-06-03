@@ -48,6 +48,7 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     self.userData.userRequestMode = CompletedMode;
+    self.userRequests = self.userData.userCompletedRequests;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
